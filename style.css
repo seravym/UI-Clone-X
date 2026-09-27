@@ -1,0 +1,118 @@
+:root {
+  --color-bg-primary: black;
+  --color-bg-secondary: rgb(22, 24, 28);
+  --color-bg-hover: rgba(255, 255, 255, 0.05);
+  --color-bg-active: rgba(255, 255, 255, 0.1);
+  --color-primary: rgb(194, 24, 91);
+  --color-primary-hover: rgb(170, 15, 75);
+  --color-text-main: white;
+  --color-text-muted: rgb(113, 118, 123);
+  --color-border: rgb(47, 51, 54);
+
+  --bs-body-font-family: "Chirp", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@font-face {
+  font-family: "Chirp";
+  src: url("assets/fonts/Chirp-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Chirp";
+  src: url("assets/fonts/Chirp-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: var(--bs-body-font-family)
+}
+
+.app {
+  max-width: 1250px;
+}
+
+.x-header {
+  background: var(--color-bg-primary);
+}
+
+
+.x-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.x-tab {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  padding: 16px 0;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.x-tab:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-main);
+}
+
+.x-tab.active {
+  color: var(--color-text-main);
+}
+
+.x-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 4px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+}
+
+.empty-state {
+  max-width: 400px;
+}
+
+.form-control::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+}
+
+.x-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-bg-secondary); /* abu gelap */
+    border-radius: 999px;
+    padding: 8px 16px;
+}
+
+.x-search i {
+    color: var(--color-text-muted);
+}
+
+.x-search input {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--color-text-main);
+    padding: 0;
+    flex: 1;
+    font-size: 14px;
+}
+
+.x-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.x-search input:focus {
+    box-shadow: none;
+    background: transparent;
+}
