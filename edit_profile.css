@@ -1,0 +1,22 @@
+h1{
+    color:#DD8C96;
+   
+}
+
+.anime span{
+     
+    animation: neonPulse 2s infinite alternate;
+
+}
+
+@keyframes neonPulse{
+
+    from{
+        color: #931d2b;
+    }
+
+    to{
+        color: #DD8C96;
+    }
+
+}
