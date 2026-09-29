@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class = "container1">
+    <h1 class="anime"
+    > HI LET'S<span> EDIT</span>
+    </h1>
+    <label for="profile-upload" class="upload-circle">
+            <img id="profile-preview" class="profile" src="default.jpg" alt="Foto profil">
+            <span class="plus">+</span>
+        </label>
+
+        <input type="file" id="profile-upload" accept="image/*">
+   
+
+    <script>
+        const upload = document.getElementById("profile-upload");
+        const preview = document.getElementById("profile-preview");
+
+        // tampilkan foto yang sudah pernah disimpan
+        const saved = localStorage.getItem("profilePic");
+        if (saved) preview.src = saved;
+
+        upload.addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    // kecilkan ukuran biar muat di localStorage
+                    const size = 300;
+                    const canvas = document.createElement("canvas");
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext("2d");
+
+                    // crop tengah supaya jadi persegi
+                    const min = Math.min(img.width, img.height);
+                    const sx = (img.width - min) / 2;
+                    const sy = (img.height - min) / 2;
+                    ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+
+                    const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+                    preview.src = dataUrl;
+
+                    try {
+                        localStorage.setItem("profilePic", dataUrl);
+                    } catch (err) {
+                        alert("Foto gagal disimpan, coba pakai gambar yang lebih kecil.");
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+    <button class="save-btn" onclick=""window.location href="'profile.html">Save</button>
+    
+    </header>
+
+</body>
+</html>
