@@ -1,0 +1,341 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #0f1419;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.list {
+    width: 100%;
+    max-width: 600px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.list-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 20px;
+    border-bottom: 1px solid #eff3f4;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 10;
+}
+
+.list-header h1 {
+    margin: 0;
+    color: #e91e8c;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #e91e8c;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background: rgba(233, 30, 140, 0.1);
+}
+
+.list-search {
+    height: 52px;
+    margin: 14px 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    background: #f7f7f7;
+    border-radius: 9999px;
+}
+
+.list-search input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #0f1419;
+    font-size: 16px;
+}
+
+.list-search input::placeholder {
+    color: #536471;
+}
+
+.list-list {
+    width: 100%;
+}
+
+.list-list h2 {
+    margin: 0;
+    padding: 20px;
+    color: #e91e8c;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.discover-lists {
+    width: 100%;
+}
+
+.discover-lists h2 {
+    padding-top: 24px;
+    padding-bottom: 16px;
+}
+
+.your-lists {
+    width: 100%;
+}
+
+.your-lists h2 {
+    padding-top: 24px;
+    padding-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+    .list-header {
+        height: 65px;
+        padding: 0 18px;
+        gap: 18px;
+    }
+
+    .list-header h1 {
+        font-size: 21px;
+    }
+
+    .back-button {
+        width: 38px;
+        height: 38px;
+        font-size: 26px;
+    }
+
+    .list-search {
+        margin: 14px 18px;
+        height: 50px;
+    }
+
+    .list-list h2 {
+        padding-left: 18px;
+        padding-right: 18px;
+        font-size: 19px;
+    }
+
+    .list-item {
+        padding: 14px 18px;
+        gap: 16px;
+    }
+
+    .list-icon {
+        width: 62px;
+        height: 62px;
+    }
+
+    .list-title strong {
+        font-size: 16px;
+    }
+
+    .list-title span {
+        font-size: 15px;
+    }
+
+    .list-followers {
+        font-size: 13px;
+    }
+
+    .create-list-button {
+        width: 58px;
+        height: 58px;
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+.list-item {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    gap: 20px;
+    border-bottom: 1px solid #eff3f4;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background: #f7f9f9;
+}
+
+.list-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 34px;
+    color: #ffffff;
+}
+
+.list-icon.purple {
+    background: #8747d4;
+}
+
+.list-icon.blue {
+    background: #65c8ec;
+}
+
+.list-icon.pink {
+    background: #e91e63;
+}
+
+.list-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.list-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-title strong {
+    color: #0f1419;
+    font-size: 17px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-title span {
+    color: #536471;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.list-followers {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    color: #536471;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-followers > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.avatars {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.avatars span {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -5px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background: #d8d8d8;
+    font-size: 12px;
+}
+
+.avatars span:first-child {
+    margin-left: 0;
+}
+
+.add-button {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: #e91e8c;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background: #c4137a;
+}
+
+.show-more {
+    width: 100%;
+    padding: 18px 20px;
+    border: none;
+    border-bottom: 1px solid #eff3f4;
+    background: #ffffff;
+    color: #e91e8c;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.discover-section h2,
+.your-section h2 {
+    margin: 0;
+    padding: 18px 20px;
+    color: #e91e8c;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.your-section {
+    padding-bottom: 100px;
+}
+
+.pin-button {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    color: #e91e8c;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.create-list-button {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #e91e8c;
+    color: #ffffff;
+    font-size: 34px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

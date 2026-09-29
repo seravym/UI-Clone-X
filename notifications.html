@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications / X</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="notifications">
+        <div class="notif-layout">
+            <!-- sidebar -->
+            <aside class="sidebar-left">
+                <div id="sidebar">
+                    <!-- js -->
+                </div>
+            </aside>
+
+            <!-- center -->
+            <main class="notif-center">
+                <header class="notif-header">
+                    <div class="notif-header-top">
+                        <h1>Notifications</h1>
+                        <a class="notif-icon-btn" href="notification-settings.html">Settings</a>
+                    </div>
+
+                    <button class="notif-tab active" id="all-tab" data-tab="all">
+                        All
+                    </button>
+
+                    <button class="notif-tab" id="unread-tab" data-tab="unread">
+                        Unread
+                    </button>
+                </header>
+
+                <div id="notif-list-main"></div>
+
+                <!-- empty -->
+                <div class="notif-tab-empty" id="all-empty">
+                    <h1>Oops nothing's here yet</h1>
+                    <p>Add some friends or follow them at least.</p>
+                </div>
+
+                <div class="notif-tab-empty" id="unread-empty">
+                    <h1>Oops nothing's here yet</h1>
+                    <p>You have no unread notifications.</p>
+                </div>
+            </main>
+
+            <!-- filter -->
+            <aside class="notif-sidebar-right">
+                <div class="notif-rightbar-panel">
+                    <div class="notif-rightbar-title">Filter notifikasi</div>
+
+                    <div class="notif-filter-item active" data-filter="all">
+                        <span class="notif-filter-icon">
+                            -
+                        </span>
+                        <span class="notif-filter-label">
+                            All
+                        </span>
+                        <span class="notif-filter-count">0</span>
+                    </div>
+
+                    <div class="notif-filter-item" data-filter="follow">
+                        <span class="notif-filter-icon">
+                            -
+                        </span>
+                        <span class="notif-filter-label">
+                            Follow
+                        </span>
+                        <span class="notif-filter-count">0</span>
+                    </div>
+
+                    <div class="notif-filter-item" data-filter="reply">
+                        <span class="notif-filter-icon">
+                            -
+                        </span>
+                        <span class="notif-filter-label">
+                            Reply
+                        </span>
+                        <span class="notif-filter-count">0</span>
+                    </div>
+
+                    <div class="notif-filter-item" data-filter="like">
+                        <span class="notif-filter-icon">
+                            -
+                        </span>
+                        <span class="notif-filter-label">
+                            like
+                        </span>
+                        <span class="notif-filter-count">0</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <div class="notif-toast" id="notif-toast-panel">-</div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
