@@ -3,25 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Search / X Clone </title>
+<title>Search / X Clone</title>
 <link rel="stylesheet" href="css/search.css">
 </head>
 <body>
 <div class="app">
     <div class="main">
         <div class="main__header">
-        <div class="search-box">
-            <input id="mainSearch" type="text" placeholder="Cari di X" autocomplete="off" aria-label="Cari di X">
-            <button class="search-box__clear" id="mainSearchClear" aria-label="Hapus pencarian">✕</button>
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input id="mainSearch" type="text" placeholder="Cari di X" autocomplete="off" aria-label="Cari di X">
+                <button class="search-box__clear" id="mainSearchClear" aria-label="Hapus pencarian">✕</button>
+            </div>
         </div>
-    </div>
-    <section id="recentPanel">
-        <div class="section-heading">
-            <h2>Pencarian terbaru</h2>
-            <button class="link-btn" id="clearRecent">Hapus semua</button>
-        </div>
-        <div id="recentList"></div>
-    </section>
+        
+        <section id="recentPanel">
+            <div class="section-heading">
+                <h2>Pencarian terbaru</h2>
+                <button class="link-btn" id="clearRecent">Hapus semua</button>
+            </div>
+            <div id="recentList"></div>
+        </section>
+
     <section id="resultsPanel" style="display:none;">
         <div class="tabs">
             <button class="tab is-active" data-tab="top">Top</button>
@@ -29,15 +32,22 @@
             <button class="tab" data-tab="people">People</button>
             <button class="tab" data-tab="media">Media</button>
         </div>
+
         <div class="panel is-active" data-panel="top" id="panelTop"></div>
         <div class="panel" data-panel="latest" id="panelLatest"></div>
         <div class="panel" data-panel="people" id="panelPeople"></div>
         <div class="panel" data-panel="media" id="panelMedia"></div>
         </section>
     </div>
+
     <div class="side" id="sideContent"></div>
+
 </div>
 
-<script src="app.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/components.js"></script>
+<script src="js/search.js"></script>
 </body>
 </html>
