@@ -1,4 +1,15 @@
 fetch("sidebar.html")
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(data) {
+        document.getElementById("sidebar").innerHTML = data;
+    })
+    .catch(function(error) {
+        console.log("Sidebar gagal dimuat:", error);
+    });
+
+   
   .then(function (response) {
     return response.text();
   })
@@ -126,7 +137,7 @@ function showNotifications(filter) {
   }
 }
 
-document.getElementById("all-tab").addEventListener("click", function () {
+document.getElementById("allAtab").addEventListener("click", function () {
   document.getElementById("all-tab").classList.add("active");
   document.getElementById("unread-tab").classList.remove("active");
   showNotifications("all");
