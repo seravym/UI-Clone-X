@@ -1,41 +1,8 @@
-function renderNav(activePage){
-  const nav = document.getElementById("nav");
-  if(!nav) return;
+/* ==========================================================================
+   App logic — nav, kartu post/user/trend, like/follow/repost
+   ========================================================================== */
 
-  const links = [
-    { page: "home",     href: "#",             icon: "home",     label: "Home" },
-    { page: "explore",  href: "explore.html",   icon: "search",   label: "Explore" },
-    { page: "trending", href: "trending.html",  icon: "hashtag",  label: "Trending" },
-    { page: "notif",    href: "#",              icon: "bell",     label: "Notifications" },
-    { page: "messages", href: "#",              icon: "mail",     label: "Messages" },
-    { page: "bookmarks",href: "#",              icon: "bookmark", label: "Bookmarks" },
-    { page: "communities", href: "#",           icon: "users",    label: "Communities" },
-    { page: "profile",  href: "#",              icon: "user",     label: "Profile" },
-  ];
-
-  nav.innerHTML = `
-    <a href="explore.html" class="nav__logo" aria-label="Beranda">${ICONS.logo}</a>
-    <ul class="nav__list">
-      ${links.map(l => `
-        <li>
-          <a href="${l.href}" class="nav__link ${l.page === activePage ? "is-active" : ""}">
-            ${ICONS[l.icon]}
-            <span class="nav__label">${l.label}</span>
-          </a>
-        </li>
-      `).join("")}
-    </ul>
-    <button class="nav__post-btn"><span class="nav__post-label">Post</span></button>
-    <a href="#" class="nav__profile">
-      <span class="avatar-fallback c1" style="width:36px;height:36px;font-size:13px;">EZ</span>
-      <span>
-        <div class="nav__profile-name">Elizabeth Marchela</div>
-        <div class="nav__profile-handle">@elizabeth_mp</div>
-      </span>
-    </a>
-  `;
-}
-
+/** Render "search this page too" box used on Explore & Trending headers */
 function bindHeaderSearch(inputId, clearId){
   const input = document.getElementById(inputId);
   const clear = document.getElementById(clearId);
@@ -52,6 +19,8 @@ function bindHeaderSearch(inputId, clearId){
     });
   }
 }
+
+/* ---------- Card builders ---------- */
 
 function userRowHTML(user, {context = "search"} = {}){
   return `
@@ -125,6 +94,7 @@ function widgetTrendRowHTML(trend){
   `;
 }
 
+/** Render the right sidebar: search box (optional) + trends widget + who to follow widget */
 function renderSidebar({ showSearch = true, searchInputId = "sideSearch" } = {}){
   const side = document.getElementById("sideContent");
   if(!side) return;
@@ -141,7 +111,7 @@ function renderSidebar({ showSearch = true, searchInputId = "sideSearch" } = {})
     <div class="widget">
       <h2>Trending untuk Anda</h2>
       ${topTrends.map(widgetTrendRowHTML).join("")}
-      <a href="trending.html" class="widget-footer">Tampilkan lebih banyak</a>
+      <a href="../trending/trending.html" class="widget-footer">Tampilkan lebih banyak</a>
     </div>
     <div class="widget">
       <h2>Siapa yang diikuti</h2>
@@ -155,12 +125,13 @@ function renderSidebar({ showSearch = true, searchInputId = "sideSearch" } = {})
           <button class="follow-btn" data-follow="${u.id}"><span class="btn-label">Follow</span></button>
         </div>
       `).join("")}
-      <a href="explore.html" class="widget-footer">Tampilkan lebih banyak</a>
+      <a href="../explore/explore.html" class="widget-footer">Tampilkan lebih banyak</a>
     </div>
     <p class="footnote">Kelompok 9 · Clone X — Tugas UTS Front-End Programming.<br>Halaman ini dibuat oleh Elizabeth (Search, Explore, Trending).</p>
   `;
 }
 
+/* ---------- Global event delegation: follow / like / repost / trend click ---------- */
 document.addEventListener("click", (e) => {
   const followBtn = e.target.closest("[data-follow]");
   if(followBtn){
@@ -198,6 +169,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
+/** Small debounce helper for search-as-you-type */
 function debounce(fn, delay = 200){
   let t;
   return (...args) => {
