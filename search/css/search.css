@@ -321,3 +321,45 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 @media (prefers-reduced-motion: reduce){
   *{ transition: none !important; animation: none !important; }
 }
+
+/* ==========================================================================
+   Khusus halaman Search
+   ========================================================================== */
+
+.recent-item{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.recent-item:hover{ background: var(--bg-hover); }
+.recent-item svg.type-icon{ width: 20px; height: 20px; color: var(--text-dim); }
+.recent-item__body{ flex: 1; min-width: 0; }
+.recent-item__title{ font-size: 15px; font-weight: 600; }
+.recent-item__sub{ font-size: 13px; color: var(--text-dim); }
+.recent-item__remove{
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.recent-item__remove:hover{ background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- User result / follow card ---------- */
+.user-row{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.user-row:hover{ background: var(--bg-hover); }
+.user-row__body{ flex: 1; min-width: 0; }
+.user-row__name-line{ display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.user-row__name{ font-weight: 700; font-size: 15px; }
+.user-row__handle, .user-row__bio{ color: var(--text-dim); font-size: 14px; }
+.user-row__bio{ margin-top: 2px; }
