@@ -17,13 +17,16 @@
         </label>
 
         <input type="file" id="profile-upload" accept="image/*">
+          <button class="save-btn" onclick="saveProfile()">Save</button>
+          <button class="ex" onclick= "window.location.href='profile.html'">x</a>
    
 
     <script>
         const upload = document.getElementById("profile-upload");
         const preview = document.getElementById("profile-preview");
 
-        // tampilkan foto yang sudah pernah disimpan
+        let newPic = null;
+
         const saved = localStorage.getItem("profilePic");
         if (saved) preview.src = saved;
 
@@ -35,36 +38,37 @@
             reader.onload = function (e) {
                 const img = new Image();
                 img.onload = function () {
-                    // kecilkan ukuran biar muat di localStorage
                     const size = 300;
                     const canvas = document.createElement("canvas");
                     canvas.width = size;
                     canvas.height = size;
                     const ctx = canvas.getContext("2d");
 
-                    // crop tengah supaya jadi persegi
                     const min = Math.min(img.width, img.height);
                     const sx = (img.width - min) / 2;
                     const sy = (img.height - min) / 2;
                     ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
 
-                    const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
-                    preview.src = dataUrl;
-
-                    try {
-                        localStorage.setItem("profilePic", dataUrl);
-                    } catch (err) {
-                        alert("Foto gagal disimpan, coba pakai gambar yang lebih kecil.");
-                    }
+                    newPic = canvas.toDataURL("image/jpeg", 0.85);
+                    preview.src = newPic;
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         });
-    </script>
 
-    <button class="save-btn" onclick=""window.location href="'profile.html">Save</button>
-    
+        function saveProfile() {
+            if (newPic) {
+                try {
+                    localStorage.setItem("profilePic", newPic);
+                } catch (err) {
+                    alert("Foto gagal disimpan, coba pakai gambar yang lebih kecil.");
+                    return;
+                }
+            }
+            window.location.href = "profile.html";
+        }
+    </script>
     </header>
 
 </body>

@@ -172,6 +172,13 @@ h2{
 }
 
 .save-btn:hover {
-    background-color: #9b3160;
-    color: #9b3160;
+    background-color: #df4436;
+    color: #ffd4e7;
+    
+}
+
+.ex{
+    position:absolute;
+    top: 20%;
+    right: 20%;
 }

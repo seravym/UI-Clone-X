@@ -9,17 +9,6 @@ fetch("sidebar.html")
         console.log("Sidebar gagal dimuat:", error);
     });
 
-   
-  .then(function (response) {
-    return response.text();
-  })
-  .then(function (data) {
-    document.getElementById("sidebar").innerHTML = data;
-  })
-  .catch(function (error) {
-    console.log("Sidebar gagal dimuat:", error);
-  });
-
 let notifications = [
   {
     name: "Anne Hattway",
