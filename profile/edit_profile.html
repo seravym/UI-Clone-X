@@ -3,73 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class = "container1">
-    <h1 class="anime"
-    > HI LET'S<span> EDIT</span>
-    </h1>
-    <label for="profile-upload" class="upload-circle">
+<header class="container1">
+    <h1 class="anime">HI LET'S<span> EDIT</span></h1>
+    <button class="ex" onclick="window.location.href='profile.html'">x</button>
+
+    <div class="edit-content">
+        <label for="profile-upload" class="upload-circle">
             <img id="profile-preview" class="profile" src="default.jpg" alt="Foto profil">
             <span class="plus">+</span>
         </label>
-
         <input type="file" id="profile-upload" accept="image/*">
-          <button class="save-btn" onclick="saveProfile()">Save</button>
-          <button class="ex" onclick= "window.location.href='profile.html'">x</a>
-   
 
-    <script>
-        const upload = document.getElementById("profile-upload");
-        const preview = document.getElementById("profile-preview");
+        <div class="form-box">
+            <div class="edit">
+                <label for="akun">Nama Akun</label>
+                <input type="text" id="akun" class="text-input" maxlength="30">
+            </div>
+            <div class="edit">
+                <label for="acc">Id Akun</label>
+                <input type="text" id="acc" class="text-input" maxlength="20">
+            </div>
+            <div class="edit">
+                <label for="bio">Bio</label>
+                <input type="text" id="bio" class="text-input" maxlength="50">
+            </div>
+        </div>
+    </div>
 
-        let newPic = null;
+    <button class="save-btn" onclick="saveProfile()">Save</button>
+</header>
 
-        const saved = localStorage.getItem("profilePic");
-        if (saved) preview.src = saved;
+<script>
+    const upload = document.getElementById("profile-upload");
+    const preview = document.getElementById("profile-preview");
+    const nameInput = document.getElementById("akun");
+    const usernameInput = document.getElementById("acc");
+    const bioInput = document.getElementById("bio");
 
-        upload.addEventListener("change", function () {
-            const file = this.files[0];
-            if (!file) return;
+    let newPic = null;
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const img = new Image();
-                img.onload = function () {
-                    const size = 300;
-                    const canvas = document.createElement("canvas");
-                    canvas.width = size;
-                    canvas.height = size;
-                    const ctx = canvas.getContext("2d");
+    const saved = localStorage.getItem("profilePic");
+    if (saved) preview.src = saved;
 
-                    const min = Math.min(img.width, img.height);
-                    const sx = (img.width - min) / 2;
-                    const sy = (img.height - min) / 2;
-                    ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+    nameInput.value = localStorage.getItem("profileName") || "";
+    usernameInput.value = localStorage.getItem("profileUsername") || "";
+    bioInput.value = localStorage.getItem("profileBio") || "";
 
-                    newPic = canvas.toDataURL("image/jpeg", 0.85);
-                    preview.src = newPic;
-                };
-                img.src = e.target.result;
+    usernameInput.addEventListener("input", function () {
+        this.value = this.value.replace(/[^a-zA-Z0-9._]/g, "");
+    });
+
+    upload.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+                const size = 300;
+                const canvas = document.createElement("canvas");
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext("2d");
+
+                const min = Math.min(img.width, img.height);
+                const sx = (img.width - min) / 2;
+                const sy = (img.height - min) / 2;
+                ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+
+                newPic = canvas.toDataURL("image/jpeg", 0.85);
+                preview.src = newPic;
             };
-            reader.readAsDataURL(file);
-        });
+            img.onerror = function () {
+                alert("Format foto tidak didukung, coba JPG atau PNG.");
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
 
-        function saveProfile() {
-            if (newPic) {
-                try {
-                    localStorage.setItem("profilePic", newPic);
-                } catch (err) {
-                    alert("Foto gagal disimpan, coba pakai gambar yang lebih kecil.");
-                    return;
-                }
-            }
-            window.location.href = "profile.html";
+    function saveProfile() {
+        const name = nameInput.value.trim();
+        const username = usernameInput.value.trim().toLowerCase();
+        const bio = bioInput.value.trim();
+
+        if (name === "") {
+            alert("Nama tidak boleh kosong.");
+            return;
         }
-    </script>
-    </header>
+        if (username.length < 3) {
+            alert("ID akun minimal 3 karakter.");
+            return;
+        }
+
+        try {
+            if (newPic) localStorage.setItem("profilePic", newPic);
+            localStorage.setItem("profileName", name);
+            localStorage.setItem("profileUsername", username);
+            localStorage.setItem("profileBio", bio);
+        } catch (err) {
+            alert("Gagal menyimpan: " + err.message);
+            return;
+        }
+        window.location.href = "profile.html";
+    }
+</script>
 
 </body>
 </html>
