@@ -31,6 +31,6 @@ backButton.addEventListener("click", function () {
 
         isSearching = false;
     } else {
-        window.location.href = "explore.html";
+        window.location.href = "home.html";
     }
 });
