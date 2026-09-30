@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Number Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="page">
+    <section class="main-content">
+      <a class="back-link" href="login.html">Back</a>
+
+      <h1>Welcome!</h1>
+      <p class="subtitle">Login with your phone number</p>
+
+      <div class="card">
+        <form action="otp.html" method="post">
+          <label for="number">Phone number</label>
+          <div class="phone-group">
+            <select id="country-code" name="country-code">
+              <option value="+62" selected>ID +62</option>
+              <option value="+60">MY +60</option>
+              <option value="+65">SG +65</option>
+              <option value="+1">US +1</option>
+            </select>
+            <input id="number" name="number" type="tel" placeholder="Number" required>
+          </div>
+
+          <button class="button" type="submit">Send OTP</button>
+        </form>
+
+    <p class="register">Don't have an account? <a href="register.html">Create account!</a></p>
+    </section>
+
+    <aside class="image">
+      <img src="logo.jpg" alt="">
+    </aside>
+  </div>
+</body>
+</html>
