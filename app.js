@@ -1,4 +1,4 @@
-fetch("sidebar.html")
+fetch("/sidebar.html")
     .then(function(response) {
         return response.text();
     })
