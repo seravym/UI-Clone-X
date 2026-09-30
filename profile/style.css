@@ -110,8 +110,8 @@ h2{
 .profile-label {
     position: absolute;
     top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 40%;
+    transform: none;
     margin: 30px auto;
     cursor: url("./hirono.png") 16 16, pointer;
 }
@@ -135,10 +135,67 @@ h2{
     background-color: #fff7fb;
     display: block;
     position: relative;
-    margin: 30px auto;
+    position: absolute;
+    top: 80px;     
+    margin: 0;  
     cursor: url("./hirono.png") 16 16, pointer;
 }
 
+#profile-name,
+#profile-username,
+#profile-bio {
+    margin-left: 15px;
+    text-align: left;
+}
+
+.edit label {
+    display: block;
+    margin-bottom: 4px;
+    color: #640d14;
+    font-weight: bold;
+}
+
+.edit-content {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);   /* seluruh grup tepat di tengah */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+.edit-content .upload-circle {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit {
+    margin: 0 0 10px 0;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-input {
+    width: 250px;
+    padding: 8px 15px;
+    border: 2px solid #9b3160;
+    border-radius: 25px;
+    background-color: #fff7fb;
+    font-size: 16px;
+}
 .plus {
     position: absolute;
     right: -10px;
@@ -181,4 +238,6 @@ h2{
     position:absolute;
     top: 20%;
     right: 20%;
+     cursor: url("./hirono.png") 16 16, pointer;
+
 }
