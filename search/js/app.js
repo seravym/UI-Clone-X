@@ -1,7 +1,3 @@
-/* ==========================================================================
-   App logic — nav, kartu post/user/trend, like/follow/repost
-   ========================================================================== */
-
 /** Render "search this page too" box used on Explore & Trending headers */
 function bindHeaderSearch(inputId, clearId){
   const input = document.getElementById(inputId);
