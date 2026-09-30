@@ -49,9 +49,82 @@
     </button>
     </div>
 
+
+    <div class="dummy-posts">
+
+    <div class="dummy-post">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+
+        <p>
+            Hello everyone! This is my first post on X.
+            I'm currently learning web development!
+        </p>
+
+        <div class="post-actions">
+            <span>♡ 12</span>
+            <span>💬 5</span>
+            <span>↗ 3</span>
+        </div>
+    </div>
+
+
+    <div class="dummy-post">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+
+        <p>
+            Just finished working on my new project.
+            Can't wait to learn more and create something new!
+        </p>
+
+        <div class="post-actions">
+            <span>♡ 24</span>
+            <span>💬 8</span>
+            <span>↗ 6</span>
+        </div>
+    </div>
+
+
+    <div class="dummy-post">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+
+        <p>
+            Learning new things every day and enjoying
+            the process of becoming a better developer.
+        </p>
+
+        <div class="post-actions">
+            <span>♡ 31</span>
+            <span>💬 10</span>
+            <span>↗ 7</span>
+        </div>
+    </div>
+
+</div>
+
     <script>
-    const name = localStorage.getItem("profileName");
-    const username = localStorage.getItem("profileUsername");
+    const name = localStorage.getItem("profileName") || "Nama Akun";
+    const username = localStorage.getItem("profileUsername") || "username";
     const bio = localStorage.getItem("profileBio");
     const pic = localStorage.getItem("profilePic");
 
@@ -59,6 +132,20 @@
     if (name) document.getElementById("profile-name").textContent = name;
     if (username) document.getElementById("profile-username").textContent = "@" + username;
     if (bio) document.getElementById("profileBio").textContent = bio;
+
+document.querySelectorAll(".post-name").forEach(function(item) {
+    item.textContent = name;
+});
+
+document.querySelectorAll(".post-username").forEach(function(item) {
+    item.textContent = "@" + username;
+});
+
+if (profilePic) {
+    document.querySelectorAll(".post-profile").forEach(function(item) {
+        item.src = profilePic;
+    });
+}
 
     </script>
 </header>

@@ -296,3 +296,53 @@ h2{
      cursor: url("./hirono.png") 16 16, pointer;
 
 }
+
+
+.dummy-posts {
+      width: 100%;
+    margin: 27% auto;
+}
+
+.dummy-post {
+    background-color: #fff7fb;
+    border: 2px solid #9b3160;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.post-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-name {
+    display: block;
+    font-size: 18px;
+}
+
+.post-username {
+    color: #777;
+    font-size: 14px;
+}
+
+.dummy-post p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 15px 0;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-around;
+    color: #555;
+}
