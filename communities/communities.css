@@ -248,6 +248,7 @@ html, body {
 }
 
 .empty-community .join-button {
+    margin-top: 24px;
     padding: 10px 22px;
     font-size: 15px;
 }
