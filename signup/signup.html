@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Account</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+  <div class="page">
+    <section class="main-content">
+      <a class="back-link" href="../login/login.html">Back</a>
+
+      <h1>Create Account</h1>
+      <p class="subtitle">Join us and stay updated with news all around the world</p>
+
+      <div class="card">
+        <form action="../auth/otp.html" method="post">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Username" required>
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="Email" required>
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Password" required>
+
+          <label for="confirm-password">Confirm password</label>
+          <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm password" required>
+
+          <div class="remember">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the Terms & Conditions</label>
+          </div>
+
+          <button class="button" type="submit">Create account</button>
+        </form>
+      </div>
+
+      <p class="register">Already have an account? <a href="../login/login.html">Login here!</a></p>
+    </section>
+
+    <aside class="image">
+      <img src="../login/logo.jpg" alt="">
+    </aside>
+  </div>
+</body>
+</html>
