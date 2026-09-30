@@ -1,5 +1,3 @@
-/* css/articles.css — halaman Artikel (gaya search.css kelompok) */
-
 :root{
     --bg: #ffffff;
     --bg-hover: #f7f9f9;
@@ -38,7 +36,6 @@ button{ font-family: inherit; cursor: pointer; }
 input, select, textarea{ font-family: inherit; }
 svg{ display: block; }
 
-/* ---------- Layout 3 kolom ---------- */
 .app{
     display: grid;
     grid-template-columns: minmax(88px, var(--nav-w)) minmax(0, var(--main-w)) var(--side-w);
@@ -59,7 +56,6 @@ svg{ display: block; }
     min-height: 100vh;
 }
 
-/* ---------- Header ---------- */
 .main__header{
     position: sticky;
     top: 0;
@@ -122,7 +118,6 @@ svg{ display: block; }
 }
 .ghost-btn:hover{ background: var(--bg-hover); }
 
-/* ---------- Kolom cari ---------- */
 .search-box{
     display: flex;
     align-items: center;
@@ -146,7 +141,6 @@ svg{ display: block; }
     color: var(--text);
 }
 
-/* ---------- Tab ---------- */
 .tabs{
     display: flex;
     overflow-x: auto;
@@ -181,7 +175,6 @@ svg{ display: block; }
     background: var(--accent);
 }
 
-/* ---------- Avatar + sampul ---------- */
 .avatar{
     display: flex;
     align-items: center;
@@ -232,7 +225,6 @@ svg{ display: block; }
 .byline__name{ font-weight: 700; }
 .byline__dim{ color: var(--text-dim); font-size: 13px; }
 
-/* ---------- Kartu artikel ---------- */
 .article-card{
     padding: 0 16px 8px;
     border-bottom: 1px solid var(--border);
@@ -255,7 +247,6 @@ svg{ display: block; }
     font-size: 15px;
 }
 
-/* ---------- Tombol aksi ---------- */
 .article-actions{
     display: flex;
     align-items: center;
@@ -287,7 +278,6 @@ svg{ display: block; }
 .act--static{ cursor: default; }
 .act--static:hover{ color: var(--text-dim); background: none; }
 
-/* ---------- Tampilan baca ---------- */
 .reader__inner{ padding: 16px 16px 24px; }
 
 .reader__title{
@@ -311,7 +301,6 @@ svg{ display: block; }
     border-top: 1px solid var(--border);
 }
 
-/* ---------- Form tulis artikel ---------- */
 .write-form{ padding: 16px; }
 
 .field{ margin-bottom: 16px; }
@@ -364,7 +353,6 @@ svg{ display: block; }
     gap: 10px;
 }
 
-/* ---------- Tampilan kosong ---------- */
 .empty{
     padding: 40px 32px;
     text-align: center;
@@ -373,7 +361,6 @@ svg{ display: block; }
 .empty h3{ color: var(--text); font-size: 19px; margin: 0 0 6px; }
 .empty p{ font-size: 14px; margin: 0; }
 
-/* ---------- Sidebar kanan ---------- */
 .side{
     padding: 8px 16px;
     position: sticky;
@@ -419,7 +406,6 @@ svg{ display: block; }
     margin: 0;
 }
 
-/* ---------- Toast ---------- */
 .toast{
     position: fixed;
     left: 50%;
@@ -440,7 +426,6 @@ svg{ display: block; }
     transform: translate(-50%, 0);
 }
 
-/* ---------- Responsif ---------- */
 @media (max-width: 1080px){
     .app{ grid-template-columns: 88px minmax(0, 1fr); }
     .side{ display: none; }
@@ -454,7 +439,6 @@ svg{ display: block; }
     .toast{ bottom: 72px; }
 }
 
-/* ---------- Aksesibilitas ---------- */
 a:focus-visible, button:focus-visible, input:focus-visible,
 select:focus-visible, textarea:focus-visible{
     outline: 2px solid var(--accent);
