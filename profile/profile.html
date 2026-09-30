@@ -24,7 +24,19 @@
 
         <h3 id="profile-name">Nama Akun</h3>
         <p id="profile-username">@username</p>
-        <p id="Bio"></p>
+        <p id="profileBio"></p>
+
+        <div class="follow-info">
+    <div>
+        <strong>0</strong>
+        <span>Followers</span>
+    </div>
+
+    <div>
+        <strong>0</strong>
+        <span>Following</span>
+    </div>
+</div>
          <div class="profile-actions">
 
         <button class = "button button1" 
@@ -46,7 +58,8 @@
     if (pic) document.getElementById("profile-pic").src = pic;
     if (name) document.getElementById("profile-name").textContent = name;
     if (username) document.getElementById("profile-username").textContent = "@" + username;
-    if (bio) document.getElementById("profilebio").textContent = bio;
+    if (bio) document.getElementById("profileBio").textContent = bio;
+
     </script>
 </header>
 </body>
