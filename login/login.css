@@ -6,7 +6,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  color: #222;
+  color: black;
   background: white;
 }
 
@@ -30,7 +30,7 @@ h1 {
 
 .subtitle {
   margin: 0 0 32px;
-  color: #777;
+  color: #9a8388;
   font-size: 1.05rem;
 }
 
@@ -49,7 +49,7 @@ h1 {
   margin-bottom: 12px;
   padding: 14px;
   background: #fbb3bb;
-  color: #222;
+  color: black;
   border-radius: 999px;
   font-weight: bold;
   text-align: center;
@@ -66,7 +66,7 @@ h1 {
   align-items: center;
   gap: 12px;
   margin: 20px 0;
-  color: #777;
+  color: #9a8388;
   font-size: 0.9rem;
 }
 
@@ -84,9 +84,13 @@ form {
 
 label {
   display: block;
-  margin-bottom: 6px;
+  margin: 16px 0 6px;
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+label:first-of-type {
+  margin-top: 0;
 }
 
 input {
@@ -95,7 +99,7 @@ input {
   background: #fff5f6;
   border: 1.5px solid #fbb3bb;
   border-radius: 999px;
-  color: #222;
+  color: black;
 }
 
 input:focus {
@@ -104,10 +108,16 @@ input:focus {
   border-color: #9b3160;
 }
 
+button.button {
+  border: 0;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
 .register {
   max-width: 420px;
   margin-top: 24px;
-  color: #777;
+  color: #9a8388;
   font-size: 0.9rem;
 }
 
@@ -120,6 +130,36 @@ input:focus {
 .register a:hover {
   color: #d46c8c;
   text-decoration: underline;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #9b3160;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #d46c8c;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.remember input {
+  width: auto;
+  accent-color: #9b3160;
+}
+
+.remember label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 .image {
@@ -156,4 +196,28 @@ input:focus {
   .main-content {
     padding: 32px 20px;
   }
+}
+
+.phone-group {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-group select {
+  flex: 0 0 110px;
+  padding: 13px 10px;
+  background: #fff5f6;
+  border: 1.5px solid #fbb3bb;
+  border-radius: 999px;
+  font: inherit;
+  color: #222;
+}
+
+.phone-group select:focus {
+  outline: none;
+  border-color: #9b3160;
+}
+
+.phone-group input {
+  flex: 1;
 }

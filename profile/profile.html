@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--header navbar-->
+
+<header class = "container">
+<h2>FOTO PROFIL</h2>
+
+<button class = "button button1" onclick="window.location.href='edit_profile.html'">Edit Profile</button>
+<button class = "button button2" onclick="window.location.href='share.html'">Share</button>
+ <label for="profile-upload" class="upload-circle">
+</label>
+<input type="file" id="profile-upload" accept="image/*">
+<input type="file" id="profile-upload" accept="image/*">
+
+    <script>
+    const upload = document.getElementById("profile-upload");
+    const preview = document.getElementById("profile-preview");
+
+    upload.addEventListener("change", function() {
+    const file = this.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+    });
+
+    
+
+</script>
+</header>
+</body>
+    </html>
