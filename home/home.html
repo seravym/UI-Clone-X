@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home / X Clone — Kelompok 9</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="layout-container">
+        
+        <div class="sidebar-left">
+            <div class="sidebar-inner">
+
+            </div>
+        </div>
+
+        <main class="feed">
+            <header class="feed-header">
+                <h3>Home</h3>
+                <div class="feed-tabs">
+                    <a href="home.html" class="border-pink"><br>For You</br></a>
+                    <a href="following.html"><br>Following</br></a>
+                </div>
+            </header>
+
+            <div class="create-post">
+                <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
+                <div style="width: 100%;">
+                    <textarea placeholder="What is happening?!" class="post-input"></textarea>
+                    <div style="text-align: right; margin-top: 10px;">
+                        <button class="bg-pink btn-reply">Post</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-container" onclick="window.location.href='post.html'">
+                <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
+                <div style="width: 100%;">
+                    <b>User Random</b> <span style="color: gray;">@randomuser · 2h</span>
+                    <p>Ini contoh post yang muncul di For You! 🌸</p>
+                    <div class="post-actions">
+                        <span>💬 12</span> <span>🔁 5</span> <span class="text-pink">❤️ 48</span> <span>📊 1.2K</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <input type="text" placeholder="Search..." class="search-bar">
+            <div class="trending-box">
+                <h4>Trending</h4>
+                <p class="text-pink">#randomtrend</p>
+            </div>
+        </aside>
+
+    </div>
+    <script src="home.js"></script>
+</body>
+</html>
