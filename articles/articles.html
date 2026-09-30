@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artikel / X Clone — Kelompok 9</title>
+<link rel="stylesheet" href="css/articles.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar-left">
+        <div id="sidebar"></div>
+    </aside>
+
+    <main class="main">
+        <header class="main__header">
+            <div class="main__headrow">
+                <button class="back-btn" id="backBtn" type="button" aria-label="Kembali ke daftar artikel" hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+                </button>
+                <h1 class="main__title" id="pageTitle" tabindex="-1">Artikel</h1>
+                <button class="write-btn" id="openWrite" type="button">Tulis artikel</button>
+            </div>
+
+            <div class="search-box" id="listSearch" role="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input id="articleSearch" type="text" placeholder="Cari artikel atau penulis" autocomplete="off" aria-label="Cari artikel atau penulis">
+            </div>
+        </header>
+
+        <!-- Tampilan 1: daftar artikel -->
+        <section id="listView">
+            <div class="tabs" id="articleTabs" role="tablist" aria-label="Kategori artikel">
+                <button class="tab is-active" role="tab" aria-selected="true" data-cat="all">Untuk Anda</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="Teknologi">Teknologi</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="Desain">Desain</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="Data">Data</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="Kuliner">Kuliner</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="Perjalanan">Perjalanan</button>
+                <button class="tab" role="tab" aria-selected="false" data-cat="saved">Tersimpan</button>
+            </div>
+            <div id="articleList"></div>
+        </section>
+
+        <!-- Tampilan 2: baca artikel -->
+        <section id="readerView" hidden>
+            <div id="readerContent"></div>
+        </section>
+
+        <!-- Tampilan 3: tulis artikel -->
+        <section id="writeView" hidden>
+            <form class="write-form" id="writeForm" novalidate>
+                <div class="field">
+                    <label for="wTitle">Judul</label>
+                    <input id="wTitle" type="text" maxlength="120" placeholder="Judul artikel Anda" autocomplete="off">
+                </div>
+
+                <div class="field">
+                    <label for="wCat">Kategori</label>
+                    <select id="wCat"></select>
+                </div>
+
+                <div class="field">
+                    <label for="wBody">Isi artikel</label>
+                    <textarea id="wBody" placeholder="Tulis artikel Anda di sini. Pisahkan paragraf dengan satu baris kosong."></textarea>
+                    <div class="field__hint"><span id="wCount"></span></div>
+                </div>
+
+                <p class="form-error" id="wError" role="alert"></p>
+
+                <div class="form-actions">
+                    <button class="ghost-btn" id="wCancel" type="button">Batal</button>
+                    <button class="write-btn" type="submit">Terbitkan</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <aside class="side" aria-label="Sidebar">
+        <section class="widget">
+            <h2>Artikel populer</h2>
+            <div id="sidePopular"></div>
+        </section>
+        <section class="widget">
+            <h2>Tersimpan</h2>
+            <div id="sideSaved"></div>
+        </section>
+        <p class="footnote">Halaman latihan. Artikel bawaan dan penulisnya fiktif.</p>
+    </aside>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/articles.js"></script>
+</body>
+</html>

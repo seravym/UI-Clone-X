@@ -1,4 +1,3 @@
-/* Search page — logic khusus halaman (butuh icons.js, data.js, app.js) */
 renderSidebar({ showSearch: false });
 
 const mainSearch = document.getElementById("mainSearch");
@@ -6,7 +5,6 @@ const mainSearchClear = document.getElementById("mainSearchClear");
 const recentPanel = document.getElementById("recentPanel");
 const resultsPanel = document.getElementById("resultsPanel");
 
-/* ---------- Recent searches ---------- */
 function renderRecent(){
   const list = document.getElementById("recentList");
   if(RECENT_SEARCHES.length === 0){
@@ -58,7 +56,6 @@ document.getElementById("clearRecent").addEventListener("click", () => {
   renderRecent();
 });
 
-/* ---------- Search results ---------- */
 function runSearch(query){
   const q = query.trim().toLowerCase();
 
@@ -70,7 +67,6 @@ function runSearch(query){
   recentPanel.style.display = "none";
   resultsPanel.style.display = "";
 
-  // add to recent searches (front, dedup, cap 5) if not already tracked
   if(!RECENT_SEARCHES.some(r => r.type === "query" && r.label.toLowerCase() === q)){
     RECENT_SEARCHES.unshift({ id: "r" + Date.now(), type: "query", label: query.trim() });
     if(RECENT_SEARCHES.length > 5) RECENT_SEARCHES.length = 5;
@@ -81,7 +77,6 @@ function runSearch(query){
 
   const matchedPosts = POSTS.filter(p => p.text.toLowerCase().includes(q));
 
-  // Top: mix of a couple of top users + all matched posts
   renderPanel("panelTop", matchedUsers.slice(0,2), matchedPosts, q);
   renderPanel("panelLatest", [], [...matchedPosts].reverse(), q, true);
   renderPeoplePanel(matchedUsers, q);
@@ -116,7 +111,6 @@ function renderPeoplePanel(users, q){
 }
 
 function renderMediaPanel(q){
-  // demo dataset has no media flag — show an explanatory empty state
   document.getElementById("panelMedia").innerHTML = `
     <div class="empty-state">
       <h3>Belum ada media</h3>
@@ -140,7 +134,6 @@ mainSearchClear.addEventListener("click", () => {
   mainSearch.focus();
 });
 
-/* ---------- Tabs ---------- */
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("is-active"));
