@@ -5,13 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search / X Clone — Kelompok 9</title>
 <link rel="stylesheet" href="css/search.css">
+<link rel="stylesheet" href="../css/style.css">
+
 </head>
 <body>
-<div class="app">
-
-    <nav class="nav" id="nav" aria-label="Navigasi utama">
-        <!-- Sidebar kiri: tempelkan nav buatan teman di sini -->
-    </nav>
+    <div class="app">
+        <!-- sidebar -->
+        <aside class="sidebar-left">
+            <div id="sidebar">
+            <!-- js -->
+            </div>
+        </aside>
 
     <main class="main">
         <header class="main__header">
@@ -22,7 +26,6 @@
         </div>
         </header>
 
-        <!-- State 1: empty query -> recent searches -->
         <section id="recentPanel">
         <div class="section-heading">
             <h2>Pencarian terbaru</h2>
@@ -31,7 +34,6 @@
         <div id="recentList"></div>
         </section>
 
-        <!-- State 2: has query -> tabs + results -->
         <section id="resultsPanel" style="display:none;">
         <div class="tabs" role="tablist">
             <button class="tab is-active" data-tab="top" role="tab">Top</button>
@@ -57,6 +59,7 @@
     <script src="js/data.js"></script>
     <script src="js/app.js"></script>
     <script src="js/search.js"></script>
+    <script src="../app.js"></script>
 
 </body>
 </html>
