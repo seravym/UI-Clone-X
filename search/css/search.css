@@ -47,7 +47,6 @@ img.avatar, .avatar-fallback{
     color: #fff;
 }
 
-/* ---------- App shell ---------- */
 .app{
     display: grid;
     grid-template-columns: minmax(88px, var(--nav-w)) minmax(0, var(--main-w)) var(--side-w);
@@ -56,7 +55,6 @@ img.avatar, .avatar-fallback{
     min-height: 100vh;
 }
 
-/* ---------- Left Nav (isi dibuat oleh teman; ini hanya kolom kosongnya) ---------- */
 .nav{
     display: flex;
     flex-direction: column;
@@ -68,7 +66,6 @@ img.avatar, .avatar-fallback{
     height: 100vh;
 }
 
-/* ---------- Main column ---------- */
 .main{
     border-right: 1px solid var(--border);
     min-height: 100vh;
@@ -89,7 +86,6 @@ img.avatar, .avatar-fallback{
     margin: 0 0 10px 2px;
 }
 
-/* Search box (used in header of every page) */
 .search-box{
     display: flex;
     align-items: center;
@@ -126,7 +122,6 @@ img.avatar, .avatar-fallback{
     flex-shrink: 0;
 }
 
-/* Tabs */
 .tabs{
     display: flex;
     border-bottom: 1px solid var(--border);
@@ -159,7 +154,6 @@ img.avatar, .avatar-fallback{
 .panel{ display: none; }
 .panel.is-active{ display: block; }
 
-/* ---------- Section heading ---------- */
 .section-heading{
     display: flex;
     align-items: center;
@@ -183,7 +177,6 @@ img.avatar, .avatar-fallback{
 .empty-state h3{ color: var(--text); font-size: 19px; margin: 0 0 6px; }
 .empty-state p{ font-size: 14px; margin: 0; }
 
-/* ---------- Follow button ---------- */
 .follow-btn{
     border: 1px solid var(--text);
     background: var(--text);
@@ -207,7 +200,6 @@ img.avatar, .avatar-fallback{
 .follow-btn.is-following .btn-label{ }
 .follow-btn.is-following:hover .btn-label{ display:none; }
 
-/* ---------- Post / tweet card ---------- */
 .post{
     display: flex;
     gap: 12px;
@@ -241,7 +233,6 @@ img.avatar, .avatar-fallback{
 .post__action.is-liked svg{ fill: var(--danger); }
 .post__action.is-reposted{ color: var(--success); }
 
-/* ---------- Trend row ---------- */
 .trend-row{
     display: flex;
     align-items: center;
@@ -264,7 +255,6 @@ img.avatar, .avatar-fallback{
 .trend-row__more{ background: none; border: none; color: var(--text-dim); border-radius: 50%; width: 32px; height: 32px; flex-shrink: 0; }
 .trend-row__more:hover{ background: var(--accent-soft); color: var(--accent); }
 
-/* ---------- Right sidebar ---------- */
 .side{
     padding: 8px 16px;
     position: sticky;
@@ -296,11 +286,9 @@ img.avatar, .avatar-fallback{
 
 .footnote{ font-size: 13px; color: var(--text-dim); padding: 0 16px 24px; line-height: 1.6; }
 
-/* Colors reused for avatar fallback backgrounds */
 .c1{ background:#e91e8c; } .c2{ background:#7856ff; } .c3{ background:#ff5c8a; }
 .c4{ background:#00ba7c; } .c5{ background:#ffad1f; } .c6{ background:#c4137a; }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1080px){
     .app{ grid-template-columns: 88px minmax(0,1fr); }
     .side{ display: none; }
@@ -312,7 +300,6 @@ img.avatar, .avatar-fallback{
     .post__actions{ max-width: 100%; }
 }
 
-/* Focus visibility for accessibility */
 a:focus-visible, button:focus-visible, input:focus-visible{
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -322,16 +309,12 @@ a:focus-visible, button:focus-visible, input:focus-visible{
   *{ transition: none !important; animation: none !important; }
 }
 
-/* ==========================================================================
-   Khusus halaman Search
-   ========================================================================== */
-
 .recent-item{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
 }
 .recent-item:hover{ background: var(--bg-hover); }
 .recent-item svg.type-icon{ width: 20px; height: 20px; color: var(--text-dim); }
@@ -339,23 +322,22 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 .recent-item__title{ font-size: 15px; font-weight: 600; }
 .recent-item__sub{ font-size: 13px; color: var(--text-dim); }
 .recent-item__remove{
-  background: none;
-  border: none;
-  color: var(--text-dim);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
 }
 .recent-item__remove:hover{ background: var(--accent-soft); color: var(--accent); }
 
-/* ---------- User result / follow card ---------- */
 .user-row{
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
 }
 .user-row:hover{ background: var(--bg-hover); }
 .user-row__body{ flex: 1; min-width: 0; }
