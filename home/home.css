@@ -50,101 +50,15 @@ body {
     top: 0;
 }
 
-.sidebar-inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 15px;
-}
-
-.sidebar-logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: #f91880;
-    margin-bottom: 10px;
-    padding: 10px;
-}
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.sidebar-link {
-    text-decoration: none;
-    color: #0f1419;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px;
-    border-radius: 30px;
-    transition: 0.2s;
-}
-
-.sidebar-link:hover {
-    background-color: #eff3f4;
-}
-
 .sidebar-post-btn {
-    background-color: #f91880;
+    width: 100%; 
+    background-color: #c4137a;
     color: white;
+    padding: 12px;
     border: none;
-    padding: 15px;
-    border-radius: 30px;
+    border-radius: 25px;
     font-weight: bold;
-    font-size: 1.1rem;
     cursor: pointer;
-    margin-top: 10px;
-    transition: 0.2s;
-}
-
-.sidebar-post-btn:hover {
-    background-color: #d11269;
-}
-
-.sidebar-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: #0f1419;
-    margin-top: auto;
-    padding: 10px;
-    border-radius: 30px;
-    transition: 0.2s;
-}
-
-.sidebar-profile:hover {
-    background-color: #eff3f4;
-}
-
-.sidebar-profile img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.sidebar-profile-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-profile-name {
-    font-weight: bold;
-}
-
-.sidebar-profile-handle {
-    color: #536471;
-    font-size: 0.9rem;
-}
-
-.sidebar-profile-more {
-    margin-left: auto;
-    font-weight: bold;
 }
 
 .btn-reply {
