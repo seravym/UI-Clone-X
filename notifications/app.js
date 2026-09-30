@@ -1,4 +1,4 @@
-fetch("/sidebar.html")
+fetch("../sidebar.html")
     .then(function(response) {
         return response.text();
     })
@@ -17,7 +17,7 @@ let notifications = [
     message: "sunshine by ariana is the best",
     type: "like",
     unread: true,
-    image: "image/",
+    image: "../image/Default_pfp.jpeg",
   },
 
   {
@@ -26,7 +26,7 @@ let notifications = [
     time: "New",
     type: "follow",
     unread: true,
-    image: "image/",
+    image: "../image/Default_pfp.jpeg",
   },
 
   {
@@ -36,7 +36,7 @@ let notifications = [
     message: "@user your favorite music is out now!",
     type: "mention",
     unread: false,
-    image: "image/",
+    image: "../image/Default_pfp.jpeg",
   },
 
   {
@@ -46,7 +46,7 @@ let notifications = [
     message: "have you guys alr seen the newest book by Jane Austen?",
     type: "reply",
     unread: false,
-    image: "image/",
+    image: "../image/Default_pfp.jpeg",
   },
 ];
 
@@ -100,7 +100,7 @@ function showNotifications(filter) {
     card.innerHTML = `
             <img class="notif-avatar"
                 src="${notif.image}"
-                 alt="Profile">
+                alt="Profile">
             <div class="notif-content">
                 <div class="notif-text">
                     <span class="notif-name">
@@ -126,7 +126,7 @@ function showNotifications(filter) {
   }
 }
 
-document.getElementById("allAtab").addEventListener("click", function () {
+document.getElementById("all-tab").addEventListener("click", function () {
   document.getElementById("all-tab").classList.add("active");
   document.getElementById("unread-tab").classList.remove("active");
   showNotifications("all");
