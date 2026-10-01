@@ -228,7 +228,7 @@ function initials(name) {
 }
 
 function hueOf(a) {
-    return CATEGORIES[a.cat] !== undefined ? CATEGORIES[a.cat] : 330;
+    return 330;
 }
 
 function readingMinutes(a) {
@@ -612,7 +612,7 @@ $("writeForm").addEventListener("submit", function (event) {
     location.hash = articleHref(article.id);
 });
 
-$("wCat").innerHTML = Object.keys(CATEGORIES)
+$("wCat").innerHTML = Object.keys(CATEGORY_LABEL)
     .map(function (c) {
         return '<option value="' + esc(c) + '">' + esc(catLabel(c)) + "</option>";
     })

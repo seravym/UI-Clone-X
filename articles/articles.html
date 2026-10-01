@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Artikel / X Clone — Kelompok 9</title>
+<title>Articles / X Clone — Kelompok 9</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/articles.css">
 </head>
@@ -19,8 +19,8 @@
                 <button class="back-btn" id="backBtn" type="button" aria-label="Kembali ke daftar artikel" hidden>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
                 </button>
-                <h1 class="articles-title" id="pageTitle" tabindex="-1">Artikel</h1>
-                <button class="write-btn" id="openWrite" type="button">Tulis artikel</button>
+                <h1 class="articles-title" id="pageTitle" tabindex="-1">Articles</h1>
+                <button class="write-btn" id="openWrite" type="button">New Articles</button>
             </div>
 
             <div class="search-box" id="listSearch" role="search">
@@ -49,15 +49,15 @@
         <section id="writeView" hidden>
             <form class="write-form" id="writeForm" novalidate>
                 <div class="field">
-                    <label for="wTitle">Judul</label>
+                    <label for="wTitle">Title</label>
                     <input id="wTitle" type="text" maxlength="120" placeholder="Judul artikel Anda" autocomplete="off">
                 </div>
                 <div class="field">
-                    <label for="wCat">Kategori</label>
+                    <label for="wCat">Category</label>
                     <select id="wCat"></select>
                 </div>
                 <div class="field">
-                    <label for="wBody">Isi artikel</label>
+                    <label for="wBody">Write here.</label>
                     <textarea id="wBody" placeholder="Tulis artikel Anda di sini. Pisahkan paragraf dengan satu baris kosong."></textarea>
                     <div class="field__hint"><span id="wCount"></span></div>
                 </div>
@@ -72,11 +72,11 @@
 
     <aside class="side" aria-label="Sidebar">
         <section class="widget">
-            <h2>Artikel populer</h2>
+            <h2>Popular Articles</h2>
             <div id="sidePopular"></div>
         </section>
         <section class="widget">
-            <h2>Tersimpan</h2>
+            <h2>Saved</h2>
             <div id="sideSaved"></div>
         </section>
     </aside>
