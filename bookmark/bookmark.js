@@ -1,4 +1,5 @@
 const BOOKMARK_KEY = "bookmarks";
+const DEFAULT_AVATAR = "../image/Default_pfp.jpeg";
 
 const listEl = document.getElementById("bookmark-list");
 const emptyEl = document.querySelector(".bookmark-empty");
@@ -34,6 +35,7 @@ function renderBookmarks() {
             .toLowerCase()
             .includes(keyword)
     );
+
     emptyEl.hidden = all.length > 0;
 
     if (all.length > 0 && list.length === 0) {
@@ -43,16 +45,20 @@ function renderBookmarks() {
 
     listEl.innerHTML = list.map(post => `
         <article class="post" data-id="${escapeHtml(post.id)}">
-            <div class="post-community">${escapeHtml(post.community)}</div>
-            <p class="post-author">
-                <strong>${escapeHtml(post.name)}</strong>
-                <span>${escapeHtml(post.handle)} · ${escapeHtml(post.time)}</span>
-            </p>
-            <p class="post-text">${escapeHtml(post.text)}</p>
-            <div class="post-actions">
-                <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
-                    <span class="icon">🔖</span>
-                </button>
+            <img class="post-avatar" src="${DEFAULT_AVATAR}" alt="Foto profil ${escapeHtml(post.name)}">
+
+            <div class="post-body">
+                <div class="post-community">${escapeHtml(post.community)}</div>
+                <p class="post-author">
+                    <strong>${escapeHtml(post.name)}</strong>
+                    <span>${escapeHtml(post.handle)} · ${escapeHtml(post.time)}</span>
+                </p>
+                <p class="post-text">${escapeHtml(post.text)}</p>
+                <div class="post-actions">
+                    <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
+                        <span class="icon">🔖</span>
+                    </button>
+                </div>
             </div>
         </article>
     `).join("");
