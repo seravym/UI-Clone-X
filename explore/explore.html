@@ -16,10 +16,13 @@
     <main class="explore">
         <header class="explore-header">
             <a href="../home/home.html" class="back-button" aria-label="Kembali ke Home">&larr;</a>
-            <label class="search-box">
-                <span class="search-icon" aria-hidden="true">&#128269;</span>
-                <input type="search" id="search" placeholder="Cari topik, akun, atau postingan" autocomplete="off" aria-label="Cari di Explore">
-            </label>
+            <div class="search-wrap" id="search-wrap">
+                <label class="search-box">
+                    <span class="search-icon" aria-hidden="true">&#128269;</span>
+                    <input type="search" id="search" placeholder="Cari topik, akun, atau postingan" autocomplete="off" aria-label="Cari di Explore">
+                </label>
+                <div class="search-dropdown" id="search-dropdown" hidden></div>
+            </div>
         </header>
 
         <nav class="explore-nav" id="tabs" aria-label="Kategori Explore"></nav>
@@ -36,7 +39,6 @@
             <a href="#">Privasi</a>
             <a href="#">Cookie</a>
             <a href="#">Aksesibilitas</a>
-            <a href="#">Info Iklan</a>
             <span>&copy; 2026 X Clone</span>
         </footer>
     </aside>

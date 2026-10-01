@@ -46,18 +46,23 @@ const posts = [
 
 const FOLLOW_KEY = "followedAccounts";
 const POST_KEY = "explorePostActions";
+const HISTORY_KEY = "exploreSearchHistory";
+const MAX_HISTORY = 8;
 
 let currentTab = tabs[0];
 let query = "";
 let followed = new Set(readJSON(FOLLOW_KEY, []));
+let searchHistory = readJSON(HISTORY_KEY, []);
+let dropdownItems = [];
 
 const tabsEl = document.getElementById("tabs");
 const resultsEl = document.getElementById("results");
 const searchEl = document.getElementById("search");
+const searchWrapEl = document.getElementById("search-wrap");
+const dropdownEl = document.getElementById("search-dropdown");
 const sideNewsEl = document.getElementById("side-news");
 const sideFollowEl = document.getElementById("side-follow");
 
-/* ---------- Helpers ---------- */
 
 function readJSON(key, fallback) {
     try {
@@ -141,7 +146,6 @@ function followButton(id) {
         </button>`;
 }
 
-/* ---------- Render: tabs ---------- */
 
 function renderTabs() {
     tabsEl.innerHTML = tabs.map(tab => `
@@ -149,7 +153,6 @@ function renderTabs() {
     `).join("");
 }
 
-/* ---------- Render: konten utama ---------- */
 
 function renderNews() {
     if (currentTab === "Trending") return "";
@@ -275,7 +278,6 @@ function renderResults() {
     resultsEl.innerHTML = html;
 }
 
-/* ---------- Render: sidebar kanan ---------- */
 
 function renderSideNews() {
     if (sideNewsEl.dataset.closed === "true") {
@@ -327,11 +329,151 @@ function render() {
     renderSide();
 }
 
-/* ---------- Event ---------- */
+
+function saveHistory(term) {
+    term = term.trim();
+    if (!term) return;
+
+    searchHistory = [
+        term,
+        ...searchHistory.filter(h => h.toLowerCase() !== term.toLowerCase())
+    ].slice(0, MAX_HISTORY);
+
+    writeJSON(HISTORY_KEY, searchHistory);
+}
+
+function dropdownRow(icon, text, removable, subtitle) {
+    const idx = dropdownItems.length - 1;
+    return `
+        <div class="dropdown-row" data-idx="${idx}" tabindex="0" role="button">
+            <span class="dropdown-icon" aria-hidden="true">${icon}</span>
+            <span class="dropdown-text">
+                ${escapeHtml(text)}
+                ${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ""}
+            </span>
+            ${removable ? `<button class="dropdown-remove" data-remove="${idx}" aria-label="Hapus dari riwayat">&times;</button>` : ""}
+        </div>`;
+}
+
+function renderDropdown() {
+    const typed = searchEl.value.trim();
+    const q = typed.toLowerCase();
+    let html = "";
+    dropdownItems = [];
+
+    if (!typed) {
+        if (searchHistory.length === 0) {
+            html = `<div class="dropdown-empty">Coba cari orang, topik, atau kata kunci</div>`;
+        } else {
+            html = `
+                <div class="dropdown-head">
+                    <span>Pencarian terbaru</span>
+                    <button class="dropdown-clear" data-clear-all>Hapus semua</button>
+                </div>`;
+            searchHistory.forEach(term => {
+                dropdownItems.push(term);
+                html += dropdownRow("&#128339;", term, true);
+            });
+        }
+    } else {
+        dropdownItems.push(typed);
+        html += dropdownRow("&#128269;", "Cari \"" + typed + "\"", false);
+
+        const historyMatches = searchHistory.filter(h => h.toLowerCase().includes(q));
+        historyMatches.forEach(term => {
+            dropdownItems.push(term);
+            html += dropdownRow("&#128339;", term, true);
+        });
+
+        const trendMatches = trends
+            .filter(t => t.topic.toLowerCase().includes(q))
+            .filter(t => !historyMatches.some(h => h.toLowerCase() === t.topic.toLowerCase()))
+            .slice(0, 5);
+
+        trendMatches.forEach(t => {
+            dropdownItems.push(t.topic);
+            html += dropdownRow("&#128200;", t.topic, false, "Trending di Indonesia");
+        });
+    }
+
+    dropdownEl.innerHTML = html;
+}
+
+function openDropdown() {
+    renderDropdown();
+    dropdownEl.hidden = false;
+}
+
+function closeDropdown() {
+    dropdownEl.hidden = true;
+}
+
+function runSearch(term) {
+    searchEl.value = term;
+    query = term.trim();
+    saveHistory(term);
+    renderResults();
+    closeDropdown();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+searchEl.addEventListener("focus", openDropdown);
+
+searchEl.addEventListener("click", () => {
+    if (dropdownEl.hidden) openDropdown();
+});
+
+searchEl.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        const term = searchEl.value.trim();
+        if (term) saveHistory(term);
+        closeDropdown();
+        searchEl.blur();
+    } else if (event.key === "Escape") {
+        closeDropdown();
+        searchEl.blur();
+    }
+});
+
+dropdownEl.addEventListener("click", event => {
+    const removeBtn = event.target.closest("[data-remove]");
+    if (removeBtn) {
+        event.stopPropagation();
+        const term = dropdownItems[Number(removeBtn.dataset.remove)];
+        searchHistory = searchHistory.filter(h => h !== term);
+        writeJSON(HISTORY_KEY, searchHistory);
+        renderDropdown();
+        return;
+    }
+
+    if (event.target.closest("[data-clear-all]")) {
+        searchHistory = [];
+        writeJSON(HISTORY_KEY, searchHistory);
+        renderDropdown();
+        return;
+    }
+
+    const row = event.target.closest("[data-idx]");
+    if (row) {
+        runSearch(dropdownItems[Number(row.dataset.idx)]);
+    }
+});
+
+dropdownEl.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+    const row = event.target.closest("[data-idx]");
+    if (row) runSearch(dropdownItems[Number(row.dataset.idx)]);
+});
+
+document.addEventListener("mousedown", event => {
+    if (!searchWrapEl.contains(event.target)) closeDropdown();
+});
 
 searchEl.addEventListener("input", () => {
     query = searchEl.value.trim();
     renderResults();
+    renderDropdown();
+    dropdownEl.hidden = false;
 });
 
 tabsEl.addEventListener("click", event => {
@@ -366,6 +508,7 @@ resultsEl.addEventListener("click", event => {
     if (trend) {
         searchEl.value = trend.dataset.trend;
         query = trend.dataset.trend;
+        saveHistory(query);
         renderResults();
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
@@ -373,8 +516,6 @@ resultsEl.addEventListener("click", event => {
 
     const news = event.target.closest("[data-news]");
     if (news) {
-        searchEl.value = "";
-        query = "";
         searchEl.value = news.dataset.news.split(" ").slice(0, 2).join(" ");
         query = searchEl.value;
         renderResults();
@@ -417,7 +558,6 @@ sideNewsEl.addEventListener("click", event => {
     }
 });
 
-/* ---------- Init ---------- */
 
 render();
 
