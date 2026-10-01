@@ -82,20 +82,25 @@ body {
 }
 
 .feed-header {
+    align-items: center;
     padding: 10px 15px;
     border-bottom: 1px solid #eff3f4;
     position: sticky;
-    top: 0;
+    top: 1%;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(5px);
 }
 
-.feed-header h3 {
+.feed-header h1 {
     margin: 0 0 15px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e91e8c;
 }
 
 .feed-tabs {
     display: flex;
+    margin: 0 0 15px 0;
     justify-content: space-around;
 }
 
@@ -144,4 +149,32 @@ body {
     max-width: 400px;
     color: #536471;
     margin-top: 10px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.action-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.action-icon-like {
+    width: 18px;
+    height: 18px;
+}
+
+.action-item:hover {
+    color: #f91880; 
+}
+
+.action-item:hover .action-icon {
+    opacity: 1; 
 }
