@@ -6,16 +6,17 @@
   <title>Number Login</title>
   <link rel="stylesheet" href="login.css">
 </head>
+
 <body>
   <div class="page">
     <section class="main-content">
-      <a class="back-link" href="login.html">Back</a>
+      <a class="back-link" href="login.html">&larr;</a>
 
       <h1>Welcome!</h1>
       <p class="subtitle">Login with your phone number</p>
 
       <div class="card">
-        <form action="otp.html" method="post">
+        <form action="otp.html" method="get">
           <label for="number">Phone number</label>
           <div class="phone-group">
             <select id="country-code" name="country-code">
@@ -24,18 +25,23 @@
               <option value="+65">SG +65</option>
               <option value="+1">US +1</option>
             </select>
-            <input id="number" name="number" type="tel" placeholder="Number" required>
+
+            <input id="number" name="number" type="tel" inputmode="numeric"
+              pattern="[0-9]{8,13}" title="Masukkan 8-13 digit angka"
+              placeholder="Number" autocomplete="tel-national" required>
           </div>
 
           <button class="button" type="submit">Send OTP</button>
         </form>
+      </div> 
 
-    <p class="register">Don't have an account? <a href="../signup/signup.html">Create account!</a></p>
+      <p class="register">Don't have an account? <a href="../signup/signup.html">Create account!</a></p>
     </section>
 
     <aside class="image">
       <img src="logo.jpg" alt="">
     </aside>
+    
   </div>
 </body>
 </html>
