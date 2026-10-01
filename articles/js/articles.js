@@ -1,9 +1,4 @@
-/* =========================================================
-   js/articles.js — fitur Artikel
-   ========================================================= */
-
-/* ---------- 1. Sidebar kiri (dari sidebar.html) ---------- */
-fetch("sidebar.html")
+fetch("../sidebar.html")
     .then(function (response) {
         if (!response.ok) {
             throw new Error(response.status + " " + response.url);
@@ -17,20 +12,22 @@ fetch("sidebar.html")
         console.error("Sidebar gagal dimuat:", error);
     });
 
-/* ---------- 2. Data ---------- */
 var STORE_MINE = "xclone.articles.mine";
 var STORE_PREFS = "xclone.articles.prefs";
 var DAY = 24 * 60 * 60 * 1000;
 var MIN_BODY = 80;
 
-// kategori -> warna sampul (hue)
-var CATEGORIES = {
-    Teknologi: 210,
-    Desain: 330,
-    Data: 265,
-    Kuliner: 25,
-    Perjalanan: 170
+var CATEGORY_LABEL = {
+    Teknologi: "Technology",
+    Desain: "Design",
+    Data: "Data",
+    Kuliner: "Food",
+    Perjalanan: "Travel"
 };
+
+function catLabel(c) {
+    return CATEGORY_LABEL[c] || c || "General";
+}
 
 var AUTHORS = {
     ranipratama: { name: "Rani Pratama", hue: 330 },
@@ -42,7 +39,6 @@ var AUTHORS = {
     anda: { name: "Anda", hue: 300 }
 };
 
-// Artikel bawaan (fiktif)
 var SEED = [
     {
         id: "a1",
@@ -135,7 +131,6 @@ SEED.forEach(function (a) {
     a.created = Date.now() - a.daysAgo * DAY;
 });
 
-/* ---------- 3. Penyimpanan (localStorage) ---------- */
 function loadJSON(key, fallback) {
     try {
         var raw = localStorage.getItem(key);
@@ -149,11 +144,9 @@ function saveJSON(key, value) {
     try {
         localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
-        /* penyimpanan tidak tersedia; abaikan */
     }
 }
 
-// artikel tulisan pengguna
 var mine = loadJSON(STORE_MINE, []);
 if (!Array.isArray(mine)) mine = [];
 mine = mine.filter(function (a) {
@@ -167,16 +160,13 @@ mine.forEach(function (a) {
     a.body = a.body.map(String);
 });
 
-// suka + simpan
 var prefs = loadJSON(STORE_PREFS, {});
 if (!prefs || typeof prefs !== "object") prefs = {};
 if (!Array.isArray(prefs.liked)) prefs.liked = [];
 if (!Array.isArray(prefs.saved)) prefs.saved = [];
 
-// filter yang sedang aktif
 var view = { cat: "all", query: "" };
 
-/* ---------- 4. Helpers ---------- */
 function $(id) {
     return document.getElementById(id);
 }
@@ -238,7 +228,7 @@ function initials(name) {
 }
 
 function hueOf(a) {
-    return CATEGORIES[a.cat] !== undefined ? CATEGORIES[a.cat] : 330;
+    return 330;
 }
 
 function readingMinutes(a) {
@@ -277,7 +267,6 @@ function toast(message) {
     }, 2200);
 }
 
-/* ---------- 5. Icons + components ---------- */
 function svg(paths) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + "</svg>";
 }
@@ -305,7 +294,7 @@ function authorLine(a) {
 
 function cover(a, large) {
     return '<div class="cover' + (large ? " cover--lg" : "") + '" style="--h:' + hueOf(a) + '">' +
-        '<span class="cover__cat">' + esc(a.cat || "Umum") + "</span></div>";
+        '<span class="cover__cat">' + esc(catLabel(a.cat)) + "</span></div>";
 }
 
 function likeButton(a) {
@@ -364,12 +353,11 @@ function readerHtml(a) {
 
 function sideItem(a) {
     return '<a class="widget-row" href="' + articleHref(a.id) + '">' +
-        '<span class="widget-row__cat">' + esc(a.cat || "Umum") + " &middot; " + esc(authorOf(a).name) + "</span>" +
+        '<span class="widget-row__cat">' + esc(catLabel(a.cat)) + " &middot; " + esc(authorOf(a).name) + "</span>" +
         '<span class="widget-row__topic">' + esc(a.title) + "</span>" +
         '<span class="widget-row__count">' + readingMinutes(a) + " mnt baca</span></a>";
 }
 
-/* ---------- 6. Render ---------- */
 function getVisible() {
     var terms = view.query.toLowerCase().split(/\s+/).filter(Boolean);
 
@@ -377,8 +365,7 @@ function getVisible() {
         if (view.cat === "saved" && !has(prefs.saved, a.id)) return false;
         if (view.cat !== "all" && view.cat !== "saved" && a.cat !== view.cat) return false;
 
-        var hay = (a.title + " " + a.body.join(" ") + " " + authorOf(a).name + " " + (a.cat || "")).toLowerCase();
-        return terms.every(function (t) {
+            var hay = (a.title + " " + a.body.join(" ") + " " + authorOf(a).name + " " + (a.cat || "") + " " + catLabel(a.cat)).toLowerCase();        return terms.every(function (t) {
             return hay.indexOf(t) !== -1;
         });
     });
@@ -420,7 +407,6 @@ function renderSide() {
         : '<p class="widget-hint">Ketuk ikon penanda di artikel untuk menyimpannya.</p>';
 }
 
-/* ---------- 7. Navigasi antar tampilan (hash) ---------- */
 function show(which) {
     $("listView").hidden = which !== "list";
     $("readerView").hidden = which !== "reader";
@@ -466,7 +452,6 @@ function route(moveFocus) {
     }
 }
 
-/* ---------- 8. Aksi: suka, simpan, bagikan, hapus ---------- */
 function toggleLike(id) {
     var a = getArticle(id);
     if (!a) return;
@@ -528,7 +513,6 @@ function deleteArticle(id) {
     location.hash = "#/";
 }
 
-/* ---------- 9. Events ---------- */
 document.addEventListener("click", function (event) {
     var btn = event.target.closest("[data-action]");
     if (!btn) return;
@@ -543,11 +527,11 @@ document.addEventListener("click", function (event) {
 });
 
 $("articleTabs").addEventListener("click", function (event) {
-    var tab = event.target.closest(".tab");
+    var tab = event.target.closest(".articles-tab");
     if (!tab) return;
 
     view.cat = tab.getAttribute("data-cat");
-    var tabs = document.querySelectorAll("#articleTabs .tab");
+    var tabs = document.querySelectorAll("#articleTabs .articles-tab");
     for (var i = 0; i < tabs.length; i++) {
         var on = tabs[i] === tab;
         tabs[i].classList.toggle("is-active", on);
@@ -581,7 +565,6 @@ $("wCancel").addEventListener("click", function () {
     location.hash = "#/";
 });
 
-/* ---------- 10. Form tulis artikel ---------- */
 function updateCount() {
     var n = $("wBody").value.trim().length;
     $("wCount").textContent = n + " karakter (minimal " + MIN_BODY + ")";
@@ -629,10 +612,9 @@ $("writeForm").addEventListener("submit", function (event) {
     location.hash = articleHref(article.id);
 });
 
-/* ---------- 11. Init ---------- */
-$("wCat").innerHTML = Object.keys(CATEGORIES)
+$("wCat").innerHTML = Object.keys(CATEGORY_LABEL)
     .map(function (c) {
-        return '<option value="' + esc(c) + '">' + esc(c) + "</option>";
+        return '<option value="' + esc(c) + '">' + esc(catLabel(c)) + "</option>";
     })
     .join("");
 
