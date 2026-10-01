@@ -4,27 +4,47 @@
 
 html,
 body {
+    width: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
-    background: #ffffff;
-    color: #0f1419;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.sidebar-left {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 344px;
+    height: 100vh;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+#sidebar {
+    width: 100%;
+    height: 100%;
 }
 
 .bookmarks {
-    width: 100%;
-    max-width: 600px;
+    width: 600px;
+    margin-left: 344px;
     min-height: 100vh;
-    margin: 0 auto;
     background: #ffffff;
+    border-left: 1px solid #eff3f4;
+    border-right: 1px solid #eff3f4;
 }
 
 .bookmarks-header {
     height: 70px;
     display: flex;
     align-items: center;
+    gap: 16px;
     padding: 0 20px;
-    gap: 20px;
     border-bottom: 1px solid #eff3f4;
 }
 
@@ -44,87 +64,173 @@ body {
     border: none;
     border-radius: 50%;
     background: transparent;
-    color: #e91e8c;
-    font-size: 28px;
+    color: #0f1419;
+    font-size: 22px;
     cursor: pointer;
 }
 
 .back-button:hover {
     background: rgba(233, 30, 140, 0.1);
+    color: #e91e8c;
 }
 
 .bookmark-search {
-    height: 52px;
-    margin: 14px 20px;
-    padding: 0 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: #f7f7f7;
-    border-radius: 9999px;
+    gap: 10px;
+    margin: 12px 20px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #eff3f4;
 }
 
-.search-icon {
-    font-size: 20px;
-    color: #e91e8c;
+.bookmark-search:focus-within {
+    outline: 2px solid #e91e8c;
+    background: #ffffff;
 }
 
 .bookmark-search input {
-    width: 100%;
+    flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    color: #0f1419;
-    font-size: 16px;
-}
-
-.bookmark-search input::placeholder {
-    color: #536471;
+    font-family: inherit;
+    font-size: 15px;
 }
 
 .bookmark-empty {
-    padding: 65px 40px 0;
+    padding: 60px 30px;
+    text-align: center;
 }
 
 .bookmark-empty h2 {
-    margin: 0 0 12px;
-    color: #e91e8c;
-    font-size: 42px;
-    line-height: 1.15;
+    margin: 0 0 8px;
+    font-size: 28px;
     font-weight: 800;
+    color: #0f1419;
 }
 
 .bookmark-empty p {
     margin: 0;
+    font-size: 15px;
     color: #536471;
-    font-size: 20px;
-    line-height: 1.4;
+}
+
+.no-result {
+    padding: 40px 20px;
+    text-align: center;
+    color: #536471;
+}
+
+.post {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.post:hover {
+    background: #f7f9f9;
+}
+
+.post-avatar {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eff3f4;
+}
+
+.post-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.post-community {
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #536471;
+}
+
+.post-author {
+    margin: 0;
+    font-size: 15px;
+}
+
+.post-author strong {
+    font-weight: 700;
+}
+
+.post-author span {
+    color: #536471;
+}
+
+.post-text {
+    margin: 4px 0 0;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    margin-top: 10px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: #536471;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: rgba(233, 30, 140, 0.1);
+    color: #e91e8c;
+}
+
+.action-btn.active {
+    color: #e91e8c;
+}
+
+.back-button:focus-visible,
+.action-btn:focus-visible {
+    outline: 2px solid #e91e8c;
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .sidebar-left {
+        width: 250px;
+    }
+
+    .bookmarks {
+        margin-left: 250px;
+    }
 }
 
 @media (max-width: 600px) {
-
-    .bookmarks-header {
-        height: 65px;
-        padding: 0 18px;
+    .sidebar-left {
+        display: none;
     }
 
-    .bookmarks-header h1 {
-        font-size: 21px;
+    .bookmarks {
+        width: 100%;
+        margin-left: 0;
     }
 
-    .bookmark-search {
-        margin: 14px 18px;
-    }
-
-    .bookmark-empty {
-        padding: 65px 24px 0;
-    }
-
-    .bookmark-empty h2 {
-        font-size: 36px;
-    }
-
-    .bookmark-empty p {
-        font-size: 18px;
+    .post {
+        padding-left: 18px;
+        padding-right: 18px;
     }
 }
