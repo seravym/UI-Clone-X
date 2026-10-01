@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Artikel / X Clone — Kelompok 9</title>
-<link rel="stylesheet" href="css/articles.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/articles.css">
 </head>
 <body>
 <div class="app">
@@ -13,13 +13,13 @@
         <div id="sidebar"></div>
     </aside>
 
-    <main class="main">
-        <header class="main__header">
-            <div class="main__headrow">
+    <main class="articles">
+        <header class="articles-header">
+            <div class="articles-headrow">
                 <button class="back-btn" id="backBtn" type="button" aria-label="Kembali ke daftar artikel" hidden>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
                 </button>
-                <h1 class="main__title" id="pageTitle" tabindex="-1">Artikel</h1>
+                <h1 class="articles-title" id="pageTitle" tabindex="-1">Artikel</h1>
                 <button class="write-btn" id="openWrite" type="button">Tulis artikel</button>
             </div>
 
@@ -28,21 +28,24 @@
                 <input id="articleSearch" type="text" placeholder="Cari artikel atau penulis" autocomplete="off" aria-label="Cari artikel atau penulis">
             </div>
         </header>
+
         <section id="listView">
-            <div class="tabs" id="articleTabs" role="tablist" aria-label="Kategori artikel">
-                <button class="tab is-active" role="tab" aria-selected="true" data-cat="all">Untuk Anda</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="Teknologi">Teknologi</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="Desain">Desain</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="Data">Data</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="Kuliner">Kuliner</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="Perjalanan">Perjalanan</button>
-                <button class="tab" role="tab" aria-selected="false" data-cat="saved">Tersimpan</button>
-            </div>
+            <nav class="articles-nav" id="articleTabs" role="tablist" aria-label="Article categories">
+                <button class="articles-tab is-active" role="tab" aria-selected="true" data-cat="all">For You</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="Teknologi">Technology</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="Desain">Design</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="Data">Data</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="Kuliner">Food</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="Perjalanan">Travel</button>
+                <button class="articles-tab" role="tab" aria-selected="false" data-cat="saved">Saved</button>
+            </nav>
             <div id="articleList"></div>
         </section>
+
         <section id="readerView" hidden>
             <div id="readerContent"></div>
         </section>
+
         <section id="writeView" hidden>
             <form class="write-form" id="writeForm" novalidate>
                 <div class="field">
