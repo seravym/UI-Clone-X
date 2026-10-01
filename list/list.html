@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lists - X Clone</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="list.css">
 </head>
 
 <body>
-    <div class="list">
+    <aside class="sidebar-left">
+        <div id="sidebar"></div>
+    </aside>
+
+    <main class="list">
         <header class="list-header">
-            <button class="back-button">←</button>
+            <button class="back-button" onclick="history.back()" aria-label="Kembali">←</button>
             <h1>Lists</h1>
         </header>
 
@@ -65,7 +70,7 @@
                             <span>👤</span>
                         </div>
                         <span>
-                            40.3K followers including @Versa...
+                            40.3K followers including @Versa
                         </span>
                     </div>
                 </div>
@@ -126,14 +131,15 @@
                         </div>
 
                         <span>
-                            8.3K followers including @LinceU...
+                            8.3K followers including @Lince
                         </span>
                     </div>
                 </div>
             </div>
         </section>
         <button class="create-list-button"> + </button>
-    </div>
+    </main>
 
+    <script src="list.js"></script>
 </body>
 </html>
