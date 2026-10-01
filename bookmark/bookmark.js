@@ -87,12 +87,18 @@ fetch("../sidebar.html")
     })
     .catch(err => console.error("Sidebar gagal dimuat:", err));
 
-fetch("../trending.html")
+fetch("../trending/trending.html")
     .then(res => {
-        if (!res.ok) throw new Error("Status " + res.status);
+        if (!res.ok) {
+            throw new Error("Status " + res.status);
+        }
+
         return res.text();
     })
     .then(html => {
-        document.getElementById("trending").innerHTML = html;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        document.getElementById("trending").innerHTML = doc.body.innerHTML;
     })
     .catch(err => console.error("Trending gagal dimuat:", err));
