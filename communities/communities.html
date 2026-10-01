@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Communities - X Clone</title>
-    <link rel="stylesheet" href="communities.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="communities.css">
 </head>
 
 <body>
 
-    <div id="sidebar"></div>
+    <aside class="sidebar-left">
+        <div id="sidebar"></div>
+    </aside>
 
-    <div class="communities">
+    <main class="communities">
 
         <header class="communities-header">
             <a href="home.html" class="back-button" aria-label="Kembali ke Home">&larr;</a>
@@ -33,7 +35,6 @@
         </section>
 
         <section class="communities-explore" id="explore">
-
             <div class="category-chips">
                 <button class="chip active">Sports</button>
                 <button class="chip">Technology</button>
@@ -45,13 +46,11 @@
             <p class="explore-title">Komunitas rekomendasi di Sports</p>
 
             <div class="community-list"></div>
-
         </section>
 
-    </div>
+    </main>
 
     <script src="communities.js"></script>
-    <script src="../app.js"></script>
 
 </body>
 </html>
