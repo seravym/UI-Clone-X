@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Explore - X Clone</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="explore.css">
 </head>
+
 <body>
-    <div class="app">
-        <div id="nav-slot"></div>
-        <main class="main"></main>
-        <aside class="side" aria-label="Sidebar"></aside>
-</div>
+    <aside class="sidebar-left">
+        <div id="sidebar"></div>
+    </aside>
+
+    <main class="explore">
+        <header class="explore-header">
+            <a href="../home/home.html" class="back-button" aria-label="Kembali ke Home">&larr;</a>
+            <div class="search-wrap" id="search-wrap">
+                <label class="search-box">
+                    <span class="search-icon" aria-hidden="true">&#128269;</span>
+                    <input type="search" id="search" placeholder="Cari topik, akun, atau postingan" autocomplete="off" aria-label="Cari di Explore">
+                </label>
+                <div class="search-dropdown" id="search-dropdown" hidden></div>
+            </div>
+        </header>
+
+        <nav class="explore-nav" id="tabs" aria-label="Kategori Explore"></nav>
+
+        <div id="results"></div>
+    </main>
+
+    <aside class="side" aria-label="Sidebar">
+        <section class="widget" id="side-news"></section>
+        <section class="widget" id="side-follow"></section>
+
+        <footer class="side-footer">
+            <a href="#">Ketentuan</a>
+            <a href="#">Privasi</a>
+            <a href="#">Cookie</a>
+            <a href="#">Aksesibilitas</a>
+            <span>&copy; 2026 X Clone</span>
+        </footer>
+    </aside>
+
+    <script src="explore.js"></script>
 </body>
 </html>

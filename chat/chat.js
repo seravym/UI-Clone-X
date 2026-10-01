@@ -180,7 +180,7 @@ document.getElementById("chat-app").innerHTML = `
     <aside class="sidebar-left"><div id="chat-sidebar"></div></aside>
     <section class="chat-inbox" aria-label="Conversation list">
       <header class="inbox-header">
-        <div class="chat-heading"><button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog"><span></span><span></span><span></span></button><h1>user</h1>
+        <div class="chat-heading"><button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog"><img src="../login/logo.jpg" alt=""></button><h1>user</h1>
           <button class="chat-icon-button new-chat-button" id="new-chat" aria-label="New chat" title="New message">${chatIcon("newchat")}</button>
         </div>
         <input class="chat-search" id="chat-search" type="search" placeholder="Search" aria-label="Search conversations">
@@ -214,16 +214,20 @@ document.getElementById("chat-app").innerHTML = `
   </dialog>
   <div class="chat-status" id="chat-status" role="status"></div>`;
 
-fetch("../sidebar.html")
-  .then(function(response) {
-    return response.text();
-  })
-  .then(function (data) {
-    document.getElementById("chat-sidebar").innerHTML = data;
-  })
-  .catch(function (error) {
-    console.log("Sidebar gagal dimuat:", error);
-  });
+function loadSidebar() {
+  fetch("../sidebar.html")
+    .then(function (response) {
+      return response.text();
+    })
+    .then(function (html) {
+      document.getElementById("chat-sidebar").innerHTML = html;
+    })
+    .catch(function (error) {
+      console.log("Sidebar gagal dimuat:", error);
+    });
+}
+
+loadSidebar();
 
 function showStatus(message) {
   clearTimeout(statusTimer);
@@ -238,9 +242,7 @@ function saveChats() {
     localStorage.setItem("frontEnd", JSON.stringify(chats));
     return true;
   } catch (error) {
-    showStatus(
-      "Browser storage is unavailable.",
-    );
+    showStatus("Browser storage is unavailable.");
     return false;
   }
 }
@@ -441,9 +443,10 @@ function renderContacts() {
     input.onchange = function () {
       if (!groupMode) selectedContacts = [];
       if (input.checked) selectedContacts.push(input.value);
-      else selectedContacts = selectedContacts.filter(function (id) {
-        return id != input.value;
-      });
+      else
+        selectedContacts = selectedContacts.filter(function (id) {
+          return id != input.value;
+        });
       updateStartButton();
     };
   });

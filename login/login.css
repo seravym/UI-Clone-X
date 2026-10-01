@@ -43,6 +43,7 @@ h1 {
   box-shadow: 0 12px 30px rgba(251, 179, 187, 0.25);
 }
 
+/* all button */
 .button {
   display: block;
   width: 100%;
@@ -61,6 +62,13 @@ h1 {
   color: white;
 }
 
+button.button {
+  border: 0;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* garis batasan */
 .or-text {
   display: flex;
   align-items: center;
@@ -93,7 +101,7 @@ label:first-of-type {
   margin-top: 0;
 }
 
-input {
+input:not([type="checkbox"]) {
   width: 100%;
   padding: 13px 18px;
   background: #fff5f6;
@@ -108,40 +116,23 @@ input:focus {
   border-color: #9b3160;
 }
 
-button.button {
-  border: 0;
+/* hide pw */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  margin-top: 20px;
-}
-
-.register {
-  max-width: 420px;
-  margin-top: 24px;
-  color: #9a8388;
-  font-size: 0.9rem;
-}
-
-.register a {
-  color: #9b3160;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.register a:hover {
-  color: #d46c8c;
-  text-decoration: underline;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  color: #9b3160;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #d46c8c;
+  font-size: 1.1rem;
+  user-select: none;
 }
 
 .remember {
@@ -162,42 +153,46 @@ button.button {
   font-weight: normal;
 }
 
-.image {
-  flex: 1;
-  display: flex;
+/* link ke create account*/
+.register {
+  max-width: 420px;
+  margin-top: 24px;
+  color: #9a8388;
+  font-size: 0.9rem;
+}
+
+.register a {
+  color: #9b3160;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.register a:hover {
+  color: #d46c8c;
+  text-decoration: underline;
+}
+
+/* button back */
+.back-link {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: #fff5f6;
+  color: #9b3160;
+  font-size: 1.4rem;
+  text-decoration: none;
 }
 
-.image img {
-  width: 100%;
-  height: 100%;
-  max-height: 90vh;
-  object-fit: cover;
-  border-radius: 20px;
+.back-link:hover {
+  background: #fbb3bb;
+  color: #fff;
 }
 
-@media (max-width: 900px) {
-  .page {
-    flex-direction: column;
-  }
-
-  .image {
-    order: -1;
-    padding: 0;
-  }
-
-  .image img {
-    border-radius: 0 0 24px 24px;
-    max-height: 260px;
-  }
-
-  .main-content {
-    padding: 32px 20px;
-  }
-}
-
+/* list nomor negara */
 .phone-group {
   display: flex;
   gap: 8px;
@@ -220,4 +215,40 @@ button.button {
 
 .phone-group input {
   flex: 1;
+}
+
+/* logo x*/
+.image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.image img {
+  display: block;
+  margin: 0 auto;
+  width: clamp(200px, 25vw, 420px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+/* media query */
+@media (max-width: 900px) {
+  .page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image {
+    display: none;
+  }
+
+  .main-content {
+    width: 100%;
+    max-width: 480px;
+    padding: 32px 20px;
+  }
 }

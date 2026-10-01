@@ -1,36 +1,137 @@
-const searchInput = document.querySelector(".bookmark-search input");
-const emptyBookmark = document.querySelector(".bookmark-empty");
-const backButton = document.querySelector(".back-button");
+const BOOKMARK_KEY = "bookmarks";
+const DEFAULT_AVATAR = "../image/Default_pfp.jpeg";
 
-let isSearching = false;
+const listEl = document.getElementById("bookmark-list");
+const emptyEl = document.querySelector(".bookmark-empty");
+const searchEl = document.getElementById("bookmark-search");
 
-searchInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        const searchValue = searchInput.value.trim();
-
-        if (searchValue !== "") {
-            emptyBookmark.innerHTML = `
-                <h2>Nothing to see here yet.</h2>
-            `;
-
-            isSearching = true;
-        }
+function getBookmarks() {
+    try {
+        return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+    } catch (e) {
+        return [];
     }
+}
+
+function saveBookmarks(list) {
+    try {
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
+    } catch (e) {}
+}
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function renderBookmarks() {
+    const all = getBookmarks();
+    const keyword = searchEl.value.trim().toLowerCase();
+
+    const list = all.filter(p =>
+        !keyword ||
+        (p.text + " " + p.name + " " + p.handle + " " + p.community)
+            .toLowerCase()
+            .includes(keyword)
+    );
+
+    emptyEl.hidden = all.length > 0;
+
+    if (all.length > 0 && list.length === 0) {
+        listEl.innerHTML = `<p class="no-result">Tidak ada hasil untuk "${escapeHtml(keyword)}"</p>`;
+        return;
+    }
+
+    listEl.innerHTML = list.map(post => `
+        <article class="post" data-id="${escapeHtml(post.id)}">
+            <img class="post-avatar" src="${DEFAULT_AVATAR}" alt="Foto profil ${escapeHtml(post.name)}">
+
+            <div class="post-body">
+                <div class="post-community">${escapeHtml(post.community)}</div>
+                <p class="post-author">
+                    <strong>${escapeHtml(post.name)}</strong>
+                    <span>${escapeHtml(post.handle)} · ${escapeHtml(post.time)}</span>
+                </p>
+                <p class="post-text">${escapeHtml(post.text)}</p>
+                <div class="post-actions">
+                    <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
+                        <span class="icon">🔖</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+    `).join("");
+}
+
+listEl.addEventListener("click", event => {
+    const btn = event.target.closest('[data-action="remove"]');
+    if (!btn) return;
+
+    const id = btn.closest(".post").dataset.id;
+    saveBookmarks(getBookmarks().filter(p => p.id !== id));
+    renderBookmarks();
 });
 
-backButton.addEventListener("click", function () {
-    if (isSearching) {
-        searchInput.value = "";
+searchEl.addEventListener("input", renderBookmarks);
 
-        emptyBookmark.innerHTML = `
-            <h2>Save posts for later</h2>
-            <p>
-                Bookmark posts to easily find them again in the future.
-            </p>
-        `;
+renderBookmarks();
 
-        isSearching = false;
-    } else {
-        window.location.href = "home.html";
+fetch("../sidebar.html")
+    .then(res => {
+        if (!res.ok) throw new Error("Status " + res.status);
+        return res.text();
+    })
+    .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error("Sidebar gagal dimuat:", err));
+
+fetch("../sidebar.html")
+    .then(res => {
+        if (!res.ok) throw new Error("Status " + res.status);
+        return res.text();
+    })
+    .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error("Sidebar gagal dimuat:", err));
+
+
+const bookmarkTrends = [
+    { tag: "#SepakBola", cat: "Olahraga", count: 26300 },
+    { tag: "#KonserAkhirTahun", cat: "Hiburan", count: 21500 },
+    { tag: "#Jakarta", cat: "Berita", count: 18400 },
+    { tag: "#KecerdasanBuatan", cat: "Teknologi", count: 15400 },
+    { tag: "#gaming", cat: "Hiburan", count: 12800 }
+];
+
+function renderBookmarkTrending() {
+    const container = document.getElementById("bookmarkTrending");
+
+    if (!container) return;
+
+    container.innerHTML = bookmarkTrends.map(trend => `
+        <a class="bookmark-trend-item" href="../trending/trending.html">
+            <span class="bookmark-trend-category">
+                ${trend.cat} · Sedang tren
+            </span>
+            <span class="bookmark-trend-tag">
+                ${trend.tag}
+            </span>
+            <span class="bookmark-trend-count">
+                ${formatTrendCount(trend.count)} postingan
+            </span>
+        </a>
+    `).join("");
+}
+
+function formatTrendCount(count) {
+    if (count >= 1000) {
+        return (count / 1000).toFixed(1).replace(".0", "") + " rb";
     }
-});
+
+    return count;
+}
+
+renderBookmarkTrending();
