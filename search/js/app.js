@@ -1,4 +1,3 @@
-/** Render "search this page too" box used on Explore & Trending headers */
 function bindHeaderSearch(inputId, clearId){
   const input = document.getElementById(inputId);
   const clear = document.getElementById(clearId);
@@ -15,8 +14,6 @@ function bindHeaderSearch(inputId, clearId){
     });
   }
 }
-
-/* ---------- Card builders ---------- */
 
 function userRowHTML(user, {context = "search"} = {}){
   return `
@@ -90,7 +87,6 @@ function widgetTrendRowHTML(trend){
   `;
 }
 
-/** Render the right sidebar: search box (optional) + trends widget + who to follow widget */
 function renderSidebar({ showSearch = true, searchInputId = "sideSearch" } = {}){
   const side = document.getElementById("sideContent");
   if(!side) return;
@@ -127,7 +123,6 @@ function renderSidebar({ showSearch = true, searchInputId = "sideSearch" } = {})
   `;
 }
 
-/* ---------- Global event delegation: follow / like / repost / trend click ---------- */
 document.addEventListener("click", (e) => {
   const followBtn = e.target.closest("[data-follow]");
   if(followBtn){
@@ -165,7 +160,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-/** Small debounce helper for search-as-you-type */
 function debounce(fn, delay = 200){
   let t;
   return (...args) => {

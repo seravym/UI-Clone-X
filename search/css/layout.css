@@ -1,9 +1,3 @@
-/* =========================================================
-   search/css/layout.css — hanya layout 3 kolom
-   Tidak menyentuh isi sidebar.html; gayanya tetap dari style.css.
-   Muat SETELAH search.css.
-   ========================================================= */
-
 .app {
     grid-template-columns: 275px minmax(0, 600px) 350px;
     gap: 0;
