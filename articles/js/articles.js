@@ -414,7 +414,7 @@ function show(which) {
     $("listSearch").hidden = which !== "list";
     $("backBtn").hidden = which === "list";
     $("openWrite").hidden = which === "write";
-    $("pageTitle").textContent = which === "write" ? "Tulis artikel" : "Artikel";
+    $("pageTitle").textContent = which === "write" ? "Write Article" : "Articles";    
     window.scrollTo(0, 0);
 }
 
