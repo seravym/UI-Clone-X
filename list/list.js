@@ -507,3 +507,44 @@ fetch("../sidebar.html")
         document.getElementById("sidebar").innerHTML = html;
     })
     .catch(err => console.error("Sidebar gagal dimuat:", err));
+
+
+const listTrends = [
+    { tag: "#SepakBola", cat: "Olahraga", count: 26300 },
+    { tag: "#KonserAkhirTahun", cat: "Hiburan", count: 21500 },
+    { tag: "#Jakarta", cat: "Berita", count: 18400 },
+    { tag: "#KecerdasanBuatan", cat: "Teknologi", count: 15400 },
+    { tag: "#Gaming", cat: "Hiburan", count: 12800 }
+];
+
+function formatListTrendCount(count) {
+    if (count >= 1000) {
+        return (count / 1000).toFixed(1).replace(".0", "") + " rb";
+    }
+
+    return count;
+}
+
+function renderListTrending() {
+    const container = document.getElementById("listTrending");
+
+    if (!container) return;
+
+    container.innerHTML = listTrends.map(trend => `
+        <a class="list-trend-item" href="../trending/trending.html">
+            <span class="list-trend-category">
+                ${trend.cat} · Sedang tren
+            </span>
+
+            <span class="list-trend-tag">
+                ${trend.tag}
+            </span>
+
+            <span class="list-trend-count">
+                ${formatListTrendCount(trend.count)} postingan
+            </span>
+        </a>
+    `).join("");
+}
+
+renderListTrending();
