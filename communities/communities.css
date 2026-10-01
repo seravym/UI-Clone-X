@@ -399,3 +399,49 @@ body {
         padding-right: 18px;
     }
 }
+
+.communities-trending {
+    position: fixed;
+    top: 0;
+    right: 20px;
+    width: 320px;
+    padding-top: 20px;
+}
+
+.communities-trending-box {
+    background: #f7f9f9;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.communities-trending-title {
+    padding: 16px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.communities-trend-item {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #0f1419;
+}
+
+.communities-trend-item:hover {
+    background: #eff3f4;
+}
+
+.communities-trend-category,
+.communities-trend-count {
+    display: block;
+    font-size: 13px;
+    color: #536471;
+}
+
+.communities-trend-tag {
+    display: block;
+    margin: 2px 0;
+    font-size: 15px;
+    font-weight: 700;
+}
