@@ -18,7 +18,7 @@
 
         <main class="feed">
             <header class="feed-header">
-                <h3>Home</h3>
+                <h1>Home</h1>
                 <div class="feed-tabs">
                     <a href="home.html" class="border-pink"><br>For You</br></a>
                     <a href="following.html"><br>Following</br></a>
@@ -35,16 +35,7 @@
                 </div>
             </div>
 
-            <div class="post-container" onclick="window.location.href='post.html'">
-                <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
-                <div style="width: 100%;">
-                    <b>User Random</b> <span style="color: gray;">@randomuser · 2h</span>
-                    <p>Ini contoh post yang muncul di For You! 🌸</p>
-                    <div class="post-actions">
-                        <span>💬 12</span> <span>🔁 5</span> <span class="text-pink">❤️ 48</span> <span>📊 1.2K</span>
-                    </div>
-                </div>
-            </div>
+            <div id="feed-container"></div>
         </main>
 
         <aside class="right-sidebar">
@@ -57,6 +48,6 @@
 
     </div>
     <script src="home.js"></script>
-    <script src="../app.js"></script>
+    <script src="data.js"></script>
 </body>
 </html>
