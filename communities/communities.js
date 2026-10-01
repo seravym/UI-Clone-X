@@ -134,6 +134,7 @@ const communities = [
 const JOINED_KEY = "joinedCommunities";
 const BOOKMARK_KEY = "bookmarks";
 const ACTION_KEY = "postActions";
+const DEFAULT_AVATAR = "../image/Default_pfp.jpeg";
 
 let currentView = "home";
 let currentCategory = categories[0];
@@ -254,25 +255,29 @@ function renderHome() {
 
         return `
         <article class="post">
-            <div class="post-community">${escapeHtml(c.name)}</div>
-            <p class="post-author">
-                <strong>${escapeHtml(p.author)}</strong>
-                <span>${escapeHtml(p.handle)} · ${escapeHtml(p.time)}</span>
-            </p>
-            <p class="post-text">${escapeHtml(p.text)}</p>
+            <img class="post-avatar" src="${DEFAULT_AVATAR}" alt="Foto profil ${escapeHtml(p.author)}">
 
-            <div class="post-actions">
-                <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" ${ref} aria-label="Like">
-                    <span class="icon">${state.liked ? "♥" : "♡"}</span>
-                    <span class="count">${state.liked ? 1 : 0}</span>
-                </button>
-                <button class="action-btn repost-btn${state.reposted ? " active" : ""}" data-action="repost" ${ref} aria-label="Repost">
-                    <span class="icon">⟲</span>
-                    <span class="count">${state.reposted ? 1 : 0}</span>
-                </button>
-                <button class="action-btn bookmark-btn${saved ? " active" : ""}" data-action="bookmark" ${ref} aria-label="Simpan">
-                    <span class="icon">${saved ? "🔖" : "🏷️"}</span>
-                </button>
+            <div class="post-body">
+                <div class="post-community">${escapeHtml(c.name)}</div>
+                <p class="post-author">
+                    <strong>${escapeHtml(p.author)}</strong>
+                    <span>${escapeHtml(p.handle)} · ${escapeHtml(p.time)}</span>
+                </p>
+                <p class="post-text">${escapeHtml(p.text)}</p>
+
+                <div class="post-actions">
+                    <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" ${ref} aria-label="Like">
+                        <span class="icon">${state.liked ? "♥" : "♡"}</span>
+                        <span class="count">${state.liked ? 1 : 0}</span>
+                    </button>
+                    <button class="action-btn repost-btn${state.reposted ? " active" : ""}" data-action="repost" ${ref} aria-label="Repost">
+                        <span class="icon">⟲</span>
+                        <span class="count">${state.reposted ? 1 : 0}</span>
+                    </button>
+                    <button class="action-btn bookmark-btn${saved ? " active" : ""}" data-action="bookmark" ${ref} aria-label="Simpan">
+                        <span class="icon">${saved ? "🔖" : "🏷️"}</span>
+                    </button>
+                </div>
             </div>
         </article>`;
     })).join("");
