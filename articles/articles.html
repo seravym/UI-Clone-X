@@ -28,7 +28,6 @@
                 <input id="articleSearch" type="text" placeholder="Cari artikel atau penulis" autocomplete="off" aria-label="Cari artikel atau penulis">
             </div>
         </header>
-
         <!-- Tampilan 1: daftar artikel -->
         <section id="listView">
             <div class="tabs" id="articleTabs" role="tablist" aria-label="Kategori artikel">
@@ -42,12 +41,10 @@
             </div>
             <div id="articleList"></div>
         </section>
-
         <!-- Tampilan 2: baca artikel -->
         <section id="readerView" hidden>
             <div id="readerContent"></div>
         </section>
-
         <!-- Tampilan 3: tulis artikel -->
         <section id="writeView" hidden>
             <form class="write-form" id="writeForm" novalidate>
@@ -55,20 +52,16 @@
                     <label for="wTitle">Judul</label>
                     <input id="wTitle" type="text" maxlength="120" placeholder="Judul artikel Anda" autocomplete="off">
                 </div>
-
                 <div class="field">
                     <label for="wCat">Kategori</label>
                     <select id="wCat"></select>
                 </div>
-
                 <div class="field">
                     <label for="wBody">Isi artikel</label>
                     <textarea id="wBody" placeholder="Tulis artikel Anda di sini. Pisahkan paragraf dengan satu baris kosong."></textarea>
                     <div class="field__hint"><span id="wCount"></span></div>
                 </div>
-
                 <p class="form-error" id="wError" role="alert"></p>
-
                 <div class="form-actions">
                     <button class="ghost-btn" id="wCancel" type="button">Batal</button>
                     <button class="write-btn" type="submit">Terbitkan</button>
