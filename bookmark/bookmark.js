@@ -86,3 +86,52 @@ fetch("../sidebar.html")
         document.getElementById("sidebar").innerHTML = html;
     })
     .catch(err => console.error("Sidebar gagal dimuat:", err));
+
+fetch("../sidebar.html")
+    .then(res => {
+        if (!res.ok) throw new Error("Status " + res.status);
+        return res.text();
+    })
+    .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error("Sidebar gagal dimuat:", err));
+
+
+const bookmarkTrends = [
+    { tag: "#SepakBola", cat: "Olahraga", count: 26300 },
+    { tag: "#KonserAkhirTahun", cat: "Hiburan", count: 21500 },
+    { tag: "#Jakarta", cat: "Berita", count: 18400 },
+    { tag: "#KecerdasanBuatan", cat: "Teknologi", count: 15400 },
+    { tag: "#gaming", cat: "Hiburan", count: 12800 }
+];
+
+function renderBookmarkTrending() {
+    const container = document.getElementById("bookmarkTrending");
+
+    if (!container) return;
+
+    container.innerHTML = bookmarkTrends.map(trend => `
+        <a class="bookmark-trend-item" href="../trending/trending.html">
+            <span class="bookmark-trend-category">
+                ${trend.cat} · Sedang tren
+            </span>
+            <span class="bookmark-trend-tag">
+                ${trend.tag}
+            </span>
+            <span class="bookmark-trend-count">
+                ${formatTrendCount(trend.count)} postingan
+            </span>
+        </a>
+    `).join("");
+}
+
+function formatTrendCount(count) {
+    if (count >= 1000) {
+        return (count / 1000).toFixed(1).replace(".0", "") + " rb";
+    }
+
+    return count;
+}
+
+renderBookmarkTrending();

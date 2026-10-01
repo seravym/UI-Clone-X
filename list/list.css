@@ -747,3 +747,185 @@ button {
         height: 150px; 
     }
 }
+
+@media (max-width: 600px) {
+    .list {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    .list-header {
+        height: 60px;
+        padding: 0 12px;
+        gap: 12px;
+    }
+
+    .list-header h1 {
+        font-size: 20px;
+    }
+
+    .list-search {
+        width: auto;
+        height: 44px;
+        margin: 12px 14px;
+        padding: 0 14px;
+    }
+
+    .list-search input {
+        min-width: 0;
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .discover-section h2,
+    .your-section h2 {
+        padding: 16px 14px;
+        font-size: 18px;
+    }
+
+    .list-item {
+        width: 100%;
+        min-width: 0;
+        min-height: 84px;
+        padding: 12px 14px;
+        gap: 12px;
+    }
+
+    .list-icon {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        font-size: 26px;
+    }
+
+    .list-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .list-title {
+        flex-wrap: wrap;
+        white-space: normal;
+        gap: 3px;
+    }
+
+    .list-title strong {
+        font-size: 14px;
+    }
+
+    .list-title span {
+        font-size: 12px;
+    }
+
+    .list-followers {
+        gap: 5px;
+        font-size: 11px;
+        white-space: normal;
+    }
+
+    .avatars span {
+        width: 19px;
+        height: 19px;
+        font-size: 10px;
+    }
+
+    .add-button {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .create-list-button {
+        width: 52px;
+        height: 52px;
+        right: 16px;
+        bottom: 16px;
+        font-size: 28px;
+    }
+
+    .show-more {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+.list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    height: 70px;
+    padding: 0 20px;
+}
+
+.list-header .back-button {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-header h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.list-trending {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+}
+
+.list-trending-box {
+    background: #f7f9f9;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.list-trending-title {
+    margin: 0;
+    padding: 16px;
+    color: #0f1419;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.list-trend-item {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #0f1419;
+}
+
+.list-trend-item:hover {
+    background: #eff3f4;
+}
+
+.list-trend-category,
+.list-trend-count {
+    display: block;
+    color: #536471;
+    font-size: 13px;
+}
+
+.list-trend-tag {
+    display: block;
+    margin: 2px 0;
+    color: #0f1419;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+    .list-trending {
+        display: none;
+    }
+}
