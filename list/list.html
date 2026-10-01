@@ -8,15 +8,13 @@
     <link rel="stylesheet" href="list.css">
 </head>
 
+
 <body>
     <aside class="sidebar-left">
         <div id="sidebar"></div>
     </aside>
 
-    <main class="list" id="listApp"></main>
-
-    <div class="modal-overlay" id="modal" hidden></div>
-    
+    <div class="list" id="listApp">
         <header class="list-header">
             <button class="back-button" onclick="history.back()" aria-label="Kembali">←</button>
             <h1>Lists</h1>
@@ -141,7 +139,9 @@
             </div>
         </section>
         <button class="create-list-button"> + </button>
-    </main>
+    </div>
+
+    <div class="modal-overlay" id="modal" hidden></div>
 
     <script src="list.js"></script>
 </body>
