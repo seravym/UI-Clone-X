@@ -1,39 +1,75 @@
-const searchInput = document.querySelector(".bookmark-search input");
-const emptyBookmark = document.querySelector(".bookmark-empty");
-const backButton = document.querySelector(".back-button");
+const BOOKMARK_KEY = "bookmarks";
 
-let isSearching = false;
+const listEl = document.getElementById("bookmark-list");
+const emptyEl = document.querySelector(".bookmark-empty");
+const searchEl = document.getElementById("bookmark-search");
 
-searchInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        const searchValue = searchInput.value.trim();
-
-        if (searchValue !== "") {
-            emptyBookmark.innerHTML = `
-                <h2>Nothing to see here yet.</h2>
-            `;
-
-            isSearching = true;
-        }
+function getBookmarks() {
+    try {
+        return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+    } catch (e) {
+        return [];
     }
-});
+}
 
-backButton.addEventListener("click", function () {
-    if (isSearching) {
-        searchInput.value = "";
+function saveBookmarks(list) {
+    try {
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
+    } catch (e) {}
+}
 
-        emptyBookmark.innerHTML = `
-            <h2>Save posts for later</h2>
-            <p>
-                Bookmark posts to easily find them again in the future.
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function renderBookmarks() {
+    const all = getBookmarks();
+    const keyword = searchEl.value.trim().toLowerCase();
+
+    const list = all.filter(p =>
+        !keyword ||
+        (p.text + " " + p.name + " " + p.handle + " " + p.community)
+            .toLowerCase()
+            .includes(keyword)
+    );
+    emptyEl.hidden = all.length > 0;
+
+    if (all.length > 0 && list.length === 0) {
+        listEl.innerHTML = `<p class="no-result">Tidak ada hasil untuk "${escapeHtml(keyword)}"</p>`;
+        return;
+    }
+
+    listEl.innerHTML = list.map(post => `
+        <article class="post" data-id="${escapeHtml(post.id)}">
+            <div class="post-community">${escapeHtml(post.community)}</div>
+            <p class="post-author">
+                <strong>${escapeHtml(post.name)}</strong>
+                <span>${escapeHtml(post.handle)} · ${escapeHtml(post.time)}</span>
             </p>
-        `;
+            <p class="post-text">${escapeHtml(post.text)}</p>
+            <div class="post-actions">
+                <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
+                    <span class="icon">🔖</span>
+                </button>
+            </div>
+        </article>
+    `).join("");
+}
 
-        isSearching = false;
-    } else {
-        window.location.href = "home.html";
-    }
+listEl.addEventListener("click", event => {
+    const btn = event.target.closest('[data-action="remove"]');
+    if (!btn) return;
+
+    const id = btn.closest(".post").dataset.id;
+    saveBookmarks(getBookmarks().filter(p => p.id !== id));
+    renderBookmarks();
 });
+
+searchEl.addEventListener("input", renderBookmarks);
+
+renderBookmarks();
 
 fetch("../sidebar.html")
     .then(res => {
