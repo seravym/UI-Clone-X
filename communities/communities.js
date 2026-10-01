@@ -13,6 +13,10 @@ const communities = [
     { id: 11, category: "Gaming", name: "GTA Talk", members: "11K", post: { author: "Cinna", handle: "@cinna", time: "1h", text: "Jujurrr GTA nagih bgt sih." } }
 ];
 
+const JOINED_KEY = "joinedCommunities";
+const BOOKMARK_KEY = "bookmarks";
+const ACTION_KEY = "postActions";
+
 let currentView = "home";
 let currentCategory = categories[0];
 let joinedIds = loadJoined();
@@ -24,18 +28,66 @@ const titleEl = document.querySelector(".explore-title");
 const listEl = document.querySelector(".community-list");
 const tabs = document.querySelectorAll(".nav-tab");
 
-function loadJoined() {
+function readJSON(key, fallback) {
     try {
-        return new Set(JSON.parse(localStorage.getItem("joinedCommunities")) || []);
+        return JSON.parse(localStorage.getItem(key)) || fallback;
     } catch (e) {
-        return new Set();
+        return fallback;
     }
 }
 
-function saveJoined() {
+function writeJSON(key, value) {
     try {
-        localStorage.setItem("joinedCommunities", JSON.stringify([...joinedIds]));
+        localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {}
+}
+
+function loadJoined() {
+    return new Set(readJSON(JOINED_KEY, []));
+}
+
+function saveJoined() {
+    writeJSON(JOINED_KEY, [...joinedIds]);
+}
+
+function postKey(community) {
+    return "c" + community.id;
+}
+
+function getActions(key) {
+    const all = readJSON(ACTION_KEY, {});
+    return all[key] || { liked: false, reposted: false };
+}
+
+function toggleAction(key, type) {
+    const all = readJSON(ACTION_KEY, {});
+    const current = all[key] || { liked: false, reposted: false };
+    current[type] = !current[type];
+    all[key] = current;
+    writeJSON(ACTION_KEY, all);
+}
+
+function isBookmarked(key) {
+    return readJSON(BOOKMARK_KEY, []).some(p => p.id === key);
+}
+
+function toggleBookmark(community) {
+    const key = postKey(community);
+    let list = readJSON(BOOKMARK_KEY, []);
+
+    if (list.some(p => p.id === key)) {
+        list = list.filter(p => p.id !== key);
+    } else {
+        list.push({
+            id: key,
+            community: community.name,
+            name: community.post.author,
+            handle: community.post.handle,
+            time: community.post.time,
+            text: community.post.text
+        });
+    }
+    writeJSON(BOOKMARK_KEY, list);
 }
 
 function initials(name) {
@@ -76,7 +128,12 @@ function renderHome() {
         return;
     }
 
-    homeEl.innerHTML = joined.map(c => `
+    homeEl.innerHTML = joined.map(c => {
+        const key = postKey(c);
+        const state = getActions(key);
+        const saved = isBookmarked(key);
+
+        return `
         <article class="post">
             <div class="post-community">${escapeHtml(c.name)}</div>
             <p class="post-author">
@@ -84,8 +141,22 @@ function renderHome() {
                 <span>${escapeHtml(c.post.handle)} · ${escapeHtml(c.post.time)}</span>
             </p>
             <p class="post-text">${escapeHtml(c.post.text)}</p>
-        </article>
-    `).join("");
+
+            <div class="post-actions">
+                <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" data-post="${c.id}" aria-label="Like">
+                    <span class="icon">${state.liked ? "♥" : "♡"}</span>
+                    <span class="count">${state.liked ? 1 : 0}</span>
+                </button>
+                <button class="action-btn repost-btn${state.reposted ? " active" : ""}" data-action="repost" data-post="${c.id}" aria-label="Repost">
+                    <span class="icon">⟲</span>
+                    <span class="count">${state.reposted ? 1 : 0}</span>
+                </button>
+                <button class="action-btn bookmark-btn${saved ? " active" : ""}" data-action="bookmark" data-post="${c.id}" aria-label="Simpan">
+                    <span class="icon">${saved ? "🔖" : "🏷️"}</span>
+                </button>
+            </div>
+        </article>`;
+    }).join("");
 }
 
 function renderExplore() {
@@ -132,7 +203,16 @@ document.querySelector(".communities").addEventListener("click", event => {
     const button = event.target.closest("button");
     if (!button) return;
 
-    if (button.dataset.action === "go-explore") {
+    const action = button.dataset.action;
+
+    if (button.dataset.post) {
+        const community = communities.find(c => c.id === Number(button.dataset.post));
+        if (!community) return;
+
+        if (action === "like") toggleAction(postKey(community), "liked");
+        if (action === "repost") toggleAction(postKey(community), "reposted");
+        if (action === "bookmark") toggleBookmark(community);
+    } else if (action === "go-explore") {
         currentView = "explore";
     } else if (button.dataset.category) {
         currentCategory = button.dataset.category;
