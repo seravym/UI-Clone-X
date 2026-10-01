@@ -15,9 +15,7 @@
   --nav-w: 275px;
   --main-w: 600px;
   --side-w: 350px;
-  --font:
-    "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  --font: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -68,7 +66,7 @@ img.avatar,
 /* notif */
 .notif-layout {
   display: grid;
-  grid-template-columns: 290px 800px 300px;
+  grid-template-columns: 290px minmax(0, 800px) minmax(280px, 350px);
   min-height: 100vh;
 }
 
@@ -86,9 +84,17 @@ img.avatar,
 }
 
 .sidebar-logo {
-  color: var(--text);
-  font-size: 28px;
-  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.sidebar-logo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
 }
 
 .sidebar-nav {
@@ -193,7 +199,7 @@ img.avatar,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 20 px;
+  padding: 18px 20px;
 }
 
 .notif-header h1 {
@@ -344,6 +350,11 @@ img.avatar,
 }
 
 .notif-filter-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -364,6 +375,20 @@ img.avatar,
 
 .notif-filter-icon {
   width: 20px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-filter-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .notif-filter-label {
