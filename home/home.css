@@ -16,7 +16,7 @@
 
 * {
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -26,7 +26,6 @@ body {
 
 .layout-container {
     display: flex;
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -43,22 +42,12 @@ body {
 }
 
 .sidebar-left {
-    width: 25%;
-    padding: 15px;
-    height: 100vh;
     position: sticky;
     top: 0;
-}
-
-.sidebar-post-btn {
-    width: 100%; 
-    background-color: #c4137a;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
+    align-self: start;
+    height: 100vh;
+    padding: 0 12px;
+    overflow-y: auto;
 }
 
 .btn-reply {

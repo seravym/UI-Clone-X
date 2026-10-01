@@ -11,16 +11,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 attachPostButtonEvents();
             })
             .catch(error => console.error("Error memuat sidebar:", error));
+    }else {
+        attachPostButtonEvents();
     }
 
-    postButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            textareas.forEach(ta => {
-                if(ta.value.trim() !== "") {
-                    alert("Your tweet has been posted! 🌸");
-                    ta.value = "";
-                }
+    function attachPostButtonEvents() {
+        const postButtons = document.querySelectorAll(".btn-reply, .sidebar-post-btn");
+        const textareas = document.querySelectorAll(".post-input");
+
+        postButtons.forEach(btn => {
+            const newBtn = btn.cloneNode(true);
+            btn.replaceWith(newBtn);
+
+            newBtn.addEventListener("click", () => {
+                textareas.forEach(ta => {
+                    if (ta.value.trim() !== "") {
+                        alert("Your tweet has been posted! 🌸");
+                        ta.value = "";
+                    }
+                });
             });
         });
-    });
+    }
 });
+
+//     postButtons.forEach(btn => {
+//         btn.addEventListener("click", () => {
+//             textareas.forEach(ta => {
+//                 if(ta.value.trim() !== "") {
+//                     alert("Your tweet has been posted! 🌸");
+//                     ta.value = "";
+//                 }
+//             });
+//         });
+//     });
+// });
