@@ -134,15 +134,29 @@ body {
     color: #536471;
 }
 
-/* ---------- post ---------- */
-
 .post {
+    display: flex;
+    gap: 12px;
     padding: 14px 20px;
     border-bottom: 1px solid #eff3f4;
 }
 
 .post:hover {
     background: #f7f9f9;
+}
+
+.post-avatar {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eff3f4;
+}
+
+.post-body {
+    flex: 1;
+    min-width: 0;
 }
 
 .post-community {
@@ -204,8 +218,6 @@ body {
 .repost-btn.active {
     color: #00ba7c;
 }
-
-/* ---------- explore ---------- */
 
 .category-chips {
     display: flex;
@@ -333,8 +345,6 @@ body {
     outline: 2px solid #e91e8c;
     outline-offset: 2px;
 }
-
-/* ---------- responsive ---------- */
 
 @media (max-width: 900px) {
     .sidebar-left {
