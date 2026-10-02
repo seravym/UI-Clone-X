@@ -352,11 +352,7 @@ function renderHome() {
                     </button>
 
                     <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" ${ref} aria-label="Like">
-                        <img 
-                            src="../image/icons/${state.liked ? "like-full.svg" : "like.svg"}" 
-                            class="action-icon" 
-                            alt="Like"
-                        >
+                        <img src="../image/icons/${state.liked ? "like-full.svg" : "like.svg"}" class="action-icon" alt="Like">
                         <span class="count">${state.liked ? 1 : 0}</span>
                     </button>
 
@@ -366,12 +362,8 @@ function renderHome() {
                     </button>
 
                     <button class="action-btn bookmark-btn${saved ? " active" : ""}" data-action="bookmark" ${ref} aria-label="Simpan">
-                        <img
-                            src="../image/icons/${saved ? "bookmark-full.svg" : "bookmark.svg"}"
-                            class="action-icon bookmark-icon"
-                            alt="Bookmark">
+                        <img src="../image/icons/${saved ? "bookmark-full.svg" : "bookmark.svg"}" class="action-icon bookmark-icon" alt="Bookmark">
                     </button>
-
                 </div>
             </div>
         </article>`;
