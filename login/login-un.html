@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Email Login</title>
+  <title>Enter Password</title>
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
@@ -12,13 +12,10 @@
       <a class="back-link" href="login.html">&larr;</a>
 
       <h1>Welcome Back!</h1>
-      <p class="subtitle">Login with your email account</p>
+      <p class="subtitle">Enter the password for <strong id="username-display"></strong></p>
 
       <div class="card">
         <form action="#" method="post">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="Email" autocomplete="email" required>
-
           <label for="password">Password</label>
           <div class="password-wrapper">
             <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
@@ -27,11 +24,6 @@
 
           <button class="button" type="submit">Login</button>
         </form>
-
-          <div class="remember">
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Remember me</label>
-          </div>
       </div>
 
       <p class="register">Don't have an account? <a href="../signup/signup.html">Create account!</a></p>
@@ -40,8 +32,8 @@
     <aside class="image">
       <img src="logo.jpg" alt="">
     </aside>
-
   </div>
-  <script src="email.js"></script>
+
+  <script src="username.js"></script>
 </body>
 </html>
