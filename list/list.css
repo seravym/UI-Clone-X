@@ -12,15 +12,28 @@ body {
 
 .list {
     width: 600px;
-    max-width: calc(100% - 344px);
     margin-left: 344px;
-    box-sizing: border-box;
+    min-height: 100vh;
+    background: #ffffff;
+    border-left: 1px solid #eff3f4;
+    border-right: 1px solid #eff3f4;
+
+    padding-top: 70px;
 }
 
 .list-header {
-    position: sticky;
+    width: 560px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 20px;
+    border-bottom: 1px solid #eff3f4;
+
+    position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
     background: #ffffff;
 }
 

@@ -37,6 +37,8 @@ body {
     background: #ffffff;
     border-left: 1px solid #eff3f4;
     border-right: 1px solid #eff3f4;
+
+    padding-top: 70px;
 }
 
 .communities-header {
@@ -47,6 +49,11 @@ body {
     gap: 16px;
     padding: 0 20px;
     border-bottom: 1px solid #eff3f4;
+
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
 }
 
 .communities-header h1 {
