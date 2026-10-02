@@ -235,6 +235,12 @@ input:focus {
   border-radius: 0;
 }
 
+/* username */
+.subtitle strong {
+  color: #9b3160;
+}
+
+
 /* media query */
 @media (max-width: 900px) {
   .page {

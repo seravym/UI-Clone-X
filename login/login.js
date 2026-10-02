@@ -33,6 +33,6 @@ document.querySelector('form').addEventListener('submit', (e) => {
     localStorage.setItem('riwayatUsername', JSON.stringify(riwayat));
   }
 
-  sessionStorage.setItem('isLoggedIn', 'true');
-  window.location.href = '../home/home.html';
+  sessionStorage.setItem('pendingUsername', username);
+  window.location.href = 'login-un.html';
 });

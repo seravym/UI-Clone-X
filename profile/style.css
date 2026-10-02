@@ -29,8 +29,9 @@ html, body {
 }
 
 h1{
-    color:#DD8C96;
+    color:#9b3160;
     margin: 15px 10px;
+    text-align: center;
     
 }
 
@@ -212,9 +213,9 @@ h2{
 
 .edit-content {
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: 50%;
-    transform: translateX(-50%);   /* seluruh grup tepat di tengah */
+    transform: translateX(-50%);   
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -268,6 +269,23 @@ h2{
     line-height: 42px;
 }
 
+.tambah{
+
+     position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #9b3a64;
+  background: #fff5fa;
+  color: #9b3a64;
+  font-size: 40px;
+  cursor: url("./hirono.png") 16 16, pointer;
+  z-index: 100;
+
+}
+
 .save-btn {
     position: absolute;
     bottom: 30px;
@@ -290,23 +308,62 @@ h2{
 }
 
 .ex{
+    width: 35px;
+    height: 40px;
     position:absolute;
     top: 20%;
     right: 20%;
-     cursor: url("./hirono.png") 16 16, pointer;
+    border: 2px solid #640d14;
+    background-color: #DD8C96;
+    border-radius: 20px;
+    font-size: 25px;
+    color: #640d14;
+    cursor: url("./hirono.png") 16 16, pointer;
 
 }
 
+.ex:hover {
+    background-color: #fff5fa;
+    color: #640d14;
+    
+}
+
+.profile-menu {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff7fb;
+    border-top: 2px solid #9b3160;
+    border-bottom: 2px solid #9b3160;
+    margin-top: 28%;
+}
+
+.profile-menu div {
+
+    flex: 1;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.profile-menu .active {
+    font-weight: bold;
+    border-bottom: 4px solid #9b3160;
+}
 
 .dummy-posts {
       width: 100%;
+       position:absolute;
     margin: 27% auto;
+    top: 25%;
 }
 
 .dummy-post {
     background-color: #fff7fb;
     border: 2px solid #9b3160;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 20px;
     margin-bottom: 15px;
     box-sizing: border-box;
@@ -345,4 +402,100 @@ h2{
     display: flex;
     justify-content: space-around;
     color: #555;
+}
+
+.ktk {
+  width: 1200px;
+  height: 300px;
+  border-radius: 0px;
+}
+
+/* ===== RESPONSIVE (tambahan) ===== */
+
+@media (max-width: 768px) {
+    .container,
+    .container1 {
+        height: auto;
+        min-height: 400px;
+        padding: 20px 15px 100px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;   /* bukan center, biar X bisa ke kanan */
+        gap: 12px;
+    }
+
+    h2 { font-size: 26px; }
+
+    /* halaman profil */
+    .profile-label,
+    .upload-circle,
+    #profile-name,
+    #profile-username,
+    #profileBio,
+    .follow-info {
+        position: static;
+        margin: 0;
+        transform: none;
+    }
+
+    .profile-label,
+    .container > .upload-circle {
+        align-self: center;
+    }
+
+    #profile-name,
+    #profile-username,
+    #profileBio { text-align: center; }
+
+    #profile-name { font-size: 32px; }
+
+    .follow-info {
+        justify-content: center;
+        gap: 35px;
+    }
+
+    /* tombol */
+    .button,
+    .save-btn {
+        position: static;
+        transform: none;
+        padding: 10px 30px;
+        font-size: 18px;
+        margin: 8px auto;
+    }
+
+    /* halaman edit */
+    .edit-content {
+        position: static;
+        transform: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .edit-content .upload-circle {
+        align-self: center;
+    }
+
+    .form-box {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .text-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .dummy-posts { margin: 20px auto; }
+}
+
+@media (max-width: 480px) {
+    h2 { font-size: 22px; }
+    #profile-name { font-size: 26px; }
+    .follow-info { gap: 25px; }
+    .button,
+    .save-btn { font-size: 16px; padding: 8px 25px; }
 }
