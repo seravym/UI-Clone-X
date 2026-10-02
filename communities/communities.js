@@ -266,17 +266,33 @@ function renderHome() {
                 <p class="post-text">${escapeHtml(p.text)}</p>
 
                 <div class="post-actions">
+
+                    <button class="action-btn" aria-label="Reply">
+                        <img src="../image/icons/chat.svg" class="action-icon" alt="Reply">
+                        <span class="count">0</span>
+                    </button>
+
                     <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" ${ref} aria-label="Like">
-                        <span class="icon">${state.liked ? "♥" : "♡"}</span>
+                        <img 
+                            src="../image/icons/${state.liked ? "like-full.svg" : "like.svg"}" 
+                            class="action-icon" 
+                            alt="Like"
+                        >
                         <span class="count">${state.liked ? 1 : 0}</span>
                     </button>
-                    <button class="action-btn repost-btn${state.reposted ? " active" : ""}" data-action="repost" ${ref} aria-label="Repost">
-                        <span class="icon">⟲</span>
-                        <span class="count">${state.reposted ? 1 : 0}</span>
+
+                    <button class="action-btn" aria-label="View">
+                        <img src="../image/icons/view.svg" class="action-icon" alt="View">
+                        <span class="count">0</span>
                     </button>
+
                     <button class="action-btn bookmark-btn${saved ? " active" : ""}" data-action="bookmark" ${ref} aria-label="Simpan">
-                        <span class="icon">${saved ? "🔖" : "🏷️"}</span>
+                        <img
+                            src="../image/icons/${saved ? "bookmark-full.svg" : "bookmark.svg"}"
+                            class="action-icon bookmark-icon"
+                            alt="Bookmark">
                     </button>
+
                 </div>
             </div>
         </article>`;
