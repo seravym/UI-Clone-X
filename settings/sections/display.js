@@ -1,12 +1,3 @@
-/*
- * display.js - Tampilan & bahasa
- * Data tersimpan di localStorage key: "settings.display"
- * Format: { theme: "light"|"dark", fontSize: "small"|"medium"|"large", language: "id"|"en"|"es"|"ja"|"ko" }
- * Terjemahan ada di bagian STRINGS di bawah (kunci diawali "display.").
- *
- * Diterapkan lewat ../apply-display.js (atribut data-theme, data-font, lang pada <html>).
- * Daftar bahasa diambil dari SettingsApp.languages (didefinisikan di settings.js).
- */
 (function () {
     var KEY = "display";
     var P = "display.";
@@ -159,14 +150,11 @@
                 });
                 html += "</div>";
             });
-
             html += '<div class="s-card dsp-preview">' +
                 '<h2 class="s-card__title">' + S.esc(t(P + "preview.t")) + "</h2>" +
                 '<p class="dsp-preview__text">' + S.esc(t(P + "preview.text")) + "</p>" +
                 "</div>";
-
             html += '<div class="s-actions"><button class="s-btn s-btn--ghost" type="button" id="dsp-reset">' + S.esc(t(P + "reset")) + "</button></div>";
-
             el.innerHTML = html;
         }
 
@@ -182,7 +170,6 @@
             if (!key) return;
             data[key] = event.target.value;
             applyAndSave();
-            // Ganti bahasa: tampilkan ulang menu ini dengan bahasa baru
             if (key === "language") draw();
             S.toast(t("common.saved"));
         });

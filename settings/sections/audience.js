@@ -1,9 +1,3 @@
-/*
- * audience.js - Audiens & penandaan
- * Data tersimpan di localStorage key: "settings.audience"
- * Format: { protect, photoTag, suggest, reply, tag, dm }
- * Terjemahan ada di bagian STRINGS di bawah (kunci diawali "audience.").
- */
 (function () {
     var KEY = "audience";
 

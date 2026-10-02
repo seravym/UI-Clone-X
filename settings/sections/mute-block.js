@@ -1,20 +1,9 @@
-/*
- * mute-block.js - Mute & blokir
- * Data tersimpan di localStorage key: "settings.mute"
- * Format: { words: ["kata"], muted: ["@akun"], blocked: ["@akun"] }
- * Terjemahan ada di bagian STRINGS di bawah (kunci diawali "mute-block.").
- *
- * Halaman lain bisa membaca key ini untuk menyaring konten, contoh:
- *   var m = JSON.parse(localStorage.getItem("settings.mute")) || {};
- */
 (function () {
     var KEY = "mute";
     var P = "mute-block.";
 
     var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>';
 
-    // Data contoh: dipakai otomatis saat pertama kali menu ini dibuka
-    // (hanya jika belum ada data tersimpan). Semua nama di sini fiktif.
     var DUMMY = {
         words: ["spoiler", "giveaway", "clickbait", "prank", "judi online", "bocoran"],
         muted: ["@akun_gosip", "@bot_jualan", "@drama_daily", "@spam_promo"],
@@ -193,39 +182,31 @@
         if (firstTime) persist();
         var activeId = "words";
         var errorKey = "";
-
         function persist() {
             S.store.set(KEY, data);
         }
-
         function tabOf(id) {
             return TABS.filter(function (x) {
                 return x.id === id;
             })[0];
         }
-
         function initials(handle) {
             return handle.replace("@", "").slice(0, 2).toUpperCase();
         }
-
         function draw() {
             var tab = tabOf(activeId);
             var list = data[activeId];
             var placeholder = t(P + "ph." + activeId);
-
             var html = '<p class="s-intro">' + S.esc(t(P + "intro")) + "</p>";
-
             html += '<div class="mb-tabs" role="tablist">' + TABS.map(function (x) {
                 return '<button class="mb-tab' + (x.id === activeId ? " is-active" : "") + '" type="button" role="tab" aria-selected="' + (x.id === activeId) + '" data-tab="' + x.id + '">' +
                     S.esc(t(P + "tab." + x.id)) + ' <span class="mb-count">' + data[x.id].length + "</span></button>";
             }).join("") + "</div>";
-
             html += '<form class="mb-form" novalidate>' +
                 '<input class="s-input" type="text" id="mb-input" maxlength="60" autocomplete="off" placeholder="' + S.esc(placeholder) + '" aria-label="' + S.esc(placeholder) + '">' +
                 '<button class="s-btn" type="submit">' + S.esc(t(P + "add")) + "</button>" +
                 "</form>" +
                 '<span class="s-error" id="mb-error">' + (errorKey ? S.esc(t(errorKey)) : "") + "</span>";
-
             html += '<div class="s-card">';
             if (!list.length) {
                 html += '<p class="s-empty">' + S.esc(t(P + "empty." + activeId)) + "</p>";
@@ -241,15 +222,11 @@
                 }).join("");
             }
             html += "</div>";
-
             html += '<div class="s-actions">' +
                 '<button class="s-btn s-btn--ghost s-btn--small" type="button" data-seed>' + S.esc(t(P + "seed")) + "</button>" +
                 "</div>";
-
             el.innerHTML = html;
         }
-
-        // Mengembalikan { value } atau { error: kunciTerjemahan }
         function normalize(raw, type) {
             var value = raw.trim();
             if (type === "handle") {
@@ -260,13 +237,11 @@
             if (!value) return { error: P + "err.word" };
             return { value: value };
         }
-
         function has(list, value) {
             return list.some(function (x) {
                 return x.toLowerCase() === value.toLowerCase();
             });
         }
-
         el.addEventListener("click", function (event) {
             if (event.target.closest("[data-seed]")) {
                 data = cloneDummy();
@@ -276,7 +251,6 @@
                 S.toast(t(P + "toast.seed"));
                 return;
             }
-
             var tabBtn = event.target.closest("[data-tab]");
             if (tabBtn) {
                 activeId = tabBtn.dataset.tab;
@@ -284,7 +258,6 @@
                 draw();
                 return;
             }
-
             var removeBtn = event.target.closest("[data-remove]");
             if (removeBtn) {
                 data[activeId].splice(Number(removeBtn.dataset.remove), 1);
@@ -294,13 +267,11 @@
                 S.toast(t(P + "toast.rm." + activeId));
             }
         });
-
         el.addEventListener("submit", function (event) {
             event.preventDefault();
             var tab = tabOf(activeId);
             var input = el.querySelector("#mb-input");
             var result = normalize(input.value, tab.type);
-
             if (result.error) {
                 errorKey = result.error;
                 draw();
@@ -313,16 +284,12 @@
                 el.querySelector("#mb-input").focus();
                 return;
             }
-
             data[activeId].unshift(result.value);
-
-            // Akun yang diblokir tidak perlu lagi ada di daftar mute
             if (activeId === "blocked") {
                 data.muted = data.muted.filter(function (x) {
                     return x.toLowerCase() !== result.value.toLowerCase();
                 });
             }
-
             persist();
             errorKey = "";
             draw();
