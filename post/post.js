@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Memanggil Sidebar (Perhatikan path "../sidebar.html")
     const sidebarContainer = document.getElementById("sidebar"); 
     if (sidebarContainer) {
         fetch("../sidebar.html") 
@@ -14,32 +13,38 @@ document.addEventListener("DOMContentLoaded", () => {
         attachReplyEvents();
     }
     
-    // 1. Baca URL untuk mencari tahu kita sedang membuka postingan nomor berapa
-    // Menggunakan key localStorage yang sama dengan Home agar datanya sinkron
     const STORE_POST_PREFS = "xclone.posts.prefs";
+    const STORE_ALL_POSTS = "xclone.posts.list";
     let postPrefs = JSON.parse(localStorage.getItem(STORE_POST_PREFS)) || { liked: [], saved: [] };
 
     function savePostPrefs() {
         localStorage.setItem(STORE_POST_PREFS, JSON.stringify(postPrefs));
     }
 
-    // Asumsikan kamu mendapatkan ID post dari URL parameter (misal: post.html?id=0)
+    function getStoredPosts() {
+        let posts = JSON.parse(localStorage.getItem(STORE_ALL_POSTS));
+        if (!posts && typeof postData !== 'undefined' && postData.posts) {
+            posts = [...postData.posts];
+            localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+        }
+        return posts || [];
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const postId = parseInt(urlParams.get('id'));
+    const posts = getStoredPosts();
 
-    // Contoh jika postData tersedia dan post ditemukan
-    if (typeof postData !== 'undefined' && !isNaN(postId) && postData.posts[postId]) {
-        const post = postData.posts[postId];
+    if (!isNaN(postId) && posts[postId]) {
+        const post = posts[postId];
         
         const isLiked = postPrefs.liked.includes(postId);
         const isSaved = postPrefs.saved.includes(postId);
-        const displayLikes = post.likes + (isLiked ? 1 : 0);
+        const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
 
         const likeIconSrc = isLiked ? '../image/icons/like-full.svg' : '../image/icons/like.svg';
         const saveIconSrc = isSaved ? '../image/icons/bookmark-full.svg' : '../image/icons/bookmark.svg';
 
-        // Render HTML detail post (sesuaikan struktur elemen dengan project kamu)
-        const postDetailContainer = document.getElementById('post-detail-container'); // Ganti dengan ID kontainer post kamu
+        const postDetailContainer = document.getElementById('post-detail-container');
         if (postDetailContainer) {
             postDetailContainer.innerHTML = `
                 <div class="post-container" data-id="${postId}">
@@ -50,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         
                         <div class="post-actions" style="margin-top: 15px; display: flex; justify-content: space-around;">
                             <span class="action-item">
-                                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${post.replies}
+                                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${post.replies || 0}
                             </span> 
                             
                             <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${postId}">
@@ -59,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </span> 
                             
                             <span class="action-item">
-                                <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views}
+                                <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views || 0}
                             </span>
                             
                             <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${postId}">
@@ -70,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            // Event Listener untuk tombol aksi di halaman Post
             postDetailContainer.addEventListener('click', function(e) {
                 const actionBtn = e.target.closest('.action-btn');
 
@@ -90,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             countSpan.textContent = currentCount + 1;
                             imgIcon.src = '../image/icons/like-full.svg';
                         } else {
+                            postPrefs.liked.post.splice(index, 1);
                             postPrefs.liked.splice(index, 1);
                             actionBtn.classList.remove('active');
                             countSpan.textContent = currentCount - 1;
@@ -113,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 2. Mengaktifkan Tombol Reply
     function attachReplyEvents() {
         const replyButtons = document.querySelectorAll(".btn-reply");
         const textareas = document.querySelectorAll(".post-input");

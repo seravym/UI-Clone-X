@@ -4,35 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post / X Clone — Kelompok 9</title>
-    <!-- Memanggil CSS Kelompok dan CSS Home milikmu -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../home/home.css">
 </head>
 <body>
     <div class="layout-container">
         
-        <!-- KIRI: Sidebar -->
         <aside class="sidebar-left">
             <div id="sidebar"></div>
         </aside>
 
-        <!-- TENGAH: Detail Postingan -->
         <main class="feed">
             
-            <!-- HEADER DENGAN TOMBOL BACK -->
             <header class="feed-header" style="display: flex; align-items: center; gap: 20px;">
-                <!-- Tombol Back mengarah ke folder home -->
                 <a href="../home/home.html" style="text-decoration: none; color: black; font-size: 1.5rem; padding: 5px 15px; border-radius: 50%; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#eff3f4'" onmouseout="this.style.backgroundColor='transparent'">
-                    &#8592; <!-- Kode HTML untuk tanda panah kiri -->
+                    &#8592;
                 </a>
                 <h3 style="margin: 0;">Post</h3>
             </header>
 
-            <!-- POSTINGAN UTAMA YANG DI-KLIK -->
-            <!-- Cursor default dan hover dimatikan karena ini sudah di dalam halaman detail -->
             <div id="post-detail-container"></div>
 
-            <!-- AREA UNTUK MEMBALAS POSTINGAN (REPLY) -->
             <div class="create-post" style="border-bottom: 1px solid #eff3f4;">
                 <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
                 <div style="width: 100%;">
@@ -45,7 +37,6 @@
 
         </main>
 
-        <!-- KANAN: Right Sidebar -->
         <aside class="right-sidebar">
             <input type="text" placeholder="Search..." class="search-bar">
             <div class="trending-box">
@@ -56,7 +47,6 @@
 
     </div>
 
-    <!-- Skrip khusus halaman post -->
      <script src="../home/data.js"></script>
     <script src="post.js"></script>
 </body>
