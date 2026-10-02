@@ -502,7 +502,7 @@ function renderCommunitiesTrending() {
     if (!container) return;
 
     container.innerHTML = communitiesTrends.map(trend => `
-        <a class="communities-trend-item" href="../trending/trending.html">
+        <a class="communities-trend-item" href="../explore/explore.html">
             <span class="communities-trend-category">
                 ${trend.cat} · Sedang tren
             </span>
