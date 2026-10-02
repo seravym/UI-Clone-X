@@ -208,7 +208,7 @@ function renderBookmarkTrending() {
     container.innerHTML = bookmarkTrends.map(trend => `
         <a 
             class="bookmark-trend-item" 
-            href="../trending/trending.html"
+            href="../explore/explore.html"
         >
             <span class="bookmark-trend-category">
                 ${trend.cat} · Sedang tren
