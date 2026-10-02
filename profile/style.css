@@ -74,6 +74,18 @@ position: absolute;
     color: #f4db9a;
 }
 
+.back-button {
+    width: 40px;
+    height: 40px;
+    background-color: #fff7fb;
+    color: #9b3160;
+    border: 2px solid #9b3160;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 h2{
     color: #640d14;;
     font-family: 'Myfont';
@@ -329,7 +341,7 @@ h2{
 }
 
 .profile-menu {
-    position: relative;
+    position: absolute;
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -337,7 +349,7 @@ h2{
     background-color: #fff7fb;
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    margin-top: 28%;
+    margin-top: 25%;
 }
 
 .profile-menu div {
