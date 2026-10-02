@@ -13,15 +13,6 @@
     --s-danger: #f4212e;
 }
 
-html[data-theme="dark"] {
-    --s-bg: #15202b;
-    --s-text: #e7e9ea;
-    --s-muted: #8b98a5;
-    --s-border: #38444d;
-    --s-hover: #1c2938;
-    --s-input: #192734;
-}
-
 html {
     font-size: 16px;
 }
@@ -268,13 +259,6 @@ button {
     background: var(--s-input);
     color: var(--s-text);
     font-size: 0.9375rem;
-}
-
-html[data-theme="dark"] .s-input,
-html[data-theme="dark"] .s-field input,
-html[data-theme="dark"] .s-field select,
-html[data-theme="dark"] .s-field textarea {
-    border-color: var(--s-border);
 }
 
 .s-input:focus,

@@ -1,0 +1,80 @@
+/* mute-block.css - gaya khusus bagian Mute & blokir */
+
+.mb-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--s-border);
+    overflow-x: auto;
+}
+
+.mb-tab {
+    position: relative;
+    flex: 1 0 auto;
+    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    color: var(--s-muted);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.mb-tab:hover {
+    background: var(--s-hover);
+}
+
+.mb-tab.is-active {
+    color: var(--s-accent);
+}
+
+.mb-tab.is-active::after {
+    content: "";
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--s-accent);
+}
+
+.mb-count {
+    display: inline-block;
+    min-width: 20px;
+    margin-left: 4px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--s-hover);
+    color: var(--s-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.mb-form {
+    display: flex;
+    gap: 10px;
+}
+
+.mb-form .s-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.mb-avatar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--s-accent-soft);
+    color: var(--s-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+#mb-error {
+    margin-bottom: 12px;
+}
