@@ -225,22 +225,17 @@ function rowHTML(l, mode) {
             </div>
         `;
 
-    const action =
-        mode === "discover"
-            ? `
-                <button 
-                    class="add-button" 
-                    data-action="follow" 
-                    data-id="${esc(l.id)}" 
-                    aria-label="Ikuti list"
-                >
-                    +
-                </button>
-            `
-            : `
-            `;
+    const action = mode === "discover"
+        ? `
+            <button class="add-button" data-action="follow" data-id="${esc(l.id)}" aria-label="Ikuti list">
+                +
+            </button>
+        `
+        : `
+        `;
 
     return `
+
         <div 
             class="list-item" 
             data-action="open" 
@@ -272,16 +267,15 @@ function headerHTML(title, subtitle) {
     return `
         <header class="list-header">
             <button 
-                class="back-button" 
-                data-action="back" 
-                aria-label="Kembali"
-            >
-                ←
+                class="mobile-menu-button" 
+                aria-label="Open navigation" 
+                aria-haspopup="dialog">
+
+                <img src="../login/logo.jpg" alt="">
             </button>
 
             <div class="header-text">
                 <h1>${esc(title)}</h1>
-
                 ${
                     subtitle
                         ? `<span class="muted">${esc(subtitle)}</span>`
@@ -346,7 +340,10 @@ function renderMainBody() {
         ? discoverAll
         : discoverAll.slice(0, 3);
 
-    const mine = myLists.filter(list =>
+    const mine = [
+        ...SUGGESTED.filter(list => followed.has(list.id)),
+        ...myLists
+    ].filter(list =>
         !keyword ||
         (
             list.name +
