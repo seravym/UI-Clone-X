@@ -55,12 +55,23 @@ function renderBookmarks() {
                 </p>
                 <p class="post-text">${escapeHtml(post.text)}</p>
                 <div class="post-actions">
+                    <button class="action-btn" aria-label="Reply">
+                        <img src="../image/icons/chat.svg" class="action-icon" alt="Reply">
+                        <span class="count">0</span>
+                    </button>
+
+                    <button class="action-btn" aria-label="Like">
+                        <img src="../image/icons/like.svg" class="action-icon" alt="Like">
+                        <span class="count">0</span>
+                    </button>
+
+                    <button class="action-btn" aria-label="View">
+                        <img src="../image/icons/view.svg" class="action-icon" alt="View">
+                        <span class="count">0</span>
+                    </button>
+
                     <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
-                        <img
-                            src="../image/icons/bookmark-full.svg"
-                            class="action-icon"
-                            alt="Bookmark"
-                        />
+                        <img src="../image/icons/bookmark-full.svg" class="action-icon" alt="Bookmark">
                     </button>
                 </div>
             </div>
