@@ -412,7 +412,7 @@ function renderMainBody() {
                         .map(l => rowHTML(l, "your"))
                         .join("")
                     : `
-                        <p class="muted">
+                        <p class="muted empty-list-message">
                             You haven't created any Lists yet.
                         </p>
                     `
@@ -426,8 +426,8 @@ function renderSuggested() {
         ${headerHTML("Discover new Lists")}
 
             <div>
-                <h2>Discover Lists</h2>
-                <p class="muted">
+                <h2 class="empty-list-message">Discover Lists</h2>
+                <p class="muted empty-list-message">
                     Find Lists based on your interests.
                 </p>
             </div>

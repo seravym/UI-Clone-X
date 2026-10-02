@@ -383,6 +383,10 @@ button {
     color: #536471; 
 }
 
+.empty-list-message {
+    padding: 0 20px;
+}
+
 .mini-avatar {
     width: 22px;
     height: 22px;
