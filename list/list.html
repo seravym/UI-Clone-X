@@ -6,17 +6,20 @@
     <title>Lists - X Clone</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="list.css">
+    <link rel="stylesheet" href="../mobile.css">
 </head>
 
 
-<body>
+<body data-bottom-nav>
     <aside class="sidebar-left">
         <div id="sidebar"></div>
     </aside>
 
     <div class="list" id="listApp">
         <header class="list-header">
-            <button class="back-button" onclick="history.back()" aria-label="Kembali">←</button>
+            <button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog">
+                <img src="../login/logo.jpg" alt="">
+            </button>
             <h1>Lists</h1>
         </header>
 
@@ -152,6 +155,8 @@
 
     <div class="modal-overlay" id="modal" hidden></div>
 
+    <script src="../mobile-navigation.js"></script>
     <script src="list.js"></script>
+    
 </body>
 </html>
