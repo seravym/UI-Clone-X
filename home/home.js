@@ -3,6 +3,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const textareas = document.querySelectorAll(".post-input");
     const feedContainer = document.getElementById("feed-container");
     const sidebarContainer = document.getElementById("sidebar"); 
+    const BOOKMARK_KEY = "bookmarks";
+    const BOOKMARK_PREFIX = "post-";
+    const STORE_POST_PREFS = "xclone.posts.prefs";
+    const STORE_ALL_POSTS = "xclone.posts.list";
+    
+    function getStoredPosts() {
+        let posts = JSON.parse(localStorage.getItem(STORE_ALL_POSTS));
+        if (!posts && typeof postData !== 'undefined' && postData.posts) {
+            posts = [...postData.posts];
+            localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+        }
+        return posts || [];
+    }
+
+    function saveStoredPosts(posts) {
+        localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+    }
     
     if (sidebarContainer) {
         fetch("../sidebar.html") 
@@ -12,13 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 attachPostButtonEvents();
             })
             .catch(error => console.error("Error memuat sidebar:", error));
-    }else {
+    } else {
         attachPostButtonEvents();
     }
-
-    // --- KONFIGURASI BOOKMARK YANG SESUAI DENGAN BOOKMARK.JS ---
-    const BOOKMARK_KEY = "bookmarks";
-    const BOOKMARK_PREFIX = "post-";
 
     function getBookmarks() {
         try {
@@ -34,13 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {}
     }
 
-    function isSaved(postId) {
-        var key = BOOKMARK_PREFIX + postId;
-        return getBookmarks().some(function (b) {
-            return b && b.id === key;
-        });
-    }
-
     function setSaved(post, postId, on) {
         var key = BOOKMARK_PREFIX + postId;
         var list = getBookmarks().filter(function (b) {
@@ -48,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         if (on) {
-            // Properti ini disamakan persis dengan yang dibaca oleh bookmark.js
             list.unshift({
                 id: key,
                 name: post.name,
@@ -61,23 +66,25 @@ document.addEventListener("DOMContentLoaded", () => {
         saveBookmarks(list);
     }
     
-    const STORE_POST_PREFS = "xclone.posts.prefs";
     let postPrefs = JSON.parse(localStorage.getItem(STORE_POST_PREFS)) || { liked: [], saved: [] };
 
     function savePostPrefs() {
         localStorage.setItem(STORE_POST_PREFS, JSON.stringify(postPrefs));
     }
 
-    if (feedContainer && typeof postData !== 'undefined') {
+    let posts = getStoredPosts();
+
+    if (feedContainer && posts.length > 0) {
         let feedHTML = "";
         
-        postData.posts.forEach((post, index) => {
+        posts.forEach((post, index) => {
             const isLiked = postPrefs.liked.includes(index);
-            const isSaved = postPrefs.saved.includes(index);
+            const bookmarkKey = BOOKMARK_PREFIX + index;
+            const savedList = getBookmarks();
+            const isSaved = savedList.some(b => b && b.id === bookmarkKey);
             
-            const displayLikes = post.likes + (isLiked ? 1 : 0);
+            const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
 
-            // Menentukan ikon awal berdasarkan status saat halaman dimuat
             const likeIconSrc = isLiked ? '../image/icons/like-full.svg' : '../image/icons/like.svg';
             const saveIconSrc = isSaved ? '../image/icons/bookmark-full.svg' : '../image/icons/bookmark.svg';
 
@@ -90,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     <div class="post-actions">
                         <span class="action-item">
-                            <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${post.replies}
+                            <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${post.replies || 0}
                         </span> 
                         
                         <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${index}">
@@ -99,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </span> 
                         
                         <span class="action-item">
-                            <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views}
+                            <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views || 0}
                         </span>
                         
                         <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${index}">
@@ -113,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         feedContainer.innerHTML = feedHTML;
 
-        // Event Delegation
         feedContainer.addEventListener('click', function(e) {
             const actionBtn = e.target.closest('.action-btn');
             const postContainer = e.target.closest('.post-container');
@@ -123,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 const action = actionBtn.getAttribute('data-action');
                 const postId = parseInt(actionBtn.getAttribute('data-id'));
-                const imgIcon = actionBtn.querySelector('img'); // Tangkap elemen gambar di dalam tombol
+                const imgIcon = actionBtn.querySelector('img'); 
 
                 if (action === 'like') {
                     const index = postPrefs.liked.indexOf(postId);
@@ -134,33 +140,39 @@ document.addEventListener("DOMContentLoaded", () => {
                         postPrefs.liked.push(postId);
                         actionBtn.classList.add('active');
                         countSpan.textContent = currentCount + 1;
-                        imgIcon.src = '../image/icons/like-full.svg'; // Ganti ke ikon penuh
+                        imgIcon.src = '../image/icons/like-full.svg'; 
                     } else {
                         postPrefs.liked.splice(index, 1);
                         actionBtn.classList.remove('active');
                         countSpan.textContent = currentCount - 1;
-                        imgIcon.src = '../image/icons/like.svg'; // Kembalikan ke ikon outline
+                        imgIcon.src = '../image/icons/like.svg'; 
                     }
                 } else if (action === 'save') {
-                    const post = postData.posts[postId];
+                    let currentPosts = getStoredPosts();
+                    const post = currentPosts[postId];
                     if (post) {
-                        const index = postPrefs.saved.indexOf(postId);
+                        const bookmarkKey = BOOKMARK_PREFIX + postId;
+                        const savedList = getBookmarks();
+                        const isCurrentlySaved = savedList.some(b => b && b.id === bookmarkKey);
+                        
                         let newSaveStatus;
-
-                        if (index === -1) {
-                            postPrefs.saved.push(postId);
+                        if (!isCurrentlySaved) {
                             actionBtn.classList.add('active');
                             imgIcon.src = '../image/icons/bookmark-full.svg';
                             newSaveStatus = true;
                         } else {
-                            postPrefs.saved.splice(index, 1);
                             actionBtn.classList.remove('active');
                             imgIcon.src = '../image/icons/bookmark.svg';
                             newSaveStatus = false;
                         }
                         
-                        // PENTING: Panggil fungsi ini agar masuk ke localStorage "bookmarks" yang dibaca bookmark.js
                         setSaved(post, postId, newSaveStatus);
+                        
+                        if (newSaveStatus) {
+                            if (!postPrefs.saved.includes(postId)) postPrefs.saved.push(postId);
+                        } else {
+                            postPrefs.saved = postPrefs.saved.filter(id => id !== postId);
+                        }
                         savePostPrefs();
                     }
                 }
@@ -177,12 +189,27 @@ document.addEventListener("DOMContentLoaded", () => {
         postButtons.forEach(btn => {
             const newBtn = btn.cloneNode(true);
             btn.replaceWith(newBtn);
-
             newBtn.addEventListener("click", () => {
                 textareas.forEach(ta => {
-                    if (ta.value.trim() !== "") {
-                        alert("Your tweet has been posted! 🌸");
+                    const postText = ta.value.trim();
+                    if (postText !== "") {
+                        let currentPosts = getStoredPosts();
+                        const newPost = {
+                            name: "user",
+                            handle: "@user",
+                            time: "Now",
+                            message: postText,
+                            replies: 0,
+                            likes: 0,
+                            views: "0"
+                        };
+
+                        currentPosts.unshift(newPost);
+                        saveStoredPosts(currentPosts); 
+
+                        alert("Your tweet has been posted!");
                         ta.value = "";
+                        location.reload();
                     }
                 });
             });
