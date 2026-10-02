@@ -64,11 +64,9 @@ function renderBookmarks() {
 
         return `
         <article class="post" data-id="${escapeHtml(post.id)}">
-            <img 
-                class="post-avatar" 
+            <img class="post-avatar" 
                 src="${DEFAULT_AVATAR}" 
-                alt="Foto profil ${escapeHtml(post.name)}"
-            >
+                alt="Foto profil ${escapeHtml(post.name)}">
 
             <div class="post-body">
                 <div class="post-community">
@@ -85,48 +83,35 @@ function renderBookmarks() {
                 </p>
 
                 <div class="post-actions">
-
                     <button class="action-btn" aria-label="Reply">
-                        <img 
-                            src="../image/icons/chat.svg" 
+                        <img src="../image/icons/chat.svg" 
                             class="action-icon" 
-                            alt="Reply"
-                        >
+                            alt="Reply">
                         <span class="count">0</span>
                     </button>
 
-                    <button 
-                        class="action-btn like-btn ${liked ? "active" : ""}" 
+                    <button class="action-btn like-btn ${liked ? "active" : ""}" 
                         data-action="like" 
-                        aria-label="Like"
-                    >
-                        <img 
-                            src="../image/icons/${liked ? "like-full.svg" : "like.svg"}" 
+                        aria-label="Like">
+                        <img src="../image/icons/${liked ? "like-full.svg" : "like.svg"}" 
                             class="action-icon" 
-                            alt="Like"
-                        >
+                            alt="Like">
                         <span class="count">${liked ? 1 : 0}</span>
                     </button>
 
                     <button class="action-btn" aria-label="View">
-                        <img 
-                            src="../image/icons/view.svg" 
+                        <img src="../image/icons/view.svg" 
                             class="action-icon" 
-                            alt="View"
-                        >
+                            alt="View">
                         <span class="count">0</span>
                     </button>
 
-                    <button 
-                        class="action-btn bookmark-btn active" 
+                    <button class="action-btn bookmark-btn active" 
                         data-action="remove" 
-                        aria-label="Hapus dari bookmark"
-                    >
-                        <img 
-                            src="../image/icons/bookmark-full.svg" 
+                        aria-label="Hapus dari bookmark">
+                        <img src="../image/icons/bookmark-full.svg" 
                             class="action-icon" 
-                            alt="Bookmark"
-                        >
+                            alt="Bookmark">
                     </button>
 
                 </div>
@@ -136,11 +121,8 @@ function renderBookmarks() {
     }).join("");
 }
 
-
-// LIKE + REMOVE BOOKMARK
 listEl.addEventListener("click", event => {
 
-    // LIKE
     const likeBtn = event.target.closest('[data-action="like"]');
 
     if (likeBtn) {
@@ -157,8 +139,6 @@ listEl.addEventListener("click", event => {
         return;
     }
 
-
-    // REMOVE BOOKMARK
     const removeBtn = event.target.closest('[data-action="remove"]');
 
     if (removeBtn) {
@@ -178,8 +158,6 @@ searchEl.addEventListener("input", renderBookmarks);
 
 renderBookmarks();
 
-
-// SIDEBAR
 fetch("../sidebar.html")
     .then(res => {
         if (!res.ok) throw new Error("Status " + res.status);
@@ -190,8 +168,6 @@ fetch("../sidebar.html")
     })
     .catch(err => console.error("Sidebar gagal dimuat:", err));
 
-
-// TRENDING
 const bookmarkTrends = [
     { tag: "#SepakBola", cat: "Olahraga", count: 26300 },
     { tag: "#KonserAkhirTahun", cat: "Hiburan", count: 21500 },
@@ -206,10 +182,7 @@ function renderBookmarkTrending() {
     if (!container) return;
 
     container.innerHTML = bookmarkTrends.map(trend => `
-        <a 
-            class="bookmark-trend-item" 
-            href="../explore/explore.html"
-        >
+        <a class="bookmark-trend-item" href="../explore/explore.html">
             <span class="bookmark-trend-category">
                 ${trend.cat} · Sedang tren
             </span>

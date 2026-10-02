@@ -72,8 +72,13 @@ document.getElementById('otp-form').addEventListener('submit', (e) => {
     return;
   }
 
-  sessionStorage.setItem('isLoggedIn', 'true');
-  window.location.href = '../home/home.html';
+  const usernameBaru = params.get('username');
+    if (usernameBaru) {
+        localStorage.setItem('profileUsername', usernameBaru.toLowerCase());
+    }
+
+    sessionStorage.setItem('isLoggedIn', 'true');
+    window.location.href = '../home/home.html';
 });
 
 function mulaiHitungMundur() {
