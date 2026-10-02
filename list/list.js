@@ -12,16 +12,76 @@ const COLORS = {
 };
 
 const PEOPLE = [
-    { id: "u1", name: "BWF Update", handle: "@bwf_update", time: "1m", text: "Dutch Open babak 32 besar: laga tunggal putra berlangsung 3 gim, selesai dalam 63 menit." },
-    { id: "u2", name: "Liga Harian", handle: "@liga_harian", time: "12m", text: "Klasemen sementara berubah, tim tuan rumah naik ke posisi tiga setelah menang tipis." },
-    { id: "u3", name: "Berita Harian ID", handle: "@beritaharianid", time: "20m", text: "Pemerintah umumkan jadwal baru perbaikan jalan tol di wilayah Jabodetabek." },
-    { id: "u4", name: "Info Jakarta", handle: "@infojakarta", time: "35m", text: "Hujan deras diperkirakan turun sore ini di sebagian besar Jakarta Selatan dan Timur." },
-    { id: "u5", name: "Kabar Ekonomi", handle: "@kabarekonomi", time: "1j", text: "Rupiah menguat tipis terhadap dolar AS di awal perdagangan hari ini." },
-    { id: "u6", name: "Tech Radar ID", handle: "@techradar_id", time: "2j", text: "Peluncuran ponsel lipat terbaru dijadwalkan bulan depan, ini bocoran spesifikasinya." },
-    { id: "u7", name: "Dev Daily", handle: "@devdaily", time: "3j", text: "Tips hari ini: gunakan event delegation supaya listener tidak menumpuk." },
-    { id: "u8", name: "Atlet Muda", handle: "@atletmuda", time: "4j", text: "Latihan pagi selesai. Konsistensi lebih penting daripada intensitas sesaat." },
-    { id: "u9", name: "Kuliner Kita", handle: "@kulinerkita", time: "5j", text: "Rekomendasi sarapan murah di sekitar kampus, semuanya di bawah 20 ribu." },
-    { id: "u10", name: "Media Nusantara", handle: "@medianusantara", time: "6j", text: "Rangkuman berita pagi: politik, ekonomi, dan olahraga dalam satu thread." }
+    {
+        id: "u1",
+        name: "BWF Update",
+        handle: "@bwf_update",
+        time: "1m",
+        text: "Dutch Open babak 32 besar: laga tunggal putra berlangsung 3 gim, selesai dalam 63 menit."
+    },
+    {
+        id: "u2",
+        name: "Liga Harian",
+        handle: "@liga_harian",
+        time: "12m",
+        text: "Klasemen sementara berubah, tim tuan rumah naik ke posisi tiga setelah menang tipis."
+    },
+    {
+        id: "u3",
+        name: "Berita Harian ID",
+        handle: "@beritaharianid",
+        time: "20m",
+        text: "Pemerintah umumkan jadwal baru perbaikan jalan tol di wilayah Jabodetabek."
+    },
+    {
+        id: "u4",
+        name: "Info Jakarta",
+        handle: "@infojakarta",
+        time: "35m",
+        text: "Hujan deras diperkirakan turun sore ini di sebagian besar Jakarta Selatan dan Timur."
+    },
+    {
+        id: "u5",
+        name: "Kabar Ekonomi",
+        handle: "@kabarekonomi",
+        time: "1j",
+        text: "Rupiah menguat tipis terhadap dolar AS di awal perdagangan hari ini."
+    },
+    {
+        id: "u6",
+        name: "Tech Radar ID",
+        handle: "@techradar_id",
+        time: "2j",
+        text: "Peluncuran ponsel lipat terbaru dijadwalkan bulan depan, ini bocoran spesifikasinya."
+    },
+    {
+        id: "u7",
+        name: "Dev Daily",
+        handle: "@devdaily",
+        time: "3j",
+        text: "Tips hari ini: gunakan event delegation supaya listener tidak menumpuk."
+    },
+    {
+        id: "u8",
+        name: "Atlet Muda",
+        handle: "@atletmuda",
+        time: "4j",
+        text: "Latihan pagi selesai. Konsistensi lebih penting daripada intensitas sesaat."
+    },
+    {
+        id: "u9",
+        name: "Kuliner Kita",
+        handle: "@kulinerkita",
+        time: "5j",
+        text: "Rekomendasi sarapan murah di sekitar kampus, semuanya di bawah 20 ribu."
+    },
+    {
+        id: "u10",
+        name: "Media Nusantara",
+        handle: "@medianusantara",
+        time: "6j",
+        text: "Rangkuman berita pagi: politik, ekonomi, dan olahraga dalam satu thread."
+    }
 ];
 
 const OWNERS = [
@@ -31,7 +91,6 @@ const OWNERS = [
     { name: "Maya Lestari", handle: "@maya_l" }
 ];
 
-// [id, nama, member, followers, including, warna, memberIds]
 const SUGGESTED = [
     ["olahraga", "Olahraga", 37, "8.3K", "@LinceUk47306", "pink", ["u1", "u2", "u8"]],
     ["news-info-id", "News & Info (Indonesia)", 72, "151.2K", "@Indomaret", "purple", ["u3", "u4", "u5"]],
@@ -45,8 +104,16 @@ const SUGGESTED = [
     ["press", "Press", 165, "602", "@teduaveqty", "blue", ["u10", "u3", "u4"]],
     ["indo-news", "Indo News", 38, "921", "@Andi_NurpatiB", "blue", ["u3", "u4", "u5"]]
 ].map((r, i) => ({
-    id: r[0], name: r[1], members: r[2], followers: r[3], including: r[4],
-    color: r[5], memberIds: r[6], description: "", private: false, own: false,
+    id: r[0],
+    name: r[1],
+    members: r[2],
+    followers: r[3],
+    including: r[4],
+    color: r[5],
+    memberIds: r[6],
+    description: "",
+    private: false,
+    own: false,
     owner: OWNERS[i % OWNERS.length]
 }));
 
@@ -54,13 +121,37 @@ const MY_KEY = "myLists";
 const FOLLOW_KEY = "followedLists";
 const PIN_KEY = "pinnedLists";
 
+const LIKE_KEY = "listLikes";
+const BOOKMARK_KEY = "bookmarks";
+
 function readJSON(key, fallback) {
-    try { return JSON.parse(localStorage.getItem(key)) || fallback; }
-    catch (e) { return fallback; }
+    try {
+        return JSON.parse(localStorage.getItem(key)) || fallback;
+    } catch (e) {
+        return fallback;
+    }
 }
 
 function writeJSON(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {}
+}
+
+function getLikes() {
+    return readJSON(LIKE_KEY, {});
+}
+
+function saveLikes(likes) {
+    writeJSON(LIKE_KEY, likes);
+}
+
+function getBookmarks() {
+    return readJSON(BOOKMARK_KEY, []);
+}
+
+function saveBookmarks(bookmarks) {
+    writeJSON(BOOKMARK_KEY, bookmarks);
 }
 
 let myLists = readJSON(MY_KEY, []);
@@ -84,454 +175,997 @@ const modalEl = document.getElementById("modal");
 
 function esc(text) {
     return String(text)
-        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
 }
 
 const allLists = () => [...SUGGESTED, ...myLists];
+
 const getList = id => allLists().find(l => l.id === id);
+
 const memberCount = l => l.members ?? l.memberIds.length;
+
 const colorOf = l => COLORS[l.color] || COLORS.pink;
 
 function rowHTML(l, mode) {
     const count = memberCount(l);
-    const meta = l.own && count === 0 ? "" : `<span>· ${count} members</span>`;
+
+    const meta =
+        l.own && count === 0
+            ? ""
+            : `<span>· ${count} members</span>`;
 
     const sub = l.own
-        ? `<div class="list-followers">
-               <img class="mini-avatar" src="${DEFAULT_AVATAR}" alt="">
-               <strong>${esc(ME.name)}</strong>
-               ${l.private ? "<span>🔒</span>" : ""}
-               <span>${esc(ME.handle)}</span>
-           </div>`
-        : `<div class="list-followers">
-               <div class="avatars"><span>👤</span><span>👤</span><span>👤</span></div>
-               <span>${esc(l.followers)} followers including ${esc(l.including)}</span>
-           </div>`;
+        ? `
+            <div class="list-followers">
+                <img 
+                    class="mini-avatar" 
+                    src="${DEFAULT_AVATAR}" 
+                    alt=""
+                >
+                <strong>${esc(ME.name)}</strong>
+                ${l.private ? "<span>🔒</span>" : ""}
+                <span>${esc(ME.handle)}</span>
+            </div>
+        `
+        : `
+            <div class="list-followers">
+                <div class="avatars">
+                    <span>👤</span>
+                    <span>👤</span>
+                    <span>👤</span>
+                </div>
+
+                <span>
+                    ${esc(l.followers)} followers including ${esc(l.including)}
+                </span>
+            </div>
+        `;
 
     const action = mode === "discover"
-        ? `<button class="add-button" data-action="follow" data-id="${esc(l.id)}" aria-label="Ikuti list">+</button>`
-        : `<button class="pin-button${pinned.has(l.id) ? " is-pinned" : ""}" data-action="pin" data-id="${esc(l.id)}" aria-label="Pin list">📌</button>`;
+        ? `
+            <button class="add-button" data-action="follow" data-id="${esc(l.id)}" aria-label="Ikuti list">
+                +
+            </button>
+        `
+        : `
+        `;
 
     return `
-    <div class="list-item" data-action="open" data-id="${esc(l.id)}" tabindex="0">
-        <div class="list-icon" style="background:${colorOf(l)}">${ICON}</div>
-        <div class="list-info">
-            <div class="list-title"><strong>${esc(l.name)}</strong>${meta}</div>
-            ${sub}
+
+        <div 
+            class="list-item" 
+            data-action="open" 
+            data-id="${esc(l.id)}" 
+            tabindex="0"
+        >
+            <div 
+                class="list-icon" 
+                style="background:${colorOf(l)}"
+            >
+                ${ICON}
+            </div>
+
+            <div class="list-info">
+                <div class="list-title">
+                    <strong>${esc(l.name)}</strong>
+                    ${meta}
+                </div>
+
+                ${sub}
+            </div>
+
+            ${action}
         </div>
-        ${action}
-    </div>`;
+    `;
 }
 
 function headerHTML(title, subtitle) {
+    const showBack = view !== "main";
+
     return `
-    <header class="list-header">
-        <button class="back-button" data-action="back" aria-label="Kembali">←</button>
-        <div class="header-text">
-            <h1>${esc(title)}</h1>
-            ${subtitle ? `<span class="muted">${esc(subtitle)}</span>` : ""}
-        </div>
-    </header>`;
+        <header class="list-header">
+
+            ${
+                showBack
+                    ? `
+                        <button 
+                            class="back-button" 
+                            data-action="back" 
+                            aria-label="Kembali"
+                        >
+                            ←
+                        </button>
+                    `
+                    : `
+                        <button 
+                            class="mobile-menu-button" 
+                            aria-label="Open navigation" 
+                            aria-haspopup="dialog"
+                        >
+                            <img src="../login/logo.jpg" alt="">
+                        </button>
+                    `
+            }
+
+            <div class="header-text">
+                <h1>${esc(title)}</h1>
+
+                ${
+                    subtitle
+                        ? `<span class="muted">${esc(subtitle)}</span>`
+                        : ""
+                }
+            </div>
+
+        </header>
+    `;
 }
 
 function renderMain() {
     app.innerHTML = `
-    ${headerHTML("Lists")}
-    <div class="list-search">
-        <span class="search-icon">⌕</span>
-        <input type="text" id="listSearch" placeholder="Search for Lists" value="${esc(query)}" autocomplete="off">
-    </div>
-    <div id="mainBody"></div>
-    <button class="create-list-button" data-action="create" aria-label="Buat list baru">+</button>`;
+        ${headerHTML("Lists")}
+
+        <div class="list-search">
+            <span class="search-icon">⌕</span>
+
+            <input 
+                type="text" 
+                id="listSearch" 
+                placeholder="Search for Lists" 
+                value="${esc(query)}" 
+                autocomplete="off"
+            >
+        </div>
+
+        <div id="mainBody"></div>
+
+        <button 
+            class="create-list-button" 
+            data-action="create" 
+            aria-label="Buat list baru"
+        >
+            +
+        </button>
+    `;
+
     renderMainBody();
 }
 
 function renderMainBody() {
     const body = document.getElementById("mainBody");
-    const q = query.trim().toLowerCase();
-    const match = l => !q || l.name.toLowerCase().includes(q);
 
-    const discoverAll = allLists().filter(l => !l.own && !followed.has(l.id)).filter(match);
-    const discover = q ? discoverAll : discoverAll.slice(0, 3);
+    if (!body) return;
 
-    const mine = allLists()
-        .filter(l => l.own || followed.has(l.id))
-        .filter(match)
-        .sort((a, b) => pinned.has(b.id) - pinned.has(a.id));
+    const keyword = query.trim().toLowerCase();
+
+    const discoverAll = SUGGESTED.filter(list =>
+        !followed.has(list.id) &&
+        (
+            !keyword ||
+            (
+                list.name +
+                " " +
+                list.owner.name +
+                " " +
+                list.owner.handle
+            )
+                .toLowerCase()
+                .includes(keyword)
+        )
+    );
+
+    const discover = keyword
+        ? discoverAll
+        : discoverAll.slice(0, 3);
+
+    const mine = [
+        ...SUGGESTED.filter(list => followed.has(list.id)),
+        ...myLists
+    ].filter(list =>
+        !keyword ||
+        (
+            list.name +
+            " " +
+            (list.description || "")
+        )
+            .toLowerCase()
+            .includes(keyword)
+    );
 
     body.innerHTML = `
-    <section class="discover-section">
-        <h2>Discover new Lists</h2>
-        ${discover.length ? discover.map(l => rowHTML(l, "discover")).join("") : `<p class="empty-note">Tidak ada list untuk ditampilkan.</p>`}
-        ${!q && discoverAll.length > 3 ? `<button class="show-more" data-action="suggested">Show more</button>` : ""}
-    </section>
+        <section class="discover-section">
+            <h2>Discover new Lists</h2>
 
-    <section class="your-section">
-        <h2>Your Lists</h2>
-        ${mine.length ? mine.map(l => rowHTML(l, "mine")).join("") : `<p class="empty-note">Kamu belum punya list. Tekan tombol + untuk membuatnya.</p>`}
-    </section>`;
+            ${
+                discover.length
+                    ? discover
+                        .map(l => rowHTML(l, "discover"))
+                        .join("")
+                    : `
+                        <p class="muted">
+                            Tidak ada List yang ditemukan.
+                        </p>
+                    `
+            }
+
+            ${
+                !keyword && discoverAll.length > 3
+                    ? `
+                        <button 
+                            class="show-more" 
+                            data-action="suggested"
+                        >
+                            Show more
+                        </button>
+                    `
+                    : ""
+            }
+        </section>
+
+        <section class="your-section">
+            <h2>Your Lists</h2>
+
+            ${
+                mine.length
+                    ? mine
+                        .map(l => rowHTML(l, "your"))
+                        .join("")
+                    : `
+                        <p class="muted empty-list-message">
+                            You haven't created any Lists yet.
+                        </p>
+                    `
+            }
+        </section>
+    `;
 }
 
 function renderSuggested() {
-    const rest = allLists().filter(l => !l.own && !followed.has(l.id));
-
     app.innerHTML = `
-    ${headerHTML("Suggested Lists")}
-    <div class="hero">
-        <svg viewBox="0 0 320 130" aria-hidden="true">
-            <rect x="10" y="40" width="46" height="46" rx="8" fill="none" stroke="#8fdcff" stroke-width="4"/>
-            <rect x="70" y="20" width="50" height="50" rx="8" fill="#8fdcff"/>
-            <rect x="70" y="82" width="50" height="40" rx="8" fill="none" stroke="#8fdcff" stroke-width="4"/>
-            <rect x="134" y="8" width="52" height="46" rx="8" fill="none" stroke="#1d9bf0" stroke-width="4"/>
-            <rect x="134" y="62" width="52" height="56" rx="8" fill="#0b4f9e"/>
-            <rect x="200" y="24" width="56" height="52" rx="8" fill="#1d9bf0"/>
-            <rect x="200" y="84" width="56" height="38" rx="8" fill="none" stroke="#8fdcff" stroke-width="4"/>
-            <rect x="268" y="14" width="46" height="56" rx="8" fill="#0b4f9e"/>
-            <rect x="268" y="78" width="46" height="40" rx="8" fill="#1d9bf0"/>
-        </svg>
-        <h2>Choose your Lists</h2>
-        <p class="muted">Kalau kamu mengikuti sebuah List, kamu bisa dengan cepat mengikuti para ahli tentang hal yang paling kamu minati.</p>
-    </div>
-    <section class="discover-section">
-        <h2>Discover new Lists</h2>
-        ${rest.length ? rest.map(l => rowHTML(l, "discover")).join("") : `<p class="empty-note">Kamu sudah mengikuti semua list yang disarankan.</p>`}
-    </section>`;
+        ${headerHTML("Discover new Lists")}
+
+            <div>
+                <h2 class="empty-list-message">Discover Lists</h2>
+                <p class="muted empty-list-message">
+                    Find Lists based on your interests.
+                </p>
+            </div>
+        </div>
+
+        <section class="discover-section">
+            ${SUGGESTED.map(l => rowHTML(l, "discover")).join("")}
+        </section>
+    `;
 }
 
 function renderDetail() {
     const l = getList(currentId);
-    if (!l) { view = "main"; render(); return; }
 
-    const posts = l.memberIds.map(id => PEOPLE.find(p => p.id === id)).filter(Boolean);
+    if (!l) {
+        view = "main";
+        render();
+        return;
+    }
+
+    const posts = l.memberIds
+        .map(id => PEOPLE.find(p => p.id === id))
+        .filter(Boolean);
+
     const owner = l.own ? ME : l.owner;
 
     const button = l.own
-        ? `<button class="outline-button" data-action="edit" data-id="${esc(l.id)}">Edit List</button>`
-        : `<button class="outline-button${followed.has(l.id) ? "" : " is-primary"}" data-action="follow" data-id="${esc(l.id)}">${followed.has(l.id) ? "Following" : "Follow"}</button>`;
+        ? `
+            <button 
+                class="outline-button" 
+                data-action="edit" 
+                data-id="${esc(l.id)}"
+            >
+                Edit List
+            </button>
+        `
+        : `
+            <button 
+                class="outline-button${
+                    followed.has(l.id) ? "" : " is-primary"
+                }" 
+                data-action="follow" 
+                data-id="${esc(l.id)}"
+            >
+                ${followed.has(l.id) ? "Following" : "Follow"}
+            </button>
+        `;
+
+    const likes = getLikes();
+    const bookmarks = getBookmarks();
 
     app.innerHTML = `
-    ${headerHTML(l.name, owner.handle)}
-    <div class="banner" style="background:${colorOf(l)}">${ICON}</div>
+        ${headerHTML(l.name, owner.handle)}
 
-    <section class="detail-info">
-        <h2>${esc(l.name)} ${l.private ? "🔒" : ""}</h2>
-        ${l.description ? `<p>${esc(l.description)}</p>` : ""}
-        <div class="owner-line">
-            <img class="mini-avatar" src="${DEFAULT_AVATAR}" alt="">
-            <strong>${esc(owner.name)}</strong>
-            <span class="muted">${esc(owner.handle)}</span>
+        <div 
+            class="banner" 
+            style="background:${colorOf(l)}"
+        >
+            ${ICON}
         </div>
-        <div class="stats">
-            <span><strong>${memberCount(l)}</strong> Members</span>
-            <span><strong>${l.own ? 0 : esc(l.followers)}</strong> Followers</span>
-        </div>
-        ${button}
-    </section>
 
-    <section>
-        ${posts.length ? posts.map(p => `
-        <article class="post">
-            <img class="post-avatar" src="${DEFAULT_AVATAR}" alt="Foto profil ${esc(p.name)}">
-            <div class="post-body">
-                <p class="post-author"><strong>${esc(p.name)}</strong> <span>${esc(p.handle)} · ${esc(p.time)}</span></p>
-                <p class="post-text">${esc(p.text)}</p>
+        <section class="detail-info">
+            <h2>
+                ${esc(l.name)}
+                ${l.private ? "🔒" : ""}
+            </h2>
+
+            ${
+                l.description
+                    ? `<p>${esc(l.description)}</p>`
+                    : ""
+            }
+
+            <div class="owner-line">
+                <img 
+                    class="mini-avatar" 
+                    src="${DEFAULT_AVATAR}" 
+                    alt=""
+                >
+
+                <strong>${esc(owner.name)}</strong>
+
+                <span class="muted">
+                    ${esc(owner.handle)}
+                </span>
             </div>
-        </article>`).join("") : `
-        <div class="empty-posts">
-            <h2>Waiting for posts</h2>
-            <p class="muted">Postingan dari orang-orang di List ini akan muncul di sini.</p>
-        </div>`}
-    </section>`;
+
+            <div class="stats">
+                <span>
+                    <strong>${memberCount(l)}</strong>
+                    Members
+                </span>
+
+                <span>
+                    <strong>${l.own ? 0 : esc(l.followers)}</strong>
+                    Followers
+                </span>
+            </div>
+
+            ${button}
+        </section>
+
+        <section>
+            ${
+                posts.length
+                    ? posts.map(p => {
+                        const liked = !!likes[p.id];
+
+                        const bookmarked = bookmarks.some(
+                            bookmark => bookmark.id === p.id
+                        );
+
+                        return `
+                            <article 
+                                class="post" 
+                                data-post-id="${esc(p.id)}"
+                            >
+                                <img 
+                                    class="post-avatar" 
+                                    src="${DEFAULT_AVATAR}" 
+                                    alt="Foto profil ${esc(p.name)}"
+                                >
+
+                                <div class="post-body">
+
+                                    <p class="post-author">
+                                        <strong>
+                                            ${esc(p.name)}
+                                        </strong>
+
+                                        <span>
+                                            ${esc(p.handle)} · ${esc(p.time)}
+                                        </span>
+                                    </p>
+
+                                    <p class="post-text">
+                                        ${esc(p.text)}
+                                    </p>
+
+                                    <div class="post-actions">
+
+                                        <button 
+                                            class="action-btn"
+                                            aria-label="Reply"
+                                        >
+                                            <img 
+                                                src="../image/icons/chat.svg"
+                                                class="action-icon"
+                                                alt="Reply"
+                                            >
+
+                                            <span class="count">
+                                                0
+                                            </span>
+                                        </button>
+
+                                        <button 
+                                            class="action-btn like-btn${
+                                                liked ? " active" : ""
+                                            }"
+                                            data-post-action="like"
+                                            aria-label="Like"
+                                        >
+                                            <img 
+                                                src="../image/icons/${
+                                                    liked
+                                                        ? "like-full.svg"
+                                                        : "like.svg"
+                                                }"
+                                                class="action-icon"
+                                                alt="Like"
+                                            >
+
+                                            <span class="count">
+                                                ${liked ? 1 : 0}
+                                            </span>
+                                        </button>
+
+                                        <button 
+                                            class="action-btn"
+                                            aria-label="View"
+                                        >
+                                            <img 
+                                                src="../image/icons/view.svg"
+                                                class="action-icon"
+                                                alt="View"
+                                            >
+
+                                            <span class="count">
+                                                0
+                                            </span>
+                                        </button>
+
+                                        <button 
+                                            class="action-btn bookmark-btn${
+                                                bookmarked
+                                                    ? " active"
+                                                    : ""
+                                            }"
+                                            data-post-action="bookmark"
+                                            aria-label="${
+                                                bookmarked
+                                                    ? "Hapus dari bookmark"
+                                                    : "Bookmark"
+                                            }"
+                                        >
+                                            <img 
+                                                src="../image/icons/${
+                                                    bookmarked
+                                                        ? "bookmark-full.svg"
+                                                        : "bookmark.svg"
+                                                }"
+                                                class="action-icon"
+                                                alt="Bookmark"
+                                            >
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </article>
+                        `;
+                    }).join("")
+                    : `
+                        <div class="empty-posts">
+                            <h2>Waiting for posts</h2>
+
+                            <p class="muted">
+                                Postingan dari orang-orang di List ini
+                                akan muncul di sini.
+                            </p>
+                        </div>
+                    `
+            }
+        </section>
+    `;
 }
 
 function render() {
-    if (view === "main") renderMain();
-    else if (view === "suggested") renderSuggested();
-    else renderDetail();
+    if (view === "main") {
+        renderMain();
+    } else if (view === "suggested") {
+        renderSuggested();
+    } else if (view === "detail") {
+        renderDetail();
+    }
 }
 
-function setView(next) {
-    view = next;
+function setView(nextView) {
+    prevView = view;
+    view = nextView;
     render();
-    window.scrollTo(0, 0);
 }
 
 function openList(id) {
-    prevView = view;
     currentId = id;
-    setView("detail");
+    prevView = view;
+    view = "detail";
+    render();
 }
 
 function goBack() {
-    if (view === "detail") setView(prevView === "detail" ? "main" : prevView);
-    else if (view === "suggested") setView("main");
-    else window.location.href = "../home/home.html";
+    if (view === "detail" && prevView !== "detail") {
+        view = prevView;
+    } else {
+        view = "main";
+    }
+
+    render();
 }
 
 function toggleFollow(id) {
-    if (followed.has(id)) followed.delete(id);
-    else followed.add(id);
+    if (followed.has(id)) {
+        followed.delete(id);
+    } else {
+        followed.add(id);
+    }
+
     persist();
-    if (view === "main") renderMainBody();
-    else render();
+    render();
 }
 
 function togglePin(id) {
-    if (pinned.has(id)) pinned.delete(id);
-    else pinned.add(id);
+    if (pinned.has(id)) {
+        pinned.delete(id);
+    } else {
+        pinned.add(id);
+    }
+
     persist();
-    renderMainBody();
+    render();
 }
 
-app.addEventListener("click", event => {
-    const el = event.target.closest("[data-action]");
-    if (!el) return;
-    const id = el.dataset.id;
-
-    switch (el.dataset.action) {
-        case "back": goBack(); break;
-        case "open": openList(id); break;
-        case "follow": toggleFollow(id); break;
-        case "pin": togglePin(id); break;
-        case "suggested": setView("suggested"); break;
-        case "create": openModal("create"); break;
-        case "edit": openModal("edit", id); break;
-    }
-});
-
-app.addEventListener("keydown", event => {
-    if (event.key !== "Enter") return;
-    const row = event.target.closest(".list-item");
-    if (row && event.target === row) openList(row.dataset.id);
-});
-
-app.addEventListener("input", event => {
-    if (event.target.id !== "listSearch") return;
-    query = event.target.value;
-    renderMainBody();
-});
-
-function openModal(mode, id) {
-    const base = mode === "edit" ? getList(id) : null;
-
+function showModal(type, list = null) {
     modal = {
-        mode,
-        id: id || null,
-        showMembers: false,
-        draft: {
-            name: base ? base.name : "",
-            description: base ? base.description : "",
-            private: base ? base.private : false,
-            memberIds: base ? [...base.memberIds] : []
-        }
+        type,
+        list
     };
 
-    renderModal();
+    const isEdit = type === "edit";
+
     modalEl.hidden = false;
-    document.body.style.overflow = "hidden";
-    const nameInput = document.getElementById("fName");
-    if (nameInput) nameInput.focus();
+
+    modalEl.innerHTML = `
+        <div class="modal-card">
+
+            <div class="modal-header">
+                <h2>
+                    ${isEdit ? "Edit List" : "Create a new List"}
+                </h2>
+
+                <button 
+                    class="modal-close" 
+                    data-modal-action="close"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+            </div>
+
+            <form id="listForm">
+
+                <label>
+                    List name
+
+                    <input 
+                        type="text" 
+                        id="listName"
+                        maxlength="50"
+                        value="${
+                            isEdit
+                                ? esc(list.name)
+                                : ""
+                        }"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Description
+
+                    <textarea 
+                        id="listDescription"
+                        maxlength="160"
+                    >${
+                        isEdit
+                            ? esc(list.description || "")
+                            : ""
+                    }</textarea>
+                </label>
+
+                <label class="checkbox-row">
+                    <input 
+                        type="checkbox" 
+                        id="listPrivate"
+                        ${
+                            isEdit && list.private
+                                ? "checked"
+                                : ""
+                        }
+                    >
+
+                    Make List private
+                </label>
+
+                <div class="modal-actions">
+
+                    <button 
+                        type="button" 
+                        class="outline-button"
+                        data-modal-action="close"
+                    >
+                        Cancel
+                    </button>
+
+                    <button 
+                        type="submit" 
+                        class="outline-button is-primary"
+                    >
+                        ${isEdit ? "Save" : "Create"}
+                    </button>
+
+                </div>
+
+            </form>
+
+            ${
+                isEdit
+                    ? `
+                        <div class="modal-danger">
+                            <button 
+                                type="button"
+                                class="delete-list-button"
+                                data-modal-action="delete"
+                            >
+                                Delete List
+                            </button>
+                        </div>
+                    `
+                    : ""
+            }
+
+        </div>
+    `;
 }
 
 function closeModal() {
     modal = null;
     modalEl.hidden = true;
     modalEl.innerHTML = "";
-    document.body.style.overflow = "";
 }
 
-function renderModal() {
-    const d = modal.draft;
-    const isEdit = modal.mode === "edit";
-    const bannerColor = isEdit ? colorOf(getList(modal.id)) : COLORS.pink;
+function createList(form) {
+    const name = form.querySelector("#listName").value.trim();
 
-    modalEl.innerHTML = `
-    <div class="modal" role="dialog" aria-modal="true" aria-label="${isEdit ? "Edit List" : "Create a new List"}">
-        <div class="modal-head">
-            <button class="icon-button" data-m="close" aria-label="Tutup">✕</button>
-            <h2>${isEdit ? "Edit List" : "Create a new List"}</h2>
-            <button class="done-button" id="doneBtn" data-m="done" ${d.name.trim() ? "" : "disabled"}>Done</button>
-        </div>
+    const description = form
+        .querySelector("#listDescription")
+        .value.trim();
 
-        <div class="modal-banner" style="background:${bannerColor}">${ICON}</div>
+    const isPrivate =
+        form.querySelector("#listPrivate").checked;
 
-        <div class="modal-body">
-            <label class="field">
-                <span>Name</span>
-                <input id="fName" type="text" maxlength="25" value="${esc(d.name)}" autocomplete="off">
-            </label>
+    if (!name) return;
 
-            <label class="field">
-                <span>Description</span>
-                <textarea id="fDesc" rows="3" maxlength="100">${esc(d.description)}</textarea>
-            </label>
+    const newList = {
+        id: "list-" + Date.now(),
+        name,
+        members: 0,
+        followers: "0",
+        including: ME.handle,
+        color: "blue",
+        memberIds: [],
+        description,
+        private: isPrivate,
+        own: true,
+        owner: {
+            name: ME.name,
+            handle: ME.handle
+        }
+    };
 
-            <label class="private-row">
-                <div>
-                    <strong>Make private</strong>
-                    <p class="muted">Kalau List dibuat private, hanya kamu yang bisa melihatnya.</p>
-                </div>
-                <input type="checkbox" id="fPrivate" ${d.private ? "checked" : ""}>
-            </label>
+    myLists.push(newList);
 
-            <button class="manage-row" data-m="members" type="button">
-                <span>Manage members (<b id="memberCount">${d.memberIds.length}</b>)</span>
-                <span id="memberArrow">${modal.showMembers ? "⌄" : "›"}</span>
-            </button>
+    persist();
+    closeModal();
 
-            <div class="members-panel" id="membersPanel" ${modal.showMembers ? "" : "hidden"}>
-                ${PEOPLE.map(p => {
-                    const on = d.memberIds.includes(p.id);
-                    return `
-                    <div class="member-row">
-                        <img class="mini-avatar" src="${DEFAULT_AVATAR}" alt="">
-                        <div class="member-info">
-                            <strong>${esc(p.name)}</strong>
-                            <span class="muted">${esc(p.handle)}</span>
-                        </div>
-                        <button class="member-btn${on ? " on" : ""}" data-m="member" data-id="${p.id}" type="button">${on ? "Remove" : "Add"}</button>
-                    </div>`;
-                }).join("")}
-            </div>
+    currentId = newList.id;
+    view = "detail";
 
-            ${isEdit ? `<button class="delete-row" data-m="delete" type="button">Delete List</button>` : ""}
-        </div>
-    </div>`;
+    render();
 }
 
-modalEl.addEventListener("input", event => {
-    if (!modal) return;
-    if (event.target.id === "fName") {
-        modal.draft.name = event.target.value;
-        document.getElementById("doneBtn").disabled = !modal.draft.name.trim();
+function editList(form) {
+    if (!modal || !modal.list) return;
+
+    const list = myLists.find(
+        item => item.id === modal.list.id
+    );
+
+    if (!list) return;
+
+    list.name =
+        form.querySelector("#listName").value.trim();
+
+    list.description =
+        form.querySelector("#listDescription").value.trim();
+
+    list.private =
+        form.querySelector("#listPrivate").checked;
+
+    persist();
+    closeModal();
+    render();
+}
+
+function deleteCurrentList() {
+    if (!modal || !modal.list) return;
+
+    const id = modal.list.id;
+
+    myLists = myLists.filter(
+        list => list.id !== id
+    );
+
+    followed.delete(id);
+    pinned.delete(id);
+
+    persist();
+    closeModal();
+
+    currentId = null;
+    view = "main";
+
+    render();
+}
+
+app.addEventListener("click", event => {
+
+    const postAction = event.target.closest(
+        "[data-post-action]"
+    );
+
+    if (postAction) {
+        const post = postAction.closest(".post");
+
+        if (!post) return;
+
+        const postId = post.dataset.postId;
+        const action = postAction.dataset.postAction;
+
+        if (action === "like") {
+            const likes = getLikes();
+
+            likes[postId] = !likes[postId];
+
+            saveLikes(likes);
+
+            renderDetail();
+
+            return;
+        }
+
+        if (action === "bookmark") {
+            const bookmarks = getBookmarks();
+
+            const existingIndex = bookmarks.findIndex(
+                bookmark => bookmark.id === postId
+            );
+
+            if (existingIndex !== -1) {
+                bookmarks.splice(existingIndex, 1);
+            } else {
+                const list = getList(currentId);
+
+                const person = PEOPLE.find(
+                    p => p.id === postId
+                );
+
+                if (person && list) {
+                    bookmarks.push({
+                        id: person.id,
+                        text: person.text,
+                        name: person.name,
+                        handle: person.handle,
+                        time: person.time,
+                        community: list.name
+                    });
+                }
+            }
+
+            saveBookmarks(bookmarks);
+
+            renderDetail();
+
+            return;
+        }
     }
-    if (event.target.id === "fDesc") modal.draft.description = event.target.value;
+
+    const actionButton = event.target.closest(
+        "[data-action]"
+    );
+
+    if (!actionButton) return;
+
+    const action = actionButton.dataset.action;
+    const id = actionButton.dataset.id;
+
+    if (action === "back") {
+        goBack();
+        return;
+    }
+
+    if (action === "open") {
+        openList(id);
+        return;
+    }
+
+    if (action === "follow") {
+        toggleFollow(id);
+        return;
+    }
+
+    if (action === "pin") {
+        togglePin(id);
+        return;
+    }
+
+    if (action === "suggested") {
+        setView("suggested");
+        return;
+    }
+
+    if (action === "create") {
+        showModal("create");
+        return;
+    }
+
+    if (action === "edit") {
+        const list = getList(id);
+
+        if (list) {
+            showModal("edit", list);
+        }
+
+        return;
+    }
 });
 
-modalEl.addEventListener("change", event => {
-    if (modal && event.target.id === "fPrivate") modal.draft.private = event.target.checked;
+app.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+
+    const item = event.target.closest(
+        ".list-item[data-action='open']"
+    );
+
+    if (!item) return;
+
+    openList(item.dataset.id);
+});
+
+app.addEventListener("input", event => {
+    if (event.target.id !== "listSearch") return;
+
+    query = event.target.value;
+
+    renderMainBody();
 });
 
 modalEl.addEventListener("click", event => {
-    if (!modal) return;
-    if (event.target === modalEl) { closeModal(); return; }
+    const action = event.target.closest(
+        "[data-modal-action]"
+    );
 
-    const el = event.target.closest("[data-m]");
-    if (!el) return;
+    if (!action) return;
 
-    switch (el.dataset.m) {
-        case "close": closeModal(); break;
-        case "done": saveModal(); break;
+    const modalAction =
+        action.dataset.modalAction;
 
-        case "members":
-            modal.showMembers = !modal.showMembers;
-            document.getElementById("membersPanel").hidden = !modal.showMembers;
-            document.getElementById("memberArrow").textContent = modal.showMembers ? "⌄" : "›";
-            break;
+    if (modalAction === "close") {
+        closeModal();
+        return;
+    }
 
-        case "member": {
-            const ids = modal.draft.memberIds;
-            const id = el.dataset.id;
-            const i = ids.indexOf(id);
-            if (i >= 0) ids.splice(i, 1);
-            else ids.push(id);
-
-            const on = ids.includes(id);
-            el.classList.toggle("on", on);
-            el.textContent = on ? "Remove" : "Add";
-            document.getElementById("memberCount").textContent = ids.length;
-            break;
-        }
-
-        case "delete": deleteList(modal.id); break;
+    if (modalAction === "delete") {
+        deleteCurrentList();
+        return;
     }
 });
 
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && modal) closeModal();
-});
+modalEl.addEventListener("submit", event => {
+    if (event.target.id !== "listForm") return;
 
-function saveModal() {
-    const d = modal.draft;
-    const name = d.name.trim();
-    if (!name) return;
+    event.preventDefault();
 
-    if (modal.mode === "create") {
-        const list = {
-            id: "my-" + Date.now(),
-            name,
-            description: d.description.trim(),
-            private: d.private,
-            color: "pink",
-            memberIds: [...d.memberIds],
-            followers: "0",
-            own: true
-        };
-        myLists.push(list);
-        persist();
-        closeModal();
-        openList(list.id);
+    if (modal?.type === "edit") {
+        editList(event.target);
     } else {
-        const list = myLists.find(l => l.id === modal.id);
-        if (list) {
-            list.name = name;
-            list.description = d.description.trim();
-            list.private = d.private;
-            list.memberIds = [...d.memberIds];
-            persist();
-        }
-        closeModal();
-        render();
+        createList(event.target);
     }
-}
+});
 
-function deleteList(id) {
-    if (!confirm("Hapus List ini?")) return;
-    myLists = myLists.filter(l => l.id !== id);
-    pinned.delete(id);
-    persist();
-    closeModal();
-    setView("main");
-}
+modalEl.addEventListener("click", event => {
+    if (event.target === modalEl) {
+        closeModal();
+    }
+});
 
 render();
 
-
 fetch("../sidebar.html")
     .then(res => {
-        if (!res.ok) throw new Error("Status " + res.status);
+        if (!res.ok) {
+            throw new Error("Status " + res.status);
+        }
+
         return res.text();
     })
     .then(html => {
         document.getElementById("sidebar").innerHTML = html;
     })
-    .catch(err => console.error("Sidebar gagal dimuat:", err));
-
+    .catch(err => {
+        console.error(
+            "Sidebar gagal dimuat:",
+            err
+        );
+    });
 
 const listTrends = [
-    { tag: "#SepakBola", cat: "Olahraga", count: 26300 },
-    { tag: "#KonserAkhirTahun", cat: "Hiburan", count: 21500 },
-    { tag: "#Jakarta", cat: "Berita", count: 18400 },
-    { tag: "#KecerdasanBuatan", cat: "Teknologi", count: 15400 },
-    { tag: "#Gaming", cat: "Hiburan", count: 12800 }
+    {
+        tag: "#SepakBola",
+        cat: "Olahraga",
+        count: 26300
+    },
+    {
+        tag: "#KonserAkhirTahun",
+        cat: "Hiburan",
+        count: 21500
+    },
+    {
+        tag: "#Jakarta",
+        cat: "Berita",
+        count: 18400
+    },
+    {
+        tag: "#KecerdasanBuatan",
+        cat: "Teknologi",
+        count: 15400
+    },
+    {
+        tag: "#gaming",
+        cat: "Hiburan",
+        count: 12800
+    }
 ];
 
-function formatListTrendCount(count) {
+function formatTrendCount(count) {
     if (count >= 1000) {
-        return (count / 1000).toFixed(1).replace(".0", "") + " rb";
+        return (
+            count / 1000
+        ).toFixed(1).replace(".0", "") + " rb";
     }
 
     return count;
 }
 
 function renderListTrending() {
-    const container = document.getElementById("listTrending");
+    const container =
+        document.getElementById("listTrending");
 
     if (!container) return;
 
     container.innerHTML = listTrends.map(trend => `
-        <a class="list-trend-item" href="../trending/trending.html">
+        <a 
+            class="list-trend-item"
+            href="../explore/explore.html"
+        >
             <span class="list-trend-category">
                 ${trend.cat} · Sedang tren
             </span>
@@ -541,7 +1175,7 @@ function renderListTrending() {
             </span>
 
             <span class="list-trend-count">
-                ${formatListTrendCount(trend.count)} postingan
+                ${formatTrendCount(trend.count)} postingan
             </span>
         </a>
     `).join("");

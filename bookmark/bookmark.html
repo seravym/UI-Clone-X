@@ -6,9 +6,10 @@
     <title>Bookmarks - X Clone</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="bookmark.css">
+    <link rel="stylesheet" href="../mobile.css">
 </head>
 
-<body>
+<body data-bottom-nav>
     <aside class="sidebar-left">
         <div id="sidebar"></div>
     </aside>
@@ -16,7 +17,9 @@
     <main class="bookmarks">
 
         <header class="bookmarks-header">
-            <button class="back-button" onclick="history.back()" aria-label="Kembali">←</button>
+            <button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog">
+                <img src="../login/logo.jpg" alt="">
+            </button>
             <h1>Bookmarks</h1>
         </header>
 
@@ -40,7 +43,7 @@
         </div>
     </aside>
 
-    <script src="../app.js"></script>
     <script src="bookmark.js"></script>
+    <script src="../mobile-navigation.js"></script>
 </body>
 </html>
