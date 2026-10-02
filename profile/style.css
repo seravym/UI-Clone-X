@@ -6,20 +6,20 @@ html, body {
 .container{
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    height: 400px;
+    height: 550px;
     border-left: none;
     border-right: none;
     background-color: #e797a0;
-
-   position: relative;
-
+    position: relative;
+    
 }
 
 
 .container1{
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    height: 400px;
+    height: 500px;
+    width:1100px;
     border-left: none;
     border-right: none;
     background-color: #f4db9a;
@@ -36,17 +36,16 @@ h1{
 }
 
 .button {
-border: 2px solid#9b3160;
+    border: 2px solid#9b3160;
     border-radius: 25px;
-  padding: 10px 55px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 20px;
- display: inline-block;
-margin: 15px 10px;
-position: absolute;
-    bottom: 30px;
-  cursor: url("./str.png"), pointer;
+    padding: 10px 55px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-block;
+    margin: 15px 10px;
+    position: static;
+    cursor: url("./str.png"), pointer;
 
 }
 
@@ -72,6 +71,44 @@ position: absolute;
 .button2:hover {
     background-color: #9b3160;
     color: #f4db9a;
+}
+
+.back-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #fff7fb;
+    color: #9b3160;
+    border: 2px solid #9b3160;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  
+    top: -185px;
+    left: -8px;
+}
+
+.profile-actions {
+     display: flex;
+      position: absolute;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    top: 35px;
+    left: 800px;
+    margin: 0;
+
+}
+
+.profile-actions .button {
+    margin: 0;
+    width: 220px;
+    box-sizing: border-box;
 }
 
 h2{
@@ -124,54 +161,99 @@ h2{
     object-fit: cover;
 }
 
-#profile-upload {
-    display: none;
+
+.profile-menu {
+    position: static;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff7fb;
+    border-top: 2px solid #9b3160;
+    border-bottom: 2px solid #9b3160;
+}
+
+.profile-info {
+    position: absolute;
+    top: 195px;
+    left: 18px;
+}
+
+
+
+.profile-menu div {
+
+    flex: 1;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.profile-menu .active {
+    font-weight: bold;
+    border-bottom: 4px solid #9b3160;
+}
+
+
+.profile-page > .upload-circle {
+    grid-row: span 2;   
 }
 
 .upload-circle {
-    width: 150px;
-    height: 150px;
-    border: 4px solid #9b3160;
+    width: 150px !important;
+    height: 150px !important;
+    min-width: 150px !important;
+    min-height: 150px !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    flex-shrink: 0;  
+    border: none; 
     border-radius: 50%;
     background-color: #fff7fb;
     display: block;
-    position: absolute;
-    bottom:55%;     
-   left: 32%;  
+    position: relative;
     cursor: url("./hirono.png") 16 16, pointer;
+    aspect-ratio: 1 / 1;  
+}
+
+ .upload-circle img.profile {
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border: 4px solid #9b3160;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
 
 #profile-name {
     font-size: 50px;
-    position: absolute;
-    left: 45%;
-   bottom: 69%;
+    position: static;
+    margin:0;
 }
 
 #profile-username {
-    position: absolute;
+    position: static;
     font-size: 20px;
-    left:44%;
-    top: 13%;
-    margin-left: 18px;
     color: #555;
+    margin:0;
 }
 
 #profileBio{
-
-    position: absolute;
-    font-size: 23px;
-    left:45%;
-    top: 22%;
-    margin-left: 5px;
+    position:static;
+    font-size: 25px;
+    margin-bottom: 1px;
+    margin-top:6px;
 
 }
 
-#bio{
-    width: 100%;
-    height: 60%;
-    resize: both;
-    box-sizing: border-box;
+#join{
+    font-family: italic;
+    position:static;
+    font-size: 20px;
+    color: #555;
+  margin-top:7px;
+  margin-right:8px;
 }
 
 .edit:nth-child(3) {
@@ -180,12 +262,12 @@ h2{
 
 .follow-info {
     display: flex;
-    gap: 40px;
-    position: absolute;
-    margin-top: 20px;
-    right: 42%;
-    bottom: 50%;
-    gap: 72px;
+    position: absolute;     
+    gap: 90%;
+    top: 30px;
+    left: 240px;
+    margin: 0;
+    transform: none;
 }
 
 .follow-info div {
@@ -195,7 +277,7 @@ h2{
 }
 
 .follow-info strong {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .follow-info span {
@@ -328,42 +410,18 @@ h2{
     
 }
 
-.profile-menu {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #fff7fb;
-    border-top: 2px solid #9b3160;
-    border-bottom: 2px solid #9b3160;
-    margin-top: 28%;
-}
-
-.profile-menu div {
-
-    flex: 1;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 20px;
-}
-
-.profile-menu .active {
-    font-weight: bold;
-    border-bottom: 4px solid #9b3160;
-}
 
 .dummy-posts {
       width: 100%;
-       position:absolute;
-    margin: 27% auto;
-    top: 25%;
+       position: static;
+     padding: 0;
+    box-sizing: border-box;
 }
+
 
 .dummy-post {
     background-color: #fff7fb;
-    border: 2px solid #9b3160;
-    border-radius: 5px;
+    border: 1px solid #9b3160;
     padding: 20px;
     margin-bottom: 15px;
     box-sizing: border-box;
@@ -405,9 +463,31 @@ h2{
 }
 
 .ktk {
-  width: 1200px;
-  height: 300px;
-  border-radius: 0px;
+  width: 100%;
+    height: 180px;
+    object-fit: cover;
+    margin: 0;
+    display: block;
+}
+
+.layout-container {
+    display: flex;
+    width: 100%;
+}
+
+.feed {
+    flex: 1 !important;      
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.right-sidebar {
+    flex: 0 0 350px !important; 
+    width: 300px !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
 }
 
 /* ===== RESPONSIVE (tambahan) ===== */

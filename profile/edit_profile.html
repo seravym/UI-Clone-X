@@ -11,7 +11,13 @@
 <header class="container1">
     <h1 class="anime">HI LET'S<span> EDIT</span></h1>
     <button class="ex" onclick="window.location.href='profile.html'">x</button>
+<div class="edit">
+    <label for="banner-upload">Banner</label>
+    <input type="file" id="banner-upload" accept="image/*">
+    <img id="banner-preview" style="display:none; width:100%; max-height:120px; object-fit:cover;">
 
+
+</div>
     <div class="edit-content">
         <label for="profile-upload" class="upload-circle">
             <img id="profile-preview" class="profile" src="default.jpg" alt="Foto profil">
@@ -36,84 +42,20 @@
     </div>
 
     <button class="save-btn" onclick="saveProfile()">Save</button>
+
+
+     <aside class="right-sidebar">
+            <input type="text" placeholder="Search..." class="search-bar">
+            <div class="trending-box">
+                <h4>Trending</h4>
+                <p class="text-pink">#randomtrend</p>
+            </div>
+        </aside>
 </header>
 
-<script>
-    const upload = document.getElementById("profile-upload");
-    const preview = document.getElementById("profile-preview");
-    const nameInput = document.getElementById("akun");
-    const usernameInput = document.getElementById("acc");
-    const bioInput = document.getElementById("bio");
 
-    let newPic = null;
-
-    const saved = localStorage.getItem("profilePic");
-    if (saved) preview.src = saved;
-
-    nameInput.value = localStorage.getItem("profileName") || "";
-    usernameInput.value = localStorage.getItem("profileUsername") || "";
-    bioInput.value = localStorage.getItem("profileBio") || "";
-
-    usernameInput.addEventListener("input", function () {
-        this.value = this.value.replace(/[^a-zA-Z0-9._]/g, "");
-    });
-
-    upload.addEventListener("change", function () {
-        const file = this.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const img = new Image();
-            img.onload = function () {
-                const size = 300;
-                const canvas = document.createElement("canvas");
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext("2d");
-
-                const min = Math.min(img.width, img.height);
-                const sx = (img.width - min) / 2;
-                const sy = (img.height - min) / 2;
-                ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
-
-                newPic = canvas.toDataURL("image/jpeg", 0.85);
-                preview.src = newPic;
-            };
-            img.onerror = function () {
-                alert("Format foto tidak didukung, coba JPG atau PNG.");
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
-
-    function saveProfile() {
-        const name = nameInput.value.trim();
-        const username = usernameInput.value.trim().toLowerCase();
-        const bio = bioInput.value.trim();
-
-        if (name === "") {
-            alert("Nama tidak boleh kosong.");
-            return;
-        }
-        if (username.length < 3) {
-            alert("ID akun minimal 3 karakter.");
-            return;
-        }
-
-        try {
-            if (newPic) localStorage.setItem("profilePic", newPic);
-            localStorage.setItem("profileName", name);
-            localStorage.setItem("profileUsername", username);
-            localStorage.setItem("profileBio", bio);
-        } catch (err) {
-            alert("Gagal menyimpan: " + err.message);
-            return;
-        }
-        window.location.href = "profile.html";
-    }
-</script>
+    <script src="app.js">
+    </script>
 
 </body>
 </html>
