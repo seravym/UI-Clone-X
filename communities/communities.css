@@ -207,6 +207,7 @@ body {
 .action-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 6px 10px;
     border: none;
@@ -639,4 +640,11 @@ body {
         padding-left: 14px;
         padding-right: 14px;
     }
+}
+
+.bookmark-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
