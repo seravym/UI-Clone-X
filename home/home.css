@@ -223,3 +223,29 @@ body {
 .action-save:hover img {
     filter: invert(47%) sepia(91%) saturate(2758%) hue-rotate(180deg) brightness(99%) contrast(96%);
 }
+
+@media (max-width: 760px) {
+    .sidebar-left {
+        display: none !important;
+    }
+    .right-sidebar {
+        display: none !important;
+    }
+    .feed {
+        width: 100% !important;
+        margin-left: 0 !important;
+        border-left: none;
+        border-right: none;
+    }
+    .feed-header {
+        position: relative;
+        top: 0;
+    }
+    .create-post {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    body[data-bottom-nav] {
+        padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+    }
+}
