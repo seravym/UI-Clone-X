@@ -183,29 +183,21 @@ function esc(text) {
 }
 
 const allLists = () => [...SUGGESTED, ...myLists];
-
 const getList = id => allLists().find(l => l.id === id);
-
 const memberCount = l => l.members ?? l.memberIds.length;
-
 const colorOf = l => COLORS[l.color] || COLORS.pink;
 
 function rowHTML(l, mode) {
     const count = memberCount(l);
 
-    const meta =
-        l.own && count === 0
+    const meta = l.own && count === 0
             ? ""
             : `<span>· ${count} members</span>`;
 
     const sub = l.own
         ? `
             <div class="list-followers">
-                <img 
-                    class="mini-avatar" 
-                    src="${DEFAULT_AVATAR}" 
-                    alt=""
-                >
+                <img class="mini-avatar" src="${DEFAULT_AVATAR}" alt="">
                 <strong>${esc(ME.name)}</strong>
                 ${l.private ? "<span>🔒</span>" : ""}
                 <span>${esc(ME.handle)}</span>
@@ -236,12 +228,7 @@ function rowHTML(l, mode) {
 
     return `
 
-        <div 
-            class="list-item" 
-            data-action="open" 
-            data-id="${esc(l.id)}" 
-            tabindex="0"
-        >
+        <div class="list-item" data-action="open" data-id="${esc(l.id)}" tabindex="0">
             <div 
                 class="list-icon" 
                 style="background:${colorOf(l)}"
@@ -272,20 +259,12 @@ function headerHTML(title, subtitle) {
             ${
                 showBack
                     ? `
-                        <button 
-                            class="back-button" 
-                            data-action="back" 
-                            aria-label="Kembali"
-                        >
+                        <button class="back-button" data-action="back" aria-label="Kembali">
                             ←
                         </button>
                     `
                     : `
-                        <button 
-                            class="mobile-menu-button" 
-                            aria-label="Open navigation" 
-                            aria-haspopup="dialog"
-                        >
+                        <button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog">
                             <img src="../login/logo.jpg" alt="">
                         </button>
                     `
@@ -312,22 +291,12 @@ function renderMain() {
         <div class="list-search">
             <span class="search-icon">⌕</span>
 
-            <input 
-                type="text" 
-                id="listSearch" 
-                placeholder="Search for Lists" 
-                value="${esc(query)}" 
-                autocomplete="off"
-            >
+            <input type="text" id="listSearch" placeholder="Search for Lists" value="${esc(query)}" autocomplete="off">
         </div>
 
         <div id="mainBody"></div>
 
-        <button 
-            class="create-list-button" 
-            data-action="create" 
-            aria-label="Buat list baru"
-        >
+        <button class="create-list-button" data-action="create" aria-label="Buat list baru">
             +
         </button>
     `;
@@ -459,22 +428,16 @@ function renderDetail() {
 
     const button = l.own
         ? `
-            <button 
-                class="outline-button" 
-                data-action="edit" 
-                data-id="${esc(l.id)}"
-            >
+            <button class="outline-button" data-action="edit" data-id="${esc(l.id)}">
                 Edit List
             </button>
         `
         : `
-            <button 
-                class="outline-button${
+            <button class="outline-button${
                     followed.has(l.id) ? "" : " is-primary"
                 }" 
                 data-action="follow" 
-                data-id="${esc(l.id)}"
-            >
+                data-id="${esc(l.id)}">
                 ${followed.has(l.id) ? "Following" : "Follow"}
             </button>
         `;
@@ -485,10 +448,7 @@ function renderDetail() {
     app.innerHTML = `
         ${headerHTML(l.name, owner.handle)}
 
-        <div 
-            class="banner" 
-            style="background:${colorOf(l)}"
-        >
+        <div class="banner" style="background:${colorOf(l)}">
             ${ICON}
         </div>
 
@@ -505,11 +465,7 @@ function renderDetail() {
             }
 
             <div class="owner-line">
-                <img 
-                    class="mini-avatar" 
-                    src="${DEFAULT_AVATAR}" 
-                    alt=""
-                >
+                <img class="mini-avatar" src="${DEFAULT_AVATAR}" alt="">
 
                 <strong>${esc(owner.name)}</strong>
 
@@ -544,15 +500,8 @@ function renderDetail() {
                         );
 
                         return `
-                            <article 
-                                class="post" 
-                                data-post-id="${esc(p.id)}"
-                            >
-                                <img 
-                                    class="post-avatar" 
-                                    src="${DEFAULT_AVATAR}" 
-                                    alt="Foto profil ${esc(p.name)}"
-                                >
+                            <article class="post" data-post-id="${esc(p.id)}">
+                                <img class="post-avatar" src="${DEFAULT_AVATAR}" alt="Foto profil ${esc(p.name)}">
 
                                 <div class="post-body">
 
@@ -572,16 +521,8 @@ function renderDetail() {
 
                                     <div class="post-actions">
 
-                                        <button 
-                                            class="action-btn"
-                                            aria-label="Reply"
-                                        >
-                                            <img 
-                                                src="../image/icons/chat.svg"
-                                                class="action-icon"
-                                                alt="Reply"
-                                            >
-
+                                        <button class="action-btn"aria-label="Reply">
+                                            <img src="../image/icons/chat.svg" class="action-icon" alt="Reply">
                                             <span class="count">
                                                 0
                                             </span>
@@ -594,38 +535,26 @@ function renderDetail() {
                                             data-post-action="like"
                                             aria-label="Like"
                                         >
-                                            <img 
-                                                src="../image/icons/${
+                                            <img src="../image/icons/${
                                                     liked
                                                         ? "like-full.svg"
                                                         : "like.svg"
                                                 }"
                                                 class="action-icon"
-                                                alt="Like"
-                                            >
-
+                                                alt="Like">
                                             <span class="count">
                                                 ${liked ? 1 : 0}
                                             </span>
                                         </button>
 
-                                        <button 
-                                            class="action-btn"
-                                            aria-label="View"
-                                        >
-                                            <img 
-                                                src="../image/icons/view.svg"
-                                                class="action-icon"
-                                                alt="View"
-                                            >
-
+                                        <button class="action-btn" aria-label="View">
+                                            <img src="../image/icons/view.svg"class="action-icon" alt="View">
                                             <span class="count">
                                                 0
                                             </span>
                                         </button>
 
-                                        <button 
-                                            class="action-btn bookmark-btn${
+                                        <button class="action-btn bookmark-btn${
                                                 bookmarked
                                                     ? " active"
                                                     : ""
@@ -637,8 +566,7 @@ function renderDetail() {
                                                     : "Bookmark"
                                             }"
                                         >
-                                            <img 
-                                                src="../image/icons/${
+                                            <img src="../image/icons/${
                                                     bookmarked
                                                         ? "bookmark-full.svg"
                                                         : "bookmark.svg"
@@ -647,7 +575,6 @@ function renderDetail() {
                                                 alt="Bookmark"
                                             >
                                         </button>
-
                                     </div>
                                 </div>
                             </article>
@@ -741,11 +668,7 @@ function showModal(type, list = null) {
                     ${isEdit ? "Edit List" : "Create a new List"}
                 </h2>
 
-                <button 
-                    class="modal-close" 
-                    data-modal-action="close"
-                    aria-label="Close"
-                >
+                <button class="modal-close" data-modal-action="close" aria-label="Close">
                     ×
                 </button>
             </div>
@@ -755,26 +678,19 @@ function showModal(type, list = null) {
                 <label>
                     List name
 
-                    <input 
-                        type="text" 
-                        id="listName"
-                        maxlength="50"
+                    <input type="text" id="listName" maxlength="50"
                         value="${
                             isEdit
                                 ? esc(list.name)
                                 : ""
                         }"
-                        required
-                    >
+                        required>
                 </label>
 
                 <label>
                     Description
 
-                    <textarea 
-                        id="listDescription"
-                        maxlength="160"
-                    >${
+                    <textarea id="listDescription" maxlength="160">${
                         isEdit
                             ? esc(list.description || "")
                             : ""
@@ -782,49 +698,32 @@ function showModal(type, list = null) {
                 </label>
 
                 <label class="checkbox-row">
-                    <input 
-                        type="checkbox" 
-                        id="listPrivate"
+                    <input type="checkbox" id="listPrivate"
                         ${
                             isEdit && list.private
                                 ? "checked"
                                 : ""
-                        }
-                    >
-
+                        }>
                     Make List private
                 </label>
 
                 <div class="modal-actions">
 
-                    <button 
-                        type="button" 
-                        class="outline-button"
-                        data-modal-action="close"
-                    >
+                    <button type="button" class="outline-button" data-modal-action="close">
                         Cancel
                     </button>
 
-                    <button 
-                        type="submit" 
-                        class="outline-button is-primary"
-                    >
+                    <button type="submit" class="outline-button is-primary">
                         ${isEdit ? "Save" : "Create"}
                     </button>
-
                 </div>
-
             </form>
 
             ${
                 isEdit
                     ? `
                         <div class="modal-danger">
-                            <button 
-                                type="button"
-                                class="delete-list-button"
-                                data-modal-action="delete"
-                            >
+                            <button type="button" class="delete-list-button" data-modal-action="delete">
                                 Delete List
                             </button>
                         </div>
@@ -944,11 +843,8 @@ app.addEventListener("click", event => {
             const likes = getLikes();
 
             likes[postId] = !likes[postId];
-
             saveLikes(likes);
-
             renderDetail();
-
             return;
         }
 
@@ -981,9 +877,7 @@ app.addEventListener("click", event => {
             }
 
             saveBookmarks(bookmarks);
-
             renderDetail();
-
             return;
         }
     }
@@ -1162,10 +1056,7 @@ function renderListTrending() {
     if (!container) return;
 
     container.innerHTML = listTrends.map(trend => `
-        <a 
-            class="list-trend-item"
-            href="../explore/explore.html"
-        >
+        <a class="list-trend-item" href="../explore/explore.html">
             <span class="list-trend-category">
                 ${trend.cat} · Sedang tren
             </span>
