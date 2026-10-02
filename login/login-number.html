@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,23 +15,25 @@
       <p class="subtitle">Login with your phone number</p>
 
       <div class="card">
-        <form action="otp.html" method="get">
-          <label for="number">Phone number</label>
-          <div class="phone-group">
-            <select id="country-code" name="country-code">
-              <option value="+62" selected>ID +62</option>
-              <option value="+60">MY +60</option>
-              <option value="+65">SG +65</option>
-              <option value="+1">US +1</option>
-            </select>
+        <form action="../auth/auth.html" method="get">
+        <input type="hidden" name="type" value="phone">
 
-            <input id="number" name="number" type="tel" inputmode="numeric"
-              pattern="[0-9]{8,13}" title="Masukkan 8-13 digit angka"
-              placeholder="Number" autocomplete="tel-national" required>
-          </div>
+        <label for="number">Phone number</label>
+        <div class="phone-group">
+          <select id="country-code" name="code">
+            <option value="+62" selected>ID +62</option>
+            <option value="+60">MY +60</option>
+            <option value="+65">SG +65</option>
+            <option value="+1">US +1</option>
+          </select>
 
-          <button class="button" type="submit">Send OTP</button>
-        </form>
+          <input id="number" name="value" type="tel" inputmode="numeric"
+            pattern="[0-9]{8,13}" title="Masukkan 8-13 digit angka"
+            placeholder="Number" autocomplete="tel-national" required>
+        </div>
+
+        <button class="button" type="submit">Send OTP</button>
+       </form>
       </div> 
 
       <p class="register">Don't have an account? <a href="../signup/signup.html">Create account!</a></p>

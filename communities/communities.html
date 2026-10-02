@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Communities - X Clone</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../mobile.css">
     <link rel="stylesheet" href="communities.css">
 </head>
 
-<body>
+<body data-bottom-nav>
     <aside class="sidebar-left">
         <div id="sidebar"></div>
     </aside>
@@ -16,8 +17,15 @@
     <main class="communities">
 
         <header class="communities-header">
-            <a href="../home/home.html" class="back-button" aria-label="Kembali ke Home">&larr;</a>
+            <button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog">
+                <img src="../login/logo.jpg" alt="">
+            </button>
+
             <h1>Communities</h1>
+
+            <button class="create-post-button" data-action="open-post-modal">
+                ＋ Post
+            </button>
         </header>
 
         <nav class="communities-nav">
@@ -36,12 +44,47 @@
     </main>
 
     <aside class="communities-trending">
-    <div class="communities-trending-box">
-        <h2 class="communities-trending-title">Trending untuk Anda</h2>
-        <div id="communitiesTrending"></div>
+        <div class="communities-trending-box">
+            <h2 class="communities-trending-title">Trending untuk Anda</h2>
+            <div id="communitiesTrending"></div>
+        </div>
+    </aside>
+
+    <div class="post-modal" id="postModal" hidden>
+        <div class="post-modal-overlay" data-action="close-post-modal"></div>
+
+        <div class="post-modal-card">
+            <div class="post-modal-header">
+                <h2>Create a post</h2>
+
+                <button class="close-post-modal" data-action="close-post-modal">
+                    ×
+                </button>
+            </div>
+
+            <div class="post-form">
+                <label for="postCommunity">Community</label>
+
+                <select id="postCommunity">
+                    <option value="">Choose a Community</option>
+                </select>
+
+                <label for="postText">What's happening?</label>
+
+                <textarea
+                    id="postText"
+                    placeholder="What's happening?"
+                    maxlength="280"
+                ></textarea>
+
+                <button class="submit-post-button" data-action="submit-post">
+                    Post
+                </button>
+            </div>
+        </div>
     </div>
-</aside>
 
     <script src="communities.js"></script>
+    <script src="../mobile-navigation.js"></script>
 </body>
 </html>

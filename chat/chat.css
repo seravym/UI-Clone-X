@@ -16,7 +16,8 @@
   top: 0;
   align-self: start;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .chat-rail {

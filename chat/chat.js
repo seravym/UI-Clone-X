@@ -4,6 +4,7 @@ const contacts = [
   { id: "Sandy", name: "Sandy Man", handle: "@sandy", color: "purple" },
   { id: "citrus", name: "Citrus", handle: "@cloudy", color: "yellow" },
 ];
+
 const sampleChats = [
   {
     id: "Anne",
@@ -13,21 +14,9 @@ const sampleChats = [
     unread: true,
     request: false,
     messages: [
-      {
-        text: "Hey.. can i get your number?",
-        mine: false,
-        time: "09:30",
-      },
-      {
-        text: "No.",
-        mine: true,
-        time: "09:32",
-      },
-      {
-        text: "Whyy?",
-        mine: false,
-        time: "09:35",
-      },
+      { text: "Hey.. can i get your number?", mine: false, time: "09:30" },
+      { text: "No.", mine: true, time: "09:32" },
+      { text: "Whyy?", mine: false, time: "09:35" },
     ],
   },
   {
@@ -39,11 +28,7 @@ const sampleChats = [
     unread: true,
     request: false,
     messages: [
-      {
-        text: "Rina: Has anyone seen my tab?",
-        mine: false,
-        time: "08:45",
-      },
+      { text: "Rina: Has anyone seen my tab?", mine: false, time: "08:45" },
     ],
   },
   {
@@ -54,11 +39,7 @@ const sampleChats = [
     unread: false,
     request: false,
     messages: [
-      {
-        text: "Plz help me find my tab!",
-        mine: false,
-        time: "08:20",
-      },
+      { text: "Plz help me find my tab!", mine: false, time: "08:20" },
     ],
   },
   {
@@ -68,13 +49,7 @@ const sampleChats = [
     type: "direct",
     unread: true,
     request: true,
-    messages: [
-      {
-        text: "Where should we meet?",
-        mine: false,
-        time: "10:10",
-      },
-    ],
+    messages: [{ text: "Where should we meet?", mine: false, time: "10:10" }],
   },
   {
     id: "citrus",
@@ -84,11 +59,7 @@ const sampleChats = [
     unread: true,
     request: true,
     messages: [
-      {
-        text: "Hi, im the one from library.",
-        mine: false,
-        time: "10:25",
-      },
+      { text: "Hi, im the one from library.", mine: false, time: "10:25" },
     ],
   },
 ];
@@ -155,18 +126,7 @@ function avatar(person) {
 
 function chatIcon(name) {
   let shapes = {
-    newchat:
-      '<path d="M20 10a8 8 0 1 0-14 6l-1 4 4-1a8 8 0 0 0 4 1"/><path d="M19 14v8M15 18h8"/>',
-    home: '<path d="m3 10 9-7 9 7v10H15v-6H9v6H3Z"/>',
-    search: '<circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/>',
-    chat: '<path d="M21 11a9 9 0 0 1-9 9H4l-2 2V11a9 9 0 0 1 19 0Z"/>',
-    bell: '<path d="M5 9a7 7 0 0 1 14 0v6l2 3H3l2-3Z M9 21h6"/>',
-    edit: '<path d="M13 4H4v16h16v-9 M10 14l1-5 8-8 4 4-8 8Z"/>',
-    settings:
-      '<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="16" cy="17" r="3"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/>',
-    request:
-      '<path d="M21 11a9 9 0 0 1-9 9H4l-2 2V11a9 9 0 0 1 19 0Z M8 11h8M12 7v8"/>',
   };
   return (
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -174,45 +134,6 @@ function chatIcon(name) {
     "</svg>"
   );
 }
-
-document.getElementById("chat-app").innerHTML = `
-  <div class="chat-layout" id="chat-layout">
-    <aside class="sidebar-left"><div id="chat-sidebar"></div></aside>
-    <section class="chat-inbox" aria-label="Conversation list">
-      <header class="inbox-header">
-        <div class="chat-heading"><button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog"><img src="../login/logo.jpg" alt=""></button><h1>user</h1>
-          <button class="chat-icon-button new-chat-button" id="new-chat" aria-label="New chat" title="New message">${chatIcon("newchat")}</button>
-        </div>
-        <input class="chat-search" id="chat-search" type="search" placeholder="Search" aria-label="Search conversations">
-      </header>
-      <div class="inbox-section-heading"><h2 id="inbox-title">${requestsPage ? "Requests" : "Messages"}</h2>
-        <button class="requests-link" id="toggle-requests" type="button">
-          <span id="requests-label">${requestsPage ? "Back to inbox" : "Requests"}</span><span class="chat-count" id="request-count"></span>
-        </button>
-      </div>
-      <div class="inbox-tools">
-        <div class="chat-filters" role="group" aria-label="Filter conversations">
-          <button class="filter-chip active" data-filter="all" aria-pressed="true">All</button>
-          <button class="filter-chip" data-filter="unread" aria-pressed="false">Unread</button>
-          <button class="filter-chip" data-filter="direct" aria-pressed="false">Direct</button>
-          <button class="filter-chip" data-filter="group" aria-pressed="false">Groups</button>
-        </div>
-        <button class="text-button" id="mark-read">Mark all as read</button>
-      </div>
-      <div class="chat-list" id="chat-list"></div>
-      <footer class="inbox-footer"><a href="notifications.html">Notifications</a><a href="notification-settings.html">Settings</a></footer>
-    </section>
-    <main class="conversation" id="conversation"></main>
-  </div>
-  <dialog class="chat-dialog" id="new-chat-dialog" aria-labelledby="dialog-title">
-    <div class="chat-heading"><h2 id="dialog-title">Start a conversation</h2><button class="dialog-close" id="close-dialog" aria-label="Close dialog">&times;</button></div>
-    <div class="dialog-tabs"><button class="chat-secondary active" id="direct-mode">Direct message</button><button class="chat-secondary" id="group-mode">Create a group</button></div>
-    <label class="dialog-field" id="group-name-field" hidden>Group name<input type="text" id="group-name" maxlength="50" placeholder="e.g. Frontend Study Club"></label>
-    <input type="search" id="contact-search" placeholder="Search name or username" aria-label="Search contacts">
-    <div id="contact-list"></div>
-    <button class="chat-button dialog-submit" id="start-chat" disabled>Start conversation</button>
-  </dialog>
-  <div class="chat-status" id="chat-status" role="status"></div>`;
 
 function loadSidebar() {
   fetch("../sidebar.html")
@@ -226,7 +147,6 @@ function loadSidebar() {
       console.log("Sidebar gagal dimuat:", error);
     });
 }
-
 loadSidebar();
 
 function showStatus(message) {
@@ -258,11 +178,13 @@ function renderList() {
         (filter == "unread" ? chat.unread : chat.type == filter))
     );
   });
+
   document.getElementById("request-count").textContent = requestsPage
     ? ""
     : chats.filter(function (chat) {
         return chat.request;
       }).length;
+
   document.getElementById("chat-list").innerHTML =
     visible
       .map(function (chat) {
@@ -299,6 +221,7 @@ function renderConversation() {
   let chat = chats.find(function (item) {
     return item.id == selectedId;
   });
+
   if (!chat) {
     panel.innerHTML = `<div class="chat-empty"><div class="empty-art" aria-hidden="true"><span class="bubble-art"></span></div>
       <p class="eyebrow">Your space.</p><h2>${requestsPage ? "You're in control." : "More relation more satisfactions."}</h2>
@@ -308,6 +231,7 @@ function renderConversation() {
     document.getElementById("empty-new-chat").onclick = openNewChat;
     return;
   }
+
   panel.innerHTML = `<header class="conversation-header"><button class="chat-secondary mobile-back" id="back-to-inbox" aria-label="Back to conversations">&larr;</button>
     ${avatar(chat)}<div><h2>${escapeText(chat.name)}</h2><p>${chat.request ? "Message request" : chat.type == "group" ? chat.members.length + 1 + " members including you" : "Direct conversation"}</p></div>
     <button class="chat-icon-button conversation-info" id="conversation-info" title="Conversation details" aria-label="Conversation details">${chatIcon("info")}</button></header>
@@ -337,6 +261,7 @@ function renderConversation() {
         : `<form class="chat-compose" id="chat-compose"><input id="message-input" placeholder="Write a message..." aria-label="Message" maxlength="2000" autocomplete="off" required><button class="chat-button" type="submit">Send</button></form>`
     }
     <p class="demo-label">Frontend demo · Messages stay in this browser</p>`;
+
   document.getElementById("back-to-inbox").onclick = function () {
     setInboxMode(chat.request);
   };
@@ -348,8 +273,10 @@ function renderConversation() {
     details.hidden = !details.hidden;
     this.setAttribute("aria-expanded", String(!details.hidden));
   };
+
   let messageList = document.getElementById("chat-messages");
   messageList.scrollTop = messageList.scrollHeight;
+
   if (chat.request) {
     document.getElementById("accept-request").onclick = function () {
       chat.request = false;
@@ -439,6 +366,7 @@ function renderContacts() {
       })
       .join("") ||
     '<p class="muted-text">No contacts found. Try another name.</p>';
+
   document.querySelectorAll('input[name="contact"]').forEach(function (input) {
     input.onchange = function () {
       if (!groupMode) selectedContacts = [];
@@ -519,9 +447,11 @@ document.getElementById("toggle-requests").onclick = function () {
 };
 
 document.getElementById("new-chat").onclick = openNewChat;
+
 document.getElementById("close-dialog").onclick = function () {
   document.getElementById("new-chat-dialog").close();
 };
+
 document.getElementById("direct-mode").onclick = function () {
   setGroupMode(false);
 };
@@ -531,6 +461,7 @@ document.getElementById("group-mode").onclick = function () {
 document.getElementById("contact-search").oninput = renderContacts;
 document.getElementById("group-name").oninput = updateStartButton;
 document.getElementById("chat-search").oninput = renderList;
+
 function setChatFilter(filter) {
   activeFilter = filter;
   document.querySelectorAll(".filter-chip").forEach(function (button) {
@@ -546,6 +477,7 @@ document.querySelectorAll(".filter-chip").forEach(function (button) {
     setChatFilter(button.dataset.filter);
   };
 });
+
 document.getElementById("mark-read").onclick = function () {
   chats.forEach(function (chat) {
     if (chat.request == requestsPage) chat.unread = false;

@@ -12,15 +12,28 @@ body {
 
 .list {
     width: 600px;
-    max-width: calc(100% - 344px);
     margin-left: 344px;
-    box-sizing: border-box;
+    min-height: 100vh;
+    background: #ffffff;
+    border-left: 1px solid #eff3f4;
+    border-right: 1px solid #eff3f4;
+
+    padding-top: 70px;
 }
 
 .list-header {
-    position: sticky;
+    width: 560px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 20px;
+    border-bottom: 1px solid #eff3f4;
+
+    position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
     background: #ffffff;
 }
 
@@ -153,11 +166,11 @@ body {
         font-size: 13px;
     }
 
-    .create-list-button {
-        width: 58px;
-        height: 58px;
-        right: 20px;
-        bottom: 20px;
+   .create-list-button {
+        position: fixed !important;
+        right: 16px !important;
+        bottom: 85px !important;
+        z-index: 999 !important;
     }
 }
 
@@ -383,6 +396,10 @@ button {
     color: #536471; 
 }
 
+.empty-list-message {
+    padding: 0 20px;
+}
+
 .mini-avatar {
     width: 22px;
     height: 22px;
@@ -549,6 +566,46 @@ button {
     font-size: 15px; 
     line-height: 1.45; }
 
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    margin-top: 10px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: #536471;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: rgba(233, 30, 140, 0.1);
+    color: #e91e8c;
+}
+
+.action-btn.active {
+    color: #e91e8c;
+}
+
+.action-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.count {
+    font-size: 13px;
+}
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -558,6 +615,116 @@ button {
     justify-content: center;
     padding: 16px;
     background: rgba(15, 20, 25, 0.5);
+}
+
+.modal-card {
+    width: 600px;
+    max-width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    background: #fff;
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.modal-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    background: #f7f9f9;
+}
+
+#listForm label {
+    display: block;
+    margin-bottom: 18px;
+    color: #536471;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#listForm input[type="text"],
+#listForm textarea {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px;
+    border: 1px solid #cfd9de;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#listForm input[type="text"]:focus,
+#listForm textarea:focus {
+    border-color: #e91e8c;
+    box-shadow: 0 0 0 1px #e91e8c;
+}
+
+#listForm textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.checkbox-row {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-row input {
+    width: 18px;
+    height: 18px;
+    accent-color: #e91e8c;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-danger {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eff3f4;
+}
+
+.delete-list-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: #f4212e;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete-list-button:hover {
+    background: rgba(244, 33, 46, 0.08);
 }
 
 .modal { 
@@ -837,14 +1004,6 @@ button {
         width: 30px;
         height: 30px;
         font-size: 20px;
-    }
-
-    .create-list-button {
-        width: 52px;
-        height: 52px;
-        right: 16px;
-        bottom: 16px;
-        font-size: 28px;
     }
 
     .show-more {

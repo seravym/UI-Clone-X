@@ -1,0 +1,319 @@
+/* Tambahan untuk halaman detail. Muat SETELAH explore.css */
+
+[data-go] {
+    cursor: pointer;
+}
+
+.post[data-go]:focus-visible,
+.account-row[data-go]:focus-visible,
+.widget-user[data-go]:focus-visible,
+.widget-row[data-go]:focus-visible {
+    outline: 2px solid #e91e8c;
+    outline-offset: -2px;
+}
+
+.link-user:hover {
+    text-decoration: underline;
+}
+
+.widget-row[data-go] {
+    cursor: pointer;
+}
+
+/* Bar atas detail */
+.detail-bar {
+    position: sticky;
+    top: 70px;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #eff3f4;
+}
+
+.detail-back {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #0f1419;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.detail-back:hover {
+    background: rgba(233, 30, 140, 0.1);
+    color: #e91e8c;
+}
+
+.detail-back:focus-visible {
+    outline: 2px solid #e91e8c;
+    outline-offset: 2px;
+}
+
+.detail-bar-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f1419;
+}
+
+.detail-bar-sub {
+    margin: 0;
+    font-size: 13px;
+    color: #536471;
+}
+
+/* Artikel berita / topik */
+.detail-article {
+    padding: 20px;
+}
+
+.detail-title {
+    margin: 10px 0 6px;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #0f1419;
+}
+
+.detail-meta {
+    margin: 4px 0 12px;
+    font-size: 14px;
+    color: #536471;
+}
+
+.detail-text {
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #0f1419;
+}
+
+.detail-action {
+    margin-top: 6px;
+    padding: 10px 20px;
+    border: 1px solid #e91e8c;
+    border-radius: 999px;
+    background: #e91e8c;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.detail-action:hover {
+    background: #d11a7d;
+    border-color: #d11a7d;
+}
+
+.chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid #cfd9de;
+    border-radius: 999px;
+    background: transparent;
+    color: #536471;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.chip:hover {
+    border-color: #e91e8c;
+    color: #e91e8c;
+    background: rgba(233, 30, 140, 0.08);
+}
+
+/* Profil */
+.profile-cover {
+    height: 140px;
+    background: linear-gradient(135deg, #e91e8c, #8b98a5);
+}
+
+.profile {
+    padding: 0 20px 20px;
+}
+
+.profile-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: -42px;
+    margin-bottom: 10px;
+}
+
+.profile-avatar {
+    width: 84px;
+    height: 84px;
+    border: 4px solid #ffffff;
+    background: #fde7f3;
+    font-size: 26px;
+}
+
+.profile-top .follow-button {
+    margin-bottom: 4px;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f1419;
+}
+
+.profile-bio {
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #0f1419;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 18px;
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #536471;
+}
+
+.profile-stats strong {
+    color: #0f1419;
+}
+
+/* Detail postingan */
+.detail-post {
+    padding: 20px;
+}
+
+.detail-post-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.detail-post-author {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f1419;
+}
+
+.detail-post-text {
+    margin: 0 0 14px;
+    font-size: 22px;
+    line-height: 1.4;
+    color: #0f1419;
+}
+
+.detail-post-actions {
+    padding-top: 6px;
+    border-top: 1px solid #eff3f4;
+}
+
+.detail-post-actions .action-btn:first-child {
+    margin-left: 0;
+}
+
+.post.reply {
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .detail-bar {
+        top: 65px;
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .detail-article,
+    .detail-post,
+    .profile {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .detail-title {
+        font-size: 22px;
+    }
+}
+
+
+/* ---------- Tombol aksi postingan (ikon SVG) ---------- */
+/* Memakai class baru (xa-) supaya tidak bentrok dengan style lama */
+
+.xa-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    max-width: 420px;
+    margin-top: 12px;
+}
+
+.xa-btn,
+.xa-static {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 6px;
+    height: 32px;
+    padding: 0 8px;
+    margin: 0 0 0 -8px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #536471;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.xa-static {
+    cursor: default;
+}
+
+.xa-btn span,
+.xa-static span {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.xa-btn svg,
+.xa-static svg {
+    flex: none;
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.xa-btn:hover {
+    background: rgba(233, 30, 140, 0.1);
+    color: #e91e8c;
+}
+
+.xa-btn.active {
+    color: #e91e8c;
+}
+
+.xa-btn.active .icon-fill {
+    fill: currentColor;
+}
+
+.xa-btn:focus-visible {
+    outline: 2px solid #e91e8c;
+    outline-offset: 2px;
+}
+
+.detail-post-actions {
+    padding-top: 6px;
+    border-top: 1px solid #eff3f4;
+}

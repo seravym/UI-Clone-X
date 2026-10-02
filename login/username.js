@@ -24,5 +24,6 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
   sessionStorage.removeItem('pendingUsername');
   sessionStorage.setItem('isLoggedIn', 'true');
+  localStorage.setItem('profileUsername', username.replace(/^@+/, '').toLowerCase());
   window.location.href = '../home/home.html';
 });
