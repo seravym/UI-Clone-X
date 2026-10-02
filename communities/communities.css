@@ -648,3 +648,152 @@ body {
     height: 20px;
     object-fit: contain;
 }
+
+.create-post-button {
+    margin-left: auto;
+    padding: 9px 16px;
+    border: none;
+    border-radius: 999px;
+    background: #e91e8c;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.create-post-button:hover {
+    background: #d11a7d;
+}
+
+.post-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.post-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.post-modal-card {
+    position: relative;
+    z-index: 1;
+    width: 500px;
+    max-width: calc(100% - 32px);
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.post-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.post-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #0f1419;
+}
+
+.close-post-modal {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #536471;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.close-post-modal:hover {
+    background: #f7f9f9;
+    color: #e91e8c;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+}
+
+.post-form label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f1419;
+}
+
+.post-form select,
+.post-form textarea {
+    width: 100%;
+    border: 1px solid #cfd9de;
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.post-form select:focus,
+.post-form textarea:focus {
+    border-color: #e91e8c;
+}
+
+.post-form textarea {
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 8px;
+}
+
+.submit-post-button {
+    align-self: flex-end;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 999px;
+    background: #e91e8c;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.submit-post-button:hover {
+    background: #d11a7d;
+}
+
+.create-post-button:focus-visible,
+.close-post-modal:focus-visible,
+.submit-post-button:focus-visible {
+    outline: 2px solid #e91e8c;
+    outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+    .create-post-button {
+        padding: 8px 13px;
+        font-size: 13px;
+    }
+
+    .post-modal {
+        padding-top: 60px;
+    }
+
+    .post-modal-card {
+        max-width: calc(100% - 24px);
+    }
+}
