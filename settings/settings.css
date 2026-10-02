@@ -1,5 +1,3 @@
-/* settings.css - gaya bersama (kerangka + komponen yang dipakai semua bagian) */
-
 :root {
     --s-bg: #ffffff;
     --s-text: #0f1419;
@@ -51,8 +49,6 @@ button {
 [hidden] {
     display: none !important;
 }
-
-/* ---------- Layout halaman ---------- */
 
 .sidebar-left {
     position: fixed;
@@ -114,8 +110,6 @@ button {
     font-weight: 800;
 }
 
-/* ---------- Daftar menu ---------- */
-
 .s-menu-item {
     display: flex;
     align-items: center;
@@ -169,8 +163,6 @@ button {
     flex: none;
     color: var(--s-muted);
 }
-
-/* ---------- Komponen bersama untuk isi tiap bagian ---------- */
 
 .s-panel {
     padding: 20px;
@@ -234,8 +226,6 @@ button {
     line-height: 1.35;
 }
 
-/* Form */
-
 .s-field {
     margin-bottom: 16px;
 }
@@ -297,8 +287,6 @@ button {
     margin-top: 8px;
 }
 
-/* Tombol */
-
 .s-btn {
     padding: 9px 20px;
     border: 1px solid var(--s-accent);
@@ -341,8 +329,6 @@ button {
     padding: 6px 14px;
     font-size: 0.8125rem;
 }
-
-/* Switch (on/off) */
 
 .s-switch {
     position: relative;
@@ -396,8 +382,6 @@ button {
     outline-offset: 2px;
 }
 
-/* Pilihan radio berbentuk baris */
-
 .s-choice {
     display: flex;
     align-items: center;
@@ -422,7 +406,6 @@ button {
     accent-color: var(--s-accent);
 }
 
-/* Daftar dengan tombol hapus */
 
 .s-list-row {
     display: flex;
@@ -451,7 +434,6 @@ button {
     font-size: 0.9375rem;
 }
 
-/* Notifikasi */
 
 .toast {
     position: fixed;
@@ -474,8 +456,6 @@ button {
     transform: translate(-50%, 0);
 }
 
-/* Fokus keyboard */
-
 .s-btn:focus-visible,
 .settings-back:focus-visible,
 .s-menu-item:focus-visible,
@@ -483,8 +463,6 @@ button {
     outline: 2px solid var(--s-accent);
     outline-offset: 2px;
 }
-
-/* ---------- Responsif (sama seperti halaman lain) ---------- */
 
 @media (max-width: 900px) {
     .sidebar-left {

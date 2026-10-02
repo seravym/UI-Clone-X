@@ -1,13 +1,3 @@
-/*
- * apply-display.js
- * Menerapkan pengaturan tampilan (tema, ukuran huruf, bahasa) dari localStorage.
- *
- * Pasang di <head> SETIAP halaman supaya mode gelap ikut berlaku di mana-mana:
- *   <script src="../settings/apply-display.js"></script>
- *
- * Mode gelap memakai teknik filter pada <html>, jadi tidak perlu mengubah CSS
- * halaman lain. Gambar/video dibalik lagi supaya warnanya tetap normal.
- */
 (function () {
     var KEY = "settings.display";
     var DEFAULTS = { theme: "light", fontSize: "medium", language: "id" };
@@ -48,11 +38,9 @@
         root.setAttribute("data-theme", p.theme);
         root.setAttribute("data-font", p.fontSize);
         root.setAttribute("lang", p.language);
-        // Beri tahu kode lain (mis. kerangka Settings) bahwa tampilan/bahasa berubah
         window.dispatchEvent(new CustomEvent("displaychange", { detail: p }));
     }
 
-    // Ikut berubah jika tema diganti dari tab lain
     window.addEventListener("storage", function (event) {
         if (event.key === KEY) apply();
     });
