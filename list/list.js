@@ -1164,7 +1164,7 @@ function renderListTrending() {
     container.innerHTML = listTrends.map(trend => `
         <a 
             class="list-trend-item"
-            href="../trending/trending.html"
+            href="../explore/explore.html"
         >
             <span class="list-trend-category">
                 ${trend.cat} · Sedang tren
