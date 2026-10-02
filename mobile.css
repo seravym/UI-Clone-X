@@ -421,4 +421,36 @@
   .chat-compose {
     margin-bottom: max(12px, env(safe-area-inset-bottom));
   }
+
+  .mobile-drawer-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+}
+
+.mobile-drawer-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.mobile-drawer-content .sidebar-content,
+.mobile-drawer-content .sidebar-inner {
+  width: 100% !important;
+  max-width: none !important;
+  position: static !important;
+  height: auto !important;
+  border-right: 0 !important;
+  padding: 0 !important;
+}
+
+.mobile-drawer-content .sidebar-link--primary {
+  display: none;
+
+.mobile-drawer-content .sidebar-link--primary:last-of-type + .sidebar-link {
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+  padding-top: 18px;
+}}
+
 }
