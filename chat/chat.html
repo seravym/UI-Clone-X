@@ -10,12 +10,84 @@
     <link rel="stylesheet" href="../mobile.css">
 </head>
 
-<body data-chat="chat">
+<body data-chat="chat" data-bottom-nav>
     <div id="chat-app">
-        <!-- js -->
-        <script src="chat.js"></script>
-        <script src="../mobile-navigation.js"></script>
+        <div class="chat-layout" id="chat-layout">
+
+            <!-- sidebar kiri -->
+            <aside class="sidebar-left">
+                <div id="chat-sidebar"></div>
+            </aside>
+
+            <!-- inbox -->
+            <section class="chat-inbox" aria-label="Conversation list">
+                <header class="inbox-header">
+                    <div class="chat-heading">
+                        <button class="mobile-menu-button" aria-label="Open navigation" aria-haspopup="dialog">
+                            <img src="../login/logo.jpg" alt="">
+                        </button>
+                        <h1>user</h1>
+                        <button class="chat-icon-button new-chat-button" id="new-chat" aria-label="New chat"
+                            title="New message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20 10a8 8 0 1 0-14 6l-1 4 4-1a8 8 0 0 0 4 1" />
+                                <path d="M19 14v8M15 18h8" />
+                            </svg>
+                        </button>
+                    </div>
+                    <input class="chat-search" id="chat-search" type="search" placeholder="Search"
+                        aria-label="Search conversations">
+                </header>
+
+                <div class="inbox-section-heading">
+                    <h2 id="inbox-title">Messages</h2>
+                    <button class="requests-link" id="toggle-requests" type="button">
+                        <span id="requests-label">Requests</span>
+                        <span class="chat-count" id="request-count"></span>
+                    </button>
+                </div>
+
+                <div class="inbox-tools">
+                    <div class="chat-filters" role="group" aria-label="Filter conversations">
+                        <button class="filter-chip active" data-filter="all" aria-pressed="true">All</button>
+                        <button class="filter-chip" data-filter="unread" aria-pressed="false">Unread</button>
+                        <button class="filter-chip" data-filter="direct" aria-pressed="false">Direct</button>
+                        <button class="filter-chip" data-filter="group" aria-pressed="false">Groups</button>
+                    </div>
+                    <button class="text-button" id="mark-read">Mark all as read</button>
+                </div>
+
+                <div class="chat-list" id="chat-list"></div>
+            </section>
+
+            <!-- conversation -->
+            <main class="conversation" id="conversation"></main>
+        </div>
+
+        <!-- dialog new chat -->
+        <dialog class="chat-dialog" id="new-chat-dialog" aria-labelledby="dialog-title">
+            <div class="chat-heading">
+                <h2 id="dialog-title">Start a conversation</h2>
+                <button class="dialog-close" id="close-dialog" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="dialog-tabs">
+                <button class="chat-secondary active" id="direct-mode">Direct message</button>
+                <button class="chat-secondary" id="group-mode">Create a group</button>
+            </div>
+            <label class="dialog-field" id="group-name-field" hidden>Group name
+                <input type="text" id="group-name" maxlength="50" placeholder="e.g. Frontend Study Club">
+            </label>
+            <input type="search" id="contact-search" placeholder="Search name or username" aria-label="Search contacts">
+            <div id="contact-list"></div>
+            <button class="chat-button dialog-submit" id="start-chat" disabled>Start conversation</button>
+        </dialog>
+
+        <div class="chat-status" id="chat-status" role="status"></div>
     </div>
+
+    <script src="chat.js"></script>
+    <script src="../mobile-navigation.js"></script>
 </body>
 
 </html>
