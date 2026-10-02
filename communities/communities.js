@@ -434,10 +434,21 @@ document.addEventListener("click", event => {
     if (button.dataset.post) {
         const community = communities.find(c => c.id === Number(button.dataset.post));
         if (!community) return;
-        const post = community.posts.find(p => p.id === Number(button.dataset.pid));
+
+        const postId = Number(button.dataset.pid);
+
+        let post = community.posts.find(p => p.id === postId);
+
+        if (!post) {
+            post = loadUserPosts().find(
+                p => p.id === postId && p.communityId === community.id
+            );
+        }
+
         if (!post) return;
 
         const key = postKey(community, post);
+
         if (action === "like") toggleAction(key, "liked");
         if (action === "repost") toggleAction(key, "reposted");
         if (action === "bookmark") toggleBookmark(community, post);
