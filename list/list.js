@@ -343,16 +343,19 @@ function renderMainBody() {
     const keyword = query.trim().toLowerCase();
 
     const discoverAll = SUGGESTED.filter(list =>
-        !keyword ||
+        !followed.has(list.id) &&
         (
-            list.name +
-            " " +
-            list.owner.name +
-            " " +
-            list.owner.handle
+            !keyword ||
+            (
+                list.name +
+                " " +
+                list.owner.name +
+                " " +
+                list.owner.handle
+            )
+                .toLowerCase()
+                .includes(keyword)
         )
-            .toLowerCase()
-            .includes(keyword)
     );
 
     const discover = keyword
