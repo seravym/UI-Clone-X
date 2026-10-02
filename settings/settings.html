@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - X Clone</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="settings.css">
+
+    <!-- CSS tiap bagian: satu file per orang/bagian, supaya tidak bentrok -->
+    <link rel="stylesheet" href="sections/account.css">
+    <link rel="stylesheet" href="sections/audience.css">
+    <link rel="stylesheet" href="sections/mute-block.css">
+    <link rel="stylesheet" href="sections/display.css">
+
+    <script src="apply-display.js"></script>
+</head>
+
+<body>
+    <aside class="sidebar-left">
+        <div id="sidebar"></div>
+    </aside>
+
+    <main class="settings">
+        <header class="settings-header">
+            <button class="settings-back" id="settingsBack" type="button" aria-label="Kembali">&larr;</button>
+            <h1 class="settings-title" id="settingsTitle">Settings</h1>
+        </header>
+
+        <section id="settingsMenu" aria-label="Menu pengaturan"></section>
+        <section id="settingsPanel" hidden></section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Shell (kerangka) harus dimuat lebih dulu -->
+    <script src="settings.js"></script>
+
+    <!-- Satu file JS untuk tiap bagian -->
+    <script src="sections/account.js"></script>
+    <script src="sections/audience.js"></script>
+    <script src="sections/mute-block.js"></script>
+    <script src="sections/display.js"></script>
+</body>
+</html>
