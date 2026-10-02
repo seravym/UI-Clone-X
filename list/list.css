@@ -153,11 +153,11 @@ body {
         font-size: 13px;
     }
 
-    .create-list-button {
-        width: 58px;
-        height: 58px;
-        right: 20px;
-        bottom: 20px;
+   .create-list-button {
+        position: fixed !important;
+        right: 16px !important;
+        bottom: 85px !important;
+        z-index: 999 !important;
     }
 }
 
@@ -837,14 +837,6 @@ button {
         width: 30px;
         height: 30px;
         font-size: 20px;
-    }
-
-    .create-list-button {
-        width: 52px;
-        height: 52px;
-        right: 16px;
-        bottom: 16px;
-        font-size: 28px;
     }
 
     .show-more {
