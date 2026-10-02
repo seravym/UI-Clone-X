@@ -135,6 +135,7 @@ const JOINED_KEY = "joinedCommunities";
 const BOOKMARK_KEY = "bookmarks";
 const ACTION_KEY = "postActions";
 const DEFAULT_AVATAR = "../image/Default_pfp.jpeg";
+const USER_POSTS_KEY = "communityUserPosts";
 
 let currentView = "home";
 let currentCategory = categories[0];
@@ -146,6 +147,9 @@ const chipsEl = document.querySelector(".category-chips");
 const titleEl = document.querySelector(".explore-title");
 const listEl = document.querySelector(".community-list");
 const tabs = document.querySelectorAll(".nav-tab");
+const postModal = document.getElementById("postModal");
+const postCommunity = document.getElementById("postCommunity");
+const postText = document.getElementById("postText");
 
 function readJSON(key, fallback) {
     try {
@@ -167,6 +171,14 @@ function loadJoined() {
 
 function saveJoined() {
     writeJSON(JOINED_KEY, [...joinedIds]);
+}
+
+function loadUserPosts() {
+    return readJSON(USER_POSTS_KEY, []);
+}
+
+function saveUserPosts(posts) {
+    writeJSON(USER_POSTS_KEY, posts);
 }
 
 function postKey(community, post) {
@@ -224,6 +236,63 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+function openPostModal() {
+    const joined = communities.filter(c => joinedIds.has(c.id));
+
+    postCommunity.innerHTML = `
+        <option value="">Choose a Community</option>
+        ${joined.map(c => `
+            <option value="${c.id}">${escapeHtml(c.name)}</option>
+        `).join("")}
+    `;
+
+    postText.value = "";
+
+    postModal.hidden = false;
+}
+
+function closePostModal() {
+    postModal.hidden = true;
+}
+
+function submitPost() {
+    const communityId = Number(postCommunity.value);
+    const text = postText.value.trim();
+
+    if (!communityId) {
+        alert("Please choose a Community.");
+        return;
+    }
+
+    if (!text) {
+        alert("Please write something first.");
+        return;
+    }
+
+    const community = communities.find(c => c.id === communityId);
+
+    if (!community || !joinedIds.has(communityId)) {
+        return;
+    }
+
+    const userPosts = loadUserPosts();
+
+    userPosts.unshift({
+        id: Date.now(),
+        communityId: communityId,
+        author: "user",
+        handle: "@user",
+        time: "now",
+        text: text
+    });
+
+    saveUserPosts(userPosts);
+
+    closePostModal();
+    currentView = "home";
+    render();
+}
+
 function renderTabs() {
     tabs.forEach(tab => {
         const view = tab.getAttribute("href").replace("#", "");
@@ -235,7 +304,17 @@ function renderTabs() {
 }
 
 function renderHome() {
-    const joined = communities.filter(c => joinedIds.has(c.id));
+    const userPosts = loadUserPosts();
+
+    const joined = communities
+        .filter(c => joinedIds.has(c.id))
+        .map(c => ({
+            ...c,
+            posts: [
+                ...userPosts.filter(p => p.communityId === c.id),
+                ...c.posts
+            ]
+        }));
 
     if (joined.length === 0) {
         homeEl.innerHTML = `
@@ -339,11 +418,26 @@ tabs.forEach(tab => {
     });
 });
 
-document.querySelector(".communities").addEventListener("click", event => {
+document.addEventListener("click", event => {
     const button = event.target.closest("button");
     if (!button) return;
 
     const action = button.dataset.action;
+
+    if (action === "open-post-modal") {
+        openPostModal();
+        return;
+    }
+
+    if (action === "close-post-modal") {
+        closePostModal();
+        return;
+    }
+
+    if (action === "submit-post") {
+        submitPost();
+        return;
+    }
 
     if (button.dataset.post) {
         const community = communities.find(c => c.id === Number(button.dataset.post));
