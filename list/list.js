@@ -264,24 +264,43 @@ function rowHTML(l, mode) {
 }
 
 function headerHTML(title, subtitle) {
+    const showBack = view !== "main";
+
     return `
         <header class="list-header">
-            <button 
-                class="mobile-menu-button" 
-                aria-label="Open navigation" 
-                aria-haspopup="dialog">
 
-                <img src="../login/logo.jpg" alt="">
-            </button>
+            ${
+                showBack
+                    ? `
+                        <button 
+                            class="back-button" 
+                            data-action="back" 
+                            aria-label="Kembali"
+                        >
+                            ←
+                        </button>
+                    `
+                    : `
+                        <button 
+                            class="mobile-menu-button" 
+                            aria-label="Open navigation" 
+                            aria-haspopup="dialog"
+                        >
+                            <img src="../login/logo.jpg" alt="">
+                        </button>
+                    `
+            }
 
             <div class="header-text">
                 <h1>${esc(title)}</h1>
+
                 ${
                     subtitle
                         ? `<span class="muted">${esc(subtitle)}</span>`
                         : ""
                 }
             </div>
+
         </header>
     `;
 }
@@ -405,11 +424,6 @@ function renderMainBody() {
 function renderSuggested() {
     app.innerHTML = `
         ${headerHTML("Discover new Lists")}
-
-        <div class="suggested-hero">
-            <div class="suggested-icon">
-                ${ICON}
-            </div>
 
             <div>
                 <h2>Discover Lists</h2>
