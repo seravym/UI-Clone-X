@@ -1,0 +1,216 @@
+:root {
+  --bg: #ffffff;
+  --bg-hover: #f7f9f9;
+  --text: #0f1419;
+  --text-dim: #536471;
+  --border: #eff3f4;
+  --accent: #e91e8c;
+  --accent-dark: #c4137a;
+  --accent-soft: rgba(233, 30, 140, 0.1);
+  --danger: #f4212e;
+  --success: #00ba7c;
+  --on-accent: #ffffff;
+
+  --radius-pill: 9999px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --font: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.builder-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.tweet-box {
+  display: flex;
+  gap: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--border);
+  object-fit: cover;
+}
+
+.input-area {
+  flex: 1;
+}
+
+.tweet-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  resize: none;
+  outline: none;
+  min-height: 50px;
+}
+
+.tweet-input::placeholder {
+  color: var(--text-dim);
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: right;
+  margin-top: 5px;
+}
+
+.char-count.warning {
+  color: var(--danger);
+  font-weight: bold;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: var(--danger);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  flex: 1;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.add-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+}
+
+.add-btn:hover {
+  background: var(--accent-soft);
+}
+
+.draft-btn {
+  background: var(--bg-hover);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.draft-btn:hover {
+  background: var(--border);
+}
+
+.publish-btn {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.publish-btn:hover {
+  background: var(--accent-dark);
+}
+
+.thread-title-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.thread-title-input::placeholder {
+  color: var(--text-dim);
+  font-weight: normal;
+}
+
+.thread-title-input:focus {
+  border-bottom: 1px solid var(--accent);
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: var(--accent);
+  color: var(--on-accent);
+  text-align: center;
+  border-radius: var(--radius-pill);
+  padding: 14px 24px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.4s, bottom 0.4s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 40px;
+}
