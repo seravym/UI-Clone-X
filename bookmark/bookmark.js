@@ -56,7 +56,11 @@ function renderBookmarks() {
                 <p class="post-text">${escapeHtml(post.text)}</p>
                 <div class="post-actions">
                     <button class="action-btn bookmark-btn active" data-action="remove" aria-label="Hapus dari bookmark">
-                        <span class="icon">🔖</span>
+                        <img
+                            src="../image/icons/bookmark-full.svg"
+                            class="action-icon"
+                            alt="Bookmark"
+                        />
                     </button>
                 </div>
             </div>
@@ -76,16 +80,6 @@ listEl.addEventListener("click", event => {
 searchEl.addEventListener("input", renderBookmarks);
 
 renderBookmarks();
-
-fetch("../sidebar.html")
-    .then(res => {
-        if (!res.ok) throw new Error("Status " + res.status);
-        return res.text();
-    })
-    .then(html => {
-        document.getElementById("sidebar").innerHTML = html;
-    })
-    .catch(err => console.error("Sidebar gagal dimuat:", err));
 
 fetch("../sidebar.html")
     .then(res => {
