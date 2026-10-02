@@ -12,16 +12,76 @@ const COLORS = {
 };
 
 const PEOPLE = [
-    { id: "u1", name: "BWF Update", handle: "@bwf_update", time: "1m", text: "Dutch Open babak 32 besar: laga tunggal putra berlangsung 3 gim, selesai dalam 63 menit."},
-    { id: "u2", name: "Liga Harian", handle: "@liga_harian", time: "12m", text: "Klasemen sementara berubah, tim tuan rumah naik ke posisi tiga setelah menang tipis."},
-    { id: "u3", name: "Berita Harian ID", handle: "@beritaharianid", time: "20m", text: "Pemerintah umumkan jadwal baru perbaikan jalan tol di wilayah Jabodetabek."},
-    { id: "u4", name: "Info Jakarta", handle: "@infojakarta", time: "35m", text: "Hujan deras diperkirakan turun sore ini di sebagian besar Jakarta Selatan dan Timur."},
-    { id: "u5", name: "Kabar Ekonomi", handle: "@kabarekonomi", time: "1j", text: "Rupiah menguat tipis terhadap dolar AS di awal perdagangan hari ini."},
-    { id: "u6", name: "Tech Radar ID", handle: "@techradar_id", time: "2j", text: "Peluncuran ponsel lipat terbaru dijadwalkan bulan depan, ini bocoran spesifikasinya."},
-    { id: "u7", name: "Dev Daily", handle: "@devdaily", time: "3j", text: "Tips hari ini: gunakan event delegation supaya listener tidak menumpuk."},
-    { id: "u8", name: "Atlet Muda", handle: "@atletmuda", time: "4j", text: "Latihan pagi selesai. Konsistensi lebih penting daripada intensitas sesaat."},
-    { id: "u9", name: "Kuliner Kita", handle: "@kulinerkita", time: "5j", text: "Rekomendasi sarapan murah di sekitar kampus, semuanya di bawah 20 ribu."},
-    { id: "u10", name: "Media Nusantara", handle: "@medianusantara", time: "6j", text: "Rangkuman berita pagi: politik, ekonomi, dan olahraga dalam satu thread."}
+    {
+        id: "u1",
+        name: "BWF Update",
+        handle: "@bwf_update",
+        time: "1m",
+        text: "Dutch Open babak 32 besar: laga tunggal putra berlangsung 3 gim, selesai dalam 63 menit."
+    },
+    {
+        id: "u2",
+        name: "Liga Harian",
+        handle: "@liga_harian",
+        time: "12m",
+        text: "Klasemen sementara berubah, tim tuan rumah naik ke posisi tiga setelah menang tipis."
+    },
+    {
+        id: "u3",
+        name: "Berita Harian ID",
+        handle: "@beritaharianid",
+        time: "20m",
+        text: "Pemerintah umumkan jadwal baru perbaikan jalan tol di wilayah Jabodetabek."
+    },
+    {
+        id: "u4",
+        name: "Info Jakarta",
+        handle: "@infojakarta",
+        time: "35m",
+        text: "Hujan deras diperkirakan turun sore ini di sebagian besar Jakarta Selatan dan Timur."
+    },
+    {
+        id: "u5",
+        name: "Kabar Ekonomi",
+        handle: "@kabarekonomi",
+        time: "1j",
+        text: "Rupiah menguat tipis terhadap dolar AS di awal perdagangan hari ini."
+    },
+    {
+        id: "u6",
+        name: "Tech Radar ID",
+        handle: "@techradar_id",
+        time: "2j",
+        text: "Peluncuran ponsel lipat terbaru dijadwalkan bulan depan, ini bocoran spesifikasinya."
+    },
+    {
+        id: "u7",
+        name: "Dev Daily",
+        handle: "@devdaily",
+        time: "3j",
+        text: "Tips hari ini: gunakan event delegation supaya listener tidak menumpuk."
+    },
+    {
+        id: "u8",
+        name: "Atlet Muda",
+        handle: "@atletmuda",
+        time: "4j",
+        text: "Latihan pagi selesai. Konsistensi lebih penting daripada intensitas sesaat."
+    },
+    {
+        id: "u9",
+        name: "Kuliner Kita",
+        handle: "@kulinerkita",
+        time: "5j",
+        text: "Rekomendasi sarapan murah di sekitar kampus, semuanya di bawah 20 ribu."
+    },
+    {
+        id: "u10",
+        name: "Media Nusantara",
+        handle: "@medianusantara",
+        time: "6j",
+        text: "Rangkuman berita pagi: politik, ekonomi, dan olahraga dalam satu thread."
+    }
 ];
 
 const OWNERS = [
@@ -43,9 +103,7 @@ const SUGGESTED = [
     ["consultants", "CONSULTANTS", 45, "1.4K", "@DugarGanbold", "pink", ["u5", "u7"]],
     ["press", "Press", 165, "602", "@teduaveqty", "blue", ["u10", "u3", "u4"]],
     ["indo-news", "Indo News", 38, "921", "@Andi_NurpatiB", "blue", ["u3", "u4", "u5"]]
-
-]
-.map((r, i) => ({
+].map((r, i) => ({
     id: r[0],
     name: r[1],
     members: r[2],
@@ -125,8 +183,11 @@ function esc(text) {
 }
 
 const allLists = () => [...SUGGESTED, ...myLists];
+
 const getList = id => allLists().find(l => l.id === id);
+
 const memberCount = l => l.members ?? l.memberIds.length;
+
 const colorOf = l => COLORS[l.color] || COLORS.pink;
 
 function rowHTML(l, mode) {
@@ -177,14 +238,6 @@ function rowHTML(l, mode) {
                 </button>
             `
             : `
-                <button 
-                    class="pin-button${pinned.has(l.id) ? " is-pinned" : ""}" 
-                    data-action="pin" 
-                    data-id="${esc(l.id)}" 
-                    aria-label="Pin list"
-                >
-                    📌
-                </button>
             `;
 
     return `
@@ -276,7 +329,7 @@ function renderMainBody() {
 
     const keyword = query.trim().toLowerCase();
 
-    const discover = SUGGESTED.filter(list =>
+    const discoverAll = SUGGESTED.filter(list =>
         !keyword ||
         (
             list.name +
@@ -288,6 +341,10 @@ function renderMainBody() {
             .toLowerCase()
             .includes(keyword)
     );
+
+    const discover = keyword
+        ? discoverAll
+        : discoverAll.slice(0, 3);
 
     const mine = myLists.filter(list =>
         !keyword ||
@@ -306,8 +363,27 @@ function renderMainBody() {
 
             ${
                 discover.length
-                    ? discover.map(l => rowHTML(l, "discover")).join("")
-                    : `<p class="muted">Tidak ada List yang ditemukan.</p>`
+                    ? discover
+                        .map(l => rowHTML(l, "discover"))
+                        .join("")
+                    : `
+                        <p class="muted">
+                            Tidak ada List yang ditemukan.
+                        </p>
+                    `
+            }
+
+            ${
+                !keyword && discoverAll.length > 3
+                    ? `
+                        <button 
+                            class="show-more" 
+                            data-action="suggested"
+                        >
+                            Show more
+                        </button>
+                    `
+                    : ""
             }
         </section>
 
@@ -316,7 +392,9 @@ function renderMainBody() {
 
             ${
                 mine.length
-                    ? mine.map(l => rowHTML(l, "your")).join("")
+                    ? mine
+                        .map(l => rowHTML(l, "your"))
+                        .join("")
                     : `
                         <p class="muted">
                             You haven't created any Lists yet.
@@ -454,12 +532,13 @@ function renderDetail() {
                         return `
                             <article 
                                 class="post" 
-                                data-post-id="${esc(p.id)}">
-
+                                data-post-id="${esc(p.id)}"
+                            >
                                 <img 
                                     class="post-avatar" 
                                     src="${DEFAULT_AVATAR}" 
-                                    alt="Foto profil ${esc(p.name)}">
+                                    alt="Foto profil ${esc(p.name)}"
+                                >
 
                                 <div class="post-body">
 
@@ -481,12 +560,13 @@ function renderDetail() {
 
                                         <button 
                                             class="action-btn"
-                                            aria-label="Reply">
-
+                                            aria-label="Reply"
+                                        >
                                             <img 
                                                 src="../image/icons/chat.svg"
                                                 class="action-icon"
-                                                alt="Reply">
+                                                alt="Reply"
+                                            >
 
                                             <span class="count">
                                                 0
@@ -498,8 +578,8 @@ function renderDetail() {
                                                 liked ? " active" : ""
                                             }"
                                             data-post-action="like"
-                                            aria-label="Like">
-
+                                            aria-label="Like"
+                                        >
                                             <img 
                                                 src="../image/icons/${
                                                     liked
@@ -507,7 +587,8 @@ function renderDetail() {
                                                         : "like.svg"
                                                 }"
                                                 class="action-icon"
-                                                alt="Like">
+                                                alt="Like"
+                                            >
 
                                             <span class="count">
                                                 ${liked ? 1 : 0}
@@ -516,12 +597,13 @@ function renderDetail() {
 
                                         <button 
                                             class="action-btn"
-                                            aria-label="View">
-
+                                            aria-label="View"
+                                        >
                                             <img 
                                                 src="../image/icons/view.svg"
                                                 class="action-icon"
-                                                alt="View">
+                                                alt="View"
+                                            >
 
                                             <span class="count">
                                                 0
@@ -539,8 +621,8 @@ function renderDetail() {
                                                 bookmarked
                                                     ? "Hapus dari bookmark"
                                                     : "Bookmark"
-                                            }">
-
+                                            }"
+                                        >
                                             <img 
                                                 src="../image/icons/${
                                                     bookmarked
@@ -548,8 +630,10 @@ function renderDetail() {
                                                         : "bookmark.svg"
                                                 }"
                                                 class="action-icon"
-                                                alt="Bookmark">
+                                                alt="Bookmark"
+                                            >
                                         </button>
+
                                     </div>
                                 </div>
                             </article>
@@ -746,11 +830,13 @@ function closeModal() {
 
 function createList(form) {
     const name = form.querySelector("#listName").value.trim();
+
     const description = form
         .querySelector("#listDescription")
         .value.trim();
 
-    const isPrivate = form.querySelector("#listPrivate").checked;
+    const isPrivate =
+        form.querySelector("#listPrivate").checked;
 
     if (!name) return;
 
@@ -791,13 +877,14 @@ function editList(form) {
 
     if (!list) return;
 
-    list.name = form.querySelector("#listName").value.trim();
+    list.name =
+        form.querySelector("#listName").value.trim();
 
-    list.description = form
-        .querySelector("#listDescription")
-        .value.trim();
+    list.description =
+        form.querySelector("#listDescription").value.trim();
 
-    list.private = form.querySelector("#listPrivate").checked;
+    list.private =
+        form.querySelector("#listPrivate").checked;
 
     persist();
     closeModal();
@@ -839,7 +926,6 @@ app.addEventListener("click", event => {
         const postId = post.dataset.postId;
         const action = postAction.dataset.postAction;
 
-        // LIKE
         if (action === "like") {
             const likes = getLikes();
 
@@ -917,6 +1003,11 @@ app.addEventListener("click", event => {
         return;
     }
 
+    if (action === "suggested") {
+        setView("suggested");
+        return;
+    }
+
     if (action === "create") {
         showModal("create");
         return;
@@ -960,7 +1051,8 @@ modalEl.addEventListener("click", event => {
 
     if (!action) return;
 
-    const modalAction = action.dataset.modalAction;
+    const modalAction =
+        action.dataset.modalAction;
 
     if (modalAction === "close") {
         closeModal();
