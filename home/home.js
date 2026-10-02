@@ -6,9 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const BOOKMARK_KEY = "bookmarks";
     const BOOKMARK_PREFIX = "post-";
     const STORE_POST_PREFS = "xclone.posts.prefs";
-    const STORE_ALL_POSTS = "xclone.posts.list"; // Kunci localStorage untuk daftar post
+    const STORE_ALL_POSTS = "xclone.posts.list";
     
-    // Fungsi untuk mengambil post dari localStorage (atau inisialisasi dari postData.posts)
     function getStoredPosts() {
         let posts = JSON.parse(localStorage.getItem(STORE_ALL_POSTS));
         if (!posts && typeof postData !== 'undefined' && postData.posts) {
@@ -80,7 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         posts.forEach((post, index) => {
             const isLiked = postPrefs.liked.includes(index);
-            const isSaved = postPrefs.saved.includes(index);
+            const bookmarkKey = BOOKMARK_PREFIX + index;
+            const savedList = getBookmarks();
+            const isSaved = savedList.some(b => b && b.id === bookmarkKey);
             
             const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
 
@@ -150,22 +151,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     let currentPosts = getStoredPosts();
                     const post = currentPosts[postId];
                     if (post) {
-                        const index = postPrefs.saved.indexOf(postId);
+                        const bookmarkKey = BOOKMARK_PREFIX + postId;
+                        const savedList = getBookmarks();
+                        const isCurrentlySaved = savedList.some(b => b && b.id === bookmarkKey);
+                        
                         let newSaveStatus;
-
-                        if (index === -1) {
-                            postPrefs.saved.push(postId);
+                        if (!isCurrentlySaved) {
                             actionBtn.classList.add('active');
                             imgIcon.src = '../image/icons/bookmark-full.svg';
                             newSaveStatus = true;
                         } else {
-                            postPrefs.saved.splice(index, 1);
                             actionBtn.classList.remove('active');
                             imgIcon.src = '../image/icons/bookmark.svg';
                             newSaveStatus = false;
                         }
                         
                         setSaved(post, postId, newSaveStatus);
+                        
+                        if (newSaveStatus) {
+                            if (!postPrefs.saved.includes(postId)) postPrefs.saved.push(postId);
+                        } else {
+                            postPrefs.saved = postPrefs.saved.filter(id => id !== postId);
+                        }
                         savePostPrefs();
                     }
                 }
@@ -197,12 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             views: "0"
                         };
 
-                        currentPosts.unshift(newPost); // Masukkan ke urutan paling atas
-                        saveStoredPosts(currentPosts); // Simpan permanen ke localStorage
+                        currentPosts.unshift(newPost);
+                        saveStoredPosts(currentPosts); 
 
                         alert("Your tweet has been posted!");
                         ta.value = "";
-                        location.reload(); // Refresh otomatis agar indeks dan tampilan tersinkron sempurna
+                        location.reload();
                     }
                 });
             });

@@ -30,6 +30,42 @@ document.addEventListener("DOMContentLoaded", () => {
         return posts || [];
     }
 
+    const BOOKMARK_KEY = "bookmarks";
+    const BOOKMARK_PREFIX = "post-";
+
+    function getBookmarks() {
+        try {
+            return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveBookmarks(list) {
+        try {
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
+        } catch (e) {}
+    }
+
+    function setSaved(post, postId, on) {
+        var key = BOOKMARK_PREFIX + postId;
+        var list = getBookmarks().filter(function (b) {
+            return !b || b.id !== key;
+        });
+        
+        if (on) {
+            list.unshift({
+                id: key,
+                name: post.name,
+                handle: post.handle,
+                time: post.time,
+                text: post.message,
+                community: "Post"
+            });
+        }
+        saveBookmarks(list);
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const postId = parseInt(urlParams.get('id'));
     const posts = getStoredPosts();
@@ -102,15 +138,22 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     } else if (action === 'save') {
                         const index = postPrefs.saved.indexOf(id);
+                        let newSaveStatus;
+
                         if (index === -1) {
                             postPrefs.saved.push(id);
                             actionBtn.classList.add('active');
                             imgIcon.src = '../image/icons/bookmark-full.svg';
+                            newSaveStatus = true;
                         } else {
                             postPrefs.saved.splice(index, 1);
                             actionBtn.classList.remove('active');
                             imgIcon.src = '../image/icons/bookmark.svg';
+                            newSaveStatus = false;
                         }
+                        
+                        setSaved(post, id, newSaveStatus);
+                        savePostPrefs();
                     }
                     savePostPrefs();
                 }
