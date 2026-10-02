@@ -178,3 +178,48 @@ body {
 .action-item:hover .action-icon {
     opacity: 1; 
 }
+
+.action-like.active {
+    color: #f91880; 
+}
+
+.action-like.active img {
+    filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101%) contrast(106%);
+}
+
+.action-save.active {
+    color: #1d9bf0;
+}
+
+.action-save.active img {
+    filter: invert(47%) sepia(91%) saturate(2758%) hue-rotate(180deg) brightness(99%) contrast(96%);
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; 
+    padding: 6px 12px; 
+    border-radius: 50px; 
+    cursor: pointer;
+    transition: all 0.2s ease; 
+    background-color: transparent; 
+}
+
+.action-like:hover {
+    background-color: rgba(249, 24, 128, 0.1); 
+    color: #f91880; 
+}
+
+.action-like:hover img {
+    filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101%) contrast(106%);
+}
+
+.action-save:hover {
+    background-color: rgba(29, 155, 240, 0.1); 
+    color: #1d9bf0;
+}
+
+.action-save:hover img {
+    filter: invert(47%) sepia(91%) saturate(2758%) hue-rotate(180deg) brightness(99%) contrast(96%);
+}
