@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const savedList = getBookmarks();
             const isSaved = savedList.some(b => b && b.id === bookmarkKey);
 
+            const allComments = JSON.parse(localStorage.getItem("xclone.posts.comments")) || {};
+            const customRepliesCount = (allComments[index] || []).length;
+            
+            const totalReplies = (post.replies || 0) + customRepliesCount;
+
             const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
             const likeIconSrc = isLiked ? '../image/icons/like-full.svg' : '../image/icons/like.svg';
             const saveIconSrc = isSaved ? '../image/icons/bookmark-full.svg' : '../image/icons/bookmark.svg';
@@ -70,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="post-actions">
                         <span class="action-item">
-                            <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${post.replies || 0}
+                            <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${totalReplies}
                         </span>
                         <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${index}">
                             <img src="${likeIconSrc}" class="action-icon action-icon-like" alt="Like"> 
@@ -201,6 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (postText !== "") {
                         let currentPosts = getStoredPosts();
                         const newPost = {
+                            id: "user_post_" + Date.now(),
                             name: "user",
                             handle: "@user",
                             time: "Now",
