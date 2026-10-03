@@ -3,92 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Threads</title>
     <link rel="stylesheet" href="thread-builder.css">
-    <style>
-        .page-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            color: var(--text);
-        }
-
-        .make-thread-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: var(--accent);
-            color: var(--on-accent);
-            text-align: center;
-            text-decoration: none;
-            border-radius: var(--radius-pill);
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-
-        .make-thread-btn:hover {
-            background: var(--accent-dark);
-        }
-
-        .draft-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .draft-card h3 {
-            margin: 0 0 5px 0;
-            font-size: 16px;
-            color: var(--accent);
-        }
-
-        .draft-card p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: var(--text-dim);
-        }
-
-        .continue-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 15px;
-            background: var(--bg-hover);
-            color: var(--text);
-            text-decoration: none;
-            border-radius: var(--radius-pill);
-            font-size: 13px;
-            border: 1px solid var(--border);
-        }
-
-        .continue-btn:hover {
-            background: var(--border);
-        }
-    </style>
-    </style>
 </head>
 
 <body>
 
     <div class="builder-container">
+        <a href="../home/home.html" class="back-btn">← Back</a>
+
         <h1 class="page-title">Your Threads</h1>
 
         <a href="thread-builder.html" class="make-thread-btn">+ Make a New Thread</a>
 
-        <h2 style="font-size: 18px; margin-bottom: 15px;">Your Drafts</h2>
-
+        <h2 class="section-title">Your Drafts</h2>
         <div id="drafts-container">
-            <p style="color: #888;">No drafts yet. Make your own threads!</p>
+            <p class="empty-state">No drafts yet. Make your own threads!</p>
         </div>
 
-        <h2 style="font-size: 18px; margin: 25px 0 15px 0;">Published Threads</h2>
+        <h2 class="section-title spaced">Published Threads</h2>
         <div id="published-container">
-            <p style="color: #888;">No published threads yet.</p>
+            <p class="empty-state">No published threads yet.</p>
         </div>
-
     </div>
 
     <div id="toast" class="toast">Messages here</div>
