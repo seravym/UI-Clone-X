@@ -6,23 +6,34 @@
     <title>Follow Requests / X Clone — Kelompok 9</title>
     <link rel="stylesheet" href="../home/home.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../mobile.css">
 </head>
-<body>
+<body data-bottom-nav>
     <div class="layout-container">
+        
         <aside class="sidebar-left">
             <div id="sidebar"></div>
         </aside>
 
         <main class="feed">
             <header class="feed-header">
-                <h1>Follow Requests & Suggestions</h1>
+                <h1>Follow Requests</h1>
             </header>
-
             <div id="users-container" style="padding: 15px;">
             </div>
         </main>
+
+        <aside class="right-sidebar">
+            <input type="text" placeholder="Search..." class="search-bar">
+            <div class="trending-box" style="margin-top: 15px;">
+                <h4>Trending</h4>
+                <p class="text-pink">#randomtrend</p>
+            </div>
+        </aside>
+
     </div>
 
     <script src="follow.js"></script>
+    <script src="../mobile-navigation.js"></script>
 </body>
 </html>

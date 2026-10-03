@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const usersContainer = document.getElementById("users-container");
+    const sidebarContainer = document.getElementById("sidebar");
+
+    if (sidebarContainer) {
+        fetch("../sidebar.html")
+            .then(response => response.text())
+            .then(data => { sidebarContainer.innerHTML = data; })
+            .catch(error => console.error("Error memuat sidebar:", error));
+    }
 
     const suggestUsers = [
         { id: "alex_ander", name: "Alexander", handle: "@alex_ander" },
@@ -19,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderUsers() {
         const following = getFollowingList();
         let html = "";
-
+        
         suggestUsers.forEach(user => {
             const isFollowing = following.includes(user.id);
             html += `
@@ -37,21 +45,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
         });
-
+        
         usersContainer.innerHTML = html;
 
         document.querySelectorAll(".btn-follow").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const userId = e.target.getAttribute("data-id");
                 let following = getFollowingList();
-
                 const index = following.indexOf(userId);
+                
                 if (index === -1) {
                     following.push(userId);
                 } else {
                     following.splice(index, 1);
                 }
-
+                
                 saveFollowingList(following);
                 renderUsers();
             });
@@ -59,5 +67,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     renderUsers();
-    
 });
