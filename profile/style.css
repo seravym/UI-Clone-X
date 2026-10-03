@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
 }
 
 .container{
@@ -171,6 +172,7 @@ h2{
     background-color: #fff7fb;
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
+    cursor: url("./kenma.png") 48 48, pointer;
 }
 
 .profile-info {
@@ -178,7 +180,6 @@ h2{
     top: 195px;
     left: 18px;
 }
-
 
 
 .profile-menu div {
@@ -462,6 +463,13 @@ h2{
     color: #555;
 }
 
+.like-button {
+    border: none;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    font-size: 15px;
+}
 .ktk {
   width: 100%;
     height: 180px;

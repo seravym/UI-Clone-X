@@ -60,13 +60,13 @@
         </header>
 
     <div class="profile-menu">
-    <div class="active">Posts</div>
-    <div>Replies</div>
-    <div>Likes</div>
+    <div class="active tab-button" data-tab="posts">Posts</div>
+    <div class="tab-button" data-tab="replies">Replies</div>
+    <div class="tab-button" data-tab="likes">Likes</div>
     </div>
 
 
-    <div class="dummy-post">
+    <div class="dummy-post" data-id="post1">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -83,9 +83,10 @@
     <span class="action-item">
         <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 8900
     </span>
-    <span class="action-item">
-        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 64000
-    </span>
+   <button class="action-item like-button" type="button">
+        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 
+        <span class="like-count">5000</span>
+    </button>
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 120000
     </span>
@@ -96,7 +97,7 @@
 </div>
 
 
-  <div class="dummy-post">
+  <div class="dummy-post" data-id="post2">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -113,9 +114,10 @@
     <span class="action-item">
         <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 1000000
     </span>
-    <span class="action-item">
-        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 31000000
-    </span>
+    <button class="action-item like-button" type="button">
+        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 
+        <span class="like-count">64000</span>
+    </button>
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 1200000000
     </span>
@@ -126,7 +128,7 @@
 </div>
 
 
-    <div class="dummy-post">
+    <div class="dummy-post" data-id="post3">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -143,9 +145,10 @@
     <span class="action-item">
         <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 10
     </span>
-    <span class="action-item">
-        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 31
-    </span>
+   <button class="action-item like-button" type="button">
+        <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 
+        <span class="like-count">50</span>
+    </button>
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 120
     </span>
