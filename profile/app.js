@@ -95,7 +95,7 @@ if (upload) {
         reader.readAsDataURL(file);
     });
 
-    // dipasang ke window supaya onclick="saveProfile()" bisa menemukannya
+
     window.saveProfile = function () {
         const name = nameInput.value.trim();
         const username = usernameInput.value.trim().toLowerCase();
@@ -117,4 +117,129 @@ if (upload) {
         window.location.href = "profile.html";
     };
 }
+
+// LIKE SYSTEM
+
+const posts = document.querySelectorAll(".dummy-post");
+const likeButtons = document.querySelectorAll(".like-button");
+
+let likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
+posts.forEach(post => {
+
+    const postId = post.dataset.id;
+    const button = post.querySelector(".like-button");
+
+    if (!button) return;
+
+    const icon = button.querySelector("img");
+
+    if (likedPosts.includes(postId)) {
+        icon.src = "../image/icons/like-filled.svg";
+        button.classList.add("liked");
+    }
+
+});
+
+
+// Ketika tombol like diklik
+likeButtons.forEach(button => {
+
+    button.addEventListener("click", function () {
+
+        const post = button.closest(".dummy-post");
+        const postId = post.dataset.id;
+
+        const countElement = button.querySelector(".like-count");
+        const icon = button.querySelector("img");
+
+        let count = parseInt(countElement.textContent);
+
+
+     // UNLIKE
+
+        if (likedPosts.includes(postId)) {
+
+            likedPosts = likedPosts.filter(id => id !== postId);
+
+            count--;
+
+            icon.src = "../image/icons/like.svg";
+
+            button.classList.remove("liked");
+
+        }
+
+        // LIKe
+        else {
+
+            likedPosts.push(postId);
+
+            count++;
+
+            icon.src = "../image/icons/like-full.svg";
+
+            button.classList.add("liked");
+        }
+        countElement.textContent = count;
+        localStorage.setItem(
+            "likedPosts",
+            JSON.stringify(likedPosts)
+        );
+
+    });
+
+});
+
+// TAB SYSTEM
+const tabs = document.querySelectorAll(".tab-button");
+
+
+tabs.forEach(tab => {
+
+    tab.addEventListener("click", function () {
+
+        const selectedTab = tab.dataset.tab;
+        tabs.forEach(t => {
+            t.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+
+        // POSTS
+        if (selectedTab === "posts") {
+
+            posts.forEach(post => {
+                post.style.display = "block";
+            });
+
+        }
+
+        // LIKES
+        else if (selectedTab === "likes") {
+
+            posts.forEach(post => {
+
+                const postId = post.dataset.id;
+
+                if (likedPosts.includes(postId)) {
+                    post.style.display = "block";
+                } else {
+                    post.style.display = "none";
+                }
+
+            });
+
+        }
+        // REPLIES
+        else if (selectedTab === "replies") {
+
+            posts.forEach(post => {
+                post.style.display = "none";
+            });
+
+        }
+
+    });
+
+});
 
