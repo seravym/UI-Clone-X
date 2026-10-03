@@ -6,9 +6,9 @@
     <title>Following / X Clone — Kelompok 9</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="../css/style.css">
-
+    <link rel="stylesheet" href="../mobile.css">
 </head>
-<body>
+<body data-bottom-nav>
     <div class="layout-container">
         
         <aside class="sidebar-left">
@@ -35,20 +35,20 @@
                 </div>
             </div>
 
-            <div class="post-container" onclick="window.location.href='post.html'">
-                <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
-                <div style="width: 100%;">
-                    <b>BestieKyuuu</b> <span style="color: gray;">@bestie · 5m</span>
-                    <p>Hanya melihat post dari orang yang kamu ikuti di tab ini. 💕</p>
-                </div>
-            </div>
+            <div id="feed-container"></div>
         </main>
 
         <aside class="right-sidebar">
             <input type="text" placeholder="Search..." class="search-bar">
+            <div class="trending-box">
+                <h4>Trending</h4>
+                <p class="text-pink">#randomtrend</p>
+            </div>
         </aside>
 
     </div>
     <script src="home.js"></script>
+    <script src="data.js"></script>
+    <script src="../mobile-navigation.js"></script>
 </body>
 </html>
