@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let allComments = JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {};
         let customComments = allComments[postId] || [];
 
-        // Ambil data postingan asli, batasi maksimal 10 balasan pre-generated
         const post = posts[postId];
         const baseRepliesCount = post && post.replies ? post.replies : 0;
         const maxSeedCount = Math.min(baseRepliesCount, 10);
@@ -50,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
             { name: "Bagus", handle: "@bagus_bola", message: "Mantap sekali pembahasannya." }
         ];
 
-        // Buat balasan dummy jika balasan kustom masih kurang dari maxSeedCount
         let neededSeed = Math.max(0, maxSeedCount - customComments.length);
         for (let i = 0; i < neededSeed; i++) {
             const dummy = dummyNames[i % dummyNames.length];
