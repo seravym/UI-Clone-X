@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Thread</title>
     <link rel="stylesheet" href="thread-builder.css">
 </head>
+
 <body>
 
-<div class="builder-container">
-    
-    <div class="top-bar">
-        <a href="threads.html" class="back-link">← Back to Threads</a>
-        <h2>Thread View</h2>
-        <div style="width: 50px;"></div>
+    <div class="builder-container">
+        <a href="threads.html" class="back-btn">← Back to Threads</a>
+
+        <h1 class="page-title">Thread View</h1>
+
+        <h1 id="view-title" style="font-size: 22px; margin-bottom: 20px; color: var(--accent);"></h1>
+
+        <div id="view-tweets"></div>
     </div>
 
-    <h1 id="view-title" style="font-size: 24px; margin-bottom: 20px; color: var(--accent);"></h1>
-    
-    <div id="view-tweets"></div>
+    <div id="toast" class="toast">Pesan</div>
 
-</div>
-
-<div id="toast" class="toast">Pesan</div>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="thread.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="thread.js"></script>
 
 </body>
+
 </html>
