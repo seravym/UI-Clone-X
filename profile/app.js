@@ -26,12 +26,9 @@ if (elName) {
     document.querySelectorAll(".post-username").forEach(el => el.textContent = "@" + profileUsername);
     if (pic) document.querySelectorAll(".post-profile").forEach(el => el.src = pic);
 }
-
-const bannerEl = document.getElementById("profile-banner");
-if (bannerEl) {
-    if (banner) bannerEl.src = banner;
-    else bannerEl.style.display = "none";
-}
+const bannerEl = document.getElementById("banner-pic");
+if (bannerEl && banner) bannerEl.src = banner;
+if (bannerEl) bannerEl.style.objectPosition = "center " + (localStorage.getItem("profileBannerPos") || 50) + "%";
 
 // ===== HALAMAN EDIT PROFILE =====
 const upload = document.getElementById("profile-upload");
@@ -83,18 +80,73 @@ if (upload) {
         reader.readAsDataURL(file);
     });
 
-    bannerInput.addEventListener("change", function () {
-        const file = this.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            bannerData = e.target.result;
-            bannerPreview.src = bannerData;
-            bannerPreview.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-    });
+  const bannerRemove = document.getElementById("banner-remove");
 
+bannerInput.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+            const scale = Math.min(1, 1200 / img.width);
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+            bannerData = canvas.toDataURL("image/jpeg", 0.8);
+            bannerPreview.src = bannerData;
+            bannerPos = 50; applyBannerPos();     // <-- BARU
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+bannerRemove.addEventListener("click", function () {
+    bannerData = "";
+    bannerPreview.src = "banner.png";
+    bannerPos = 50; applyBannerPos();
+});
+
+
+const bannerBox = bannerPreview.parentElement;
+let bannerPos = parseFloat(localStorage.getItem("profileBannerPos")) || 50;
+let dragY = null, startPos = 50;
+
+function applyBannerPos() {
+    bannerPreview.style.objectPosition = "center " + bannerPos + "%";
+}
+applyBannerPos();
+
+
+bannerPreview.draggable = false;
+bannerBox.style.cursor = "grab";
+bannerBox.style.touchAction = "none";
+
+bannerBox.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".banner-actions")) return;
+    dragY = e.clientY;
+    startPos = bannerPos;
+    bannerBox.setPointerCapture(e.pointerId);
+    bannerBox.style.cursor = "grabbing";
+});
+
+bannerBox.addEventListener("pointermove", function (e) {
+    if (dragY === null) return;
+    const scaledH = bannerBox.clientWidth * bannerPreview.naturalHeight / bannerPreview.naturalWidth;
+    const range = scaledH - bannerBox.clientHeight;
+    if (range <= 0) return;
+    bannerPos = Math.min(100, Math.max(0, startPos - (e.clientY - dragY) / range * 100));
+    applyBannerPos();
+});
+
+["pointerup", "pointercancel"].forEach(function (ev) {
+    bannerBox.addEventListener(ev, function () {
+        dragY = null;
+        bannerBox.style.cursor = "grab";
+    });
+});
 
     window.saveProfile = function () {
         const name = nameInput.value.trim();
@@ -106,7 +158,11 @@ if (upload) {
 
         try {
             if (newPic) localStorage.setItem("profilePic", newPic);
-            localStorage.setItem("profileBanner", bannerData);
+
+            if (bannerData) localStorage.setItem("profileBanner", bannerData);
+            else localStorage.removeItem("profileBanner");
+
+            localStorage.setItem("profileBannerPos", bannerPos.toFixed(1));
             localStorage.setItem("profileName", name);
             localStorage.setItem("profileUsername", username);
             localStorage.setItem("profileBio", bioVal);
@@ -242,4 +298,3 @@ tabs.forEach(tab => {
     });
 
 });
-

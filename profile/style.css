@@ -7,11 +7,13 @@ html, body {
 .container{
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    height: 550px;
+    height: 500px;
     border-left: none;
     border-right: none;
     background-color: #e797a0;
     position: relative;
+     margin: 0 auto;      /* tengahkan kotak */
+    max-width: 100%;  
     
 }
 
@@ -19,7 +21,7 @@ html, body {
 .container1{
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    height: 500px;
+    height: 580px;
     width:1100px;
     border-left: none;
     border-right: none;
@@ -31,10 +33,93 @@ html, body {
 
 h1{
     color:#9b3160;
-    margin: 15px 10px;
-    text-align: center;
+    top:10px;
+    text-align: left;
+    font-size: 15px;
+    background-color: white;
+    border-left: none;
+    border-right: none;
     
 }
+
+.banner-edit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 2px;
+}
+
+.banner-edit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;  
+    background-size: 33.3333% 33.3333%;  
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+}
+
+.banner-edit:hover::after,
+.banner-edit:active::after {
+    opacity: 1;   /* grid makin jelas saat kursor di banner / lagi digeser */
+}
+
+.banner-actions {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+     z-index: 3;
+}
+
+.banner-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(60, 60, 60, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.banner-btn:hover {
+    background: rgba(60, 60, 60, 0.95);
+}
+
+.banner-btn svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.banner-edit {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 32%;
+    z-index: 0;
+    overflow: hidden;
+    
+}
+
+.container1 h1 { position: relative; z-index: 2; }
+.edit-content   { z-index: 2; }
+.save-btn       { z-index: 2; }
 
 .button {
     border: 2px solid#9b3160;
@@ -88,8 +173,7 @@ h1{
     border-radius: 50%;
     font-size: 24px;
     font-weight: bold;
-    cursor: pointer;
-  
+    cursor: url("./kenma.png") 48 48, pointer;
     top: -185px;
     left: -8px;
 }
@@ -115,7 +199,7 @@ h1{
 h2{
     color: #640d14;;
     font-family: 'Myfont';
-    font-size: 35px;
+    font-size: 25px;
     text-align: center;
    
 }
@@ -176,9 +260,17 @@ h2{
 }
 
 .profile-info {
-    position: absolute;
-    top: 195px;
-    left: 18px;
+    position: relative;
+    height: auto;        
+    padding: 0 18px 20px;
+    margin-top: 0;
+}
+
+.profile-info.container {
+    position: relative;
+    height: auto;          
+    margin-top: 0;      
+    padding: 0 18px 20px;
 }
 
 
@@ -195,6 +287,9 @@ h2{
     border-bottom: 4px solid #9b3160;
 }
 
+.profile-page {
+    position: relative;
+}
 
 .profile-page > .upload-circle {
     grid-row: span 2;   
@@ -215,6 +310,8 @@ h2{
     position: relative;
     cursor: url("./hirono.png") 16 16, pointer;
     aspect-ratio: 1 / 1;  
+     margin-top: -50px; 
+    z-index: 2;
 }
 
  .upload-circle img.profile {
@@ -265,7 +362,7 @@ h2{
     display: flex;
     position: absolute;     
     gap: 90%;
-    top: 30px;
+    top: 50px;
     left: 240px;
     margin: 0;
     transform: none;
@@ -296,7 +393,7 @@ h2{
 
 .edit-content {
     position: absolute;
-    top: 50px;
+    top: 230px;
     left: 50%;
     transform: translateX(-50%);   
     display: flex;
@@ -371,7 +468,7 @@ h2{
 
 .save-btn {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
 
@@ -391,16 +488,17 @@ h2{
 }
 
 .ex{
-    width: 35px;
+    width: 40px;
     height: 40px;
     position:absolute;
-    top: 20%;
-    right: 20%;
+    top: 5%;
+    right: 2%;
     border: 2px solid #640d14;
     background-color: #DD8C96;
     border-radius: 20px;
     font-size: 25px;
     color: #640d14;
+    z-index: 10;
     cursor: url("./hirono.png") 16 16, pointer;
 
 }
@@ -471,12 +569,13 @@ h2{
     font-size: 15px;
 }
 .ktk {
-  width: 100%;
+    width: 100%;
     height: 180px;
     object-fit: cover;
-    margin: 0;
     display: block;
+    margin: 0;
 }
+
 
 .layout-container {
     display: flex;
@@ -555,12 +654,15 @@ h2{
 
     /* halaman edit */
     .edit-content {
-        position: static;
-        transform: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
+    position: absolute;
+    top: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    z-index: 2;;
     }
 
     .edit-content .upload-circle {
