@@ -45,7 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
             { name: "Kat", handle: "@trin_writes", message: "Keren pembahasannya." },
             { name: "Garth", handle: "@garth_dev", message: "Mantap!" },
             { name: "Athena", handle: "@athena_wisdom", message: "Informasi yang sangat bermanfaat." },
-            { name: "Bagus", handle: "@bagus_bola", message: "Mantap sekali pembahasannya." }
+            { name: "Bagus", handle: "@bagus_bola", message: "Mantap sekali pembahasannya." },
+            { name: "Citra", handle: "@citra_coding", message: "Sangat membantu, terima kasih!" },
+            { name: "Tasya", handle: "@tasya_dev", message: "Setuju dengan pendapat ini." },
+            { name: "Eka", handle: "@eka_tech", message: "Keren banget!" },
+            { name: "Fajar", handle: "@fajar_frontend", message: "Sangat informatif." },
+            { name: "Gita", handle: "@gita_guru", message: "Terima kasih atas informasinya!" }
         ];
 
         let neededSeed = Math.max(0, maxSeedCount - customComments.length);
