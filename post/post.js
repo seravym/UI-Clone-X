@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-    const sidebarContainer = document.getElementById("sidebar"); 
+    const sidebarContainer = document.getElementById("sidebar");
+
     if (sidebarContainer) {
-        fetch("../sidebar.html") 
+        fetch("../sidebar.html")
             .then(response => response.text())
             .then(data => {
                 sidebarContainer.innerHTML = data;
@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         attachReplyEvents();
     }
-    
+
     const STORE_POST_PREFS = "xclone.posts.prefs";
     const STORE_ALL_POSTS = "xclone.posts.list";
     let postPrefs = JSON.parse(localStorage.getItem(STORE_POST_PREFS)) || { liked: [], saved: [] };
+    if (!Array.isArray(postPrefs.liked)) postPrefs.liked = [];
+    if (!Array.isArray(postPrefs.saved)) postPrefs.saved = [];
 
     function savePostPrefs() {
         localStorage.setItem(STORE_POST_PREFS, JSON.stringify(postPrefs));
@@ -23,22 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getStoredPosts() {
         let posts = JSON.parse(localStorage.getItem(STORE_ALL_POSTS));
-        if (!posts && typeof postData !== 'undefined' && postData.posts) {
-            posts = [...postData.posts];
-            localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+        if (!posts || posts.length === 0) {
+            if (typeof postData !== 'undefined' && postData.posts) {
+                posts = [...postData.posts];
+                localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+            }
         }
         return posts || [];
     }
 
     const STORE_COMMENTS = "xclone.posts.comments";
 
-    function getComments(targetKey, post) {
+    function getComments(uniquePostKey, post) {
         let allComments = JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {};
-        let customComments = allComments[targetKey] || [];
-
+        let customComments = allComments[uniquePostKey] || [];
         const baseRepliesCount = post && post.replies ? post.replies : 0;
         const maxSeedCount = Math.min(baseRepliesCount, 10);
-
         let seedComments = [];
         const dummyNames = [
             { name: "Alexander", handle: "@alex_ander", message: "Setuju banget sama postingan ini!" },
@@ -52,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
             { name: "Fajar", handle: "@fajar_frontend", message: "Sangat informatif." },
             { name: "Gita", handle: "@gita_guru", message: "Terima kasih atas informasinya!" }
         ];
-
         let neededSeed = Math.max(0, maxSeedCount - customComments.length);
         for (let i = 0; i < neededSeed; i++) {
             const dummy = dummyNames[i % dummyNames.length];
@@ -63,37 +64,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 message: dummy.message
             });
         }
-
         return [...customComments, ...seedComments];
     }
 
-    function saveComment(targetKey, replyText, numericPostId) {
+    function saveComment(uniquePostKey, replyText) {
         let allComments = JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {};
-        if (!allComments[targetKey]) {
-            allComments[targetKey] = [];
+        if (!allComments[uniquePostKey]) {
+            allComments[uniquePostKey] = [];
         }
-                 
+
         const newReply = {
             name: "user",
             handle: "@user",
             time: "Now",
             message: replyText
         };
-        allComments[targetKey].unshift(newReply);
+        allComments[uniquePostKey].unshift(newReply);
         localStorage.setItem(STORE_COMMENTS, JSON.stringify(allComments));
-
-        let posts = getStoredPosts();
-        if (posts[numericPostId]) {
-            posts[numericPostId].replies = (posts[numericPostId].replies || 0) + 1;
-            localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
-        }
-
-        return allComments[targetKey];
+        return allComments[uniquePostKey];
     }
 
     const BOOKMARK_KEY = "bookmarks";
-    const BOOKMARK_PREFIX = "post-";
-
     function getBookmarks() {
         try {
             return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
@@ -101,22 +92,18 @@ document.addEventListener("DOMContentLoaded", () => {
             return [];
         }
     }
-
     function saveBookmarks(list) {
         try {
             localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
         } catch (e) {}
     }
-
     function setSaved(post, postId, on) {
-        var key = BOOKMARK_PREFIX + postId;
         var list = getBookmarks().filter(function (b) {
-            return !b || b.id !== key;
+            return b && b.id !== postId;
         });
-        
         if (on) {
             list.unshift({
-                id: key,
+                id: postId,
                 name: post.name,
                 handle: post.handle,
                 time: post.time,
@@ -128,22 +115,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const urlParams = new URLSearchParams(window.location.search);
-    const postId = parseInt(urlParams.get('id'));
+    const targetIdParam = urlParams.get('id'); 
     const posts = getStoredPosts();
 
-    if (!isNaN(postId) && posts[postId]) {
-        const post = posts[postId];
-        const uniquePostKey = post.id ? post.id : `post_index_${postId}`;
-        const replies = getComments(uniquePostKey, post);
-        
-        const totalActualReplies = post.replies || 0;
-        
-        const customRepliesCount = (JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {})[uniquePostKey]?.length || 0
-        
-        const isLiked = postPrefs.liked.includes(postId);
-        const isSaved = postPrefs.saved.includes(postId);
-        const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
+    let post = null;
+    let uniquePostKey = "";
 
+    if (targetIdParam) {
+        post = posts.find(p => (p.id || `post_index_${posts.indexOf(p)}`) === targetIdParam);
+        if (post) {
+            uniquePostKey = post.id || targetIdParam;
+        } else if (!isNaN(targetIdParam) && posts[targetIdParam]) {
+            post = posts[targetIdParam];
+            uniquePostKey = post.id || `post_index_${targetIdParam}`;
+        }
+    }
+
+    if (post) {
+        const replies = getComments(uniquePostKey, post);
+        const totalActualReplies = (post.replies || 0) + (JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {})[uniquePostKey]?.length || 0;
+        
+        const isLiked = postPrefs.liked.includes(uniquePostKey);
+        const isSaved = postPrefs.saved.includes(uniquePostKey);
+        const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
         const likeIconSrc = isLiked ? '../image/icons/like-full.svg' : '../image/icons/like.svg';
         const saveIconSrc = isSaved ? '../image/icons/bookmark-full.svg' : '../image/icons/bookmark.svg';
 
@@ -153,40 +147,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="post-container" style="border-top: 1px solid #eff3f4; padding-left: 30px;">
                     <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
                     <div style="width: 100%;">
-                        <b>${r.name}</b> <span style="color: #536471;">${r.handle} · ${r.time}</span>
+                        <b>${r.name}</b> <span style="color: #536471;">${r.handle} • ${r.time}</span>
                         <p style="margin-top: 5px;">${r.message}</p>
                     </div>
                 </div>
             `).join('');
 
             postDetailContainer.innerHTML = `
-                <div class="post-container" data-id="${postId}">
+                <div class="post-container" data-id="${uniquePostKey}">
                     <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
                     <div style="width: 100%;">
-                        <b>${post.name}</b> <span style="color: #536471;">${post.handle} · ${post.time}</span>
+                        <b>${post.name}</b> <span style="color: #536471;">${post.handle} • ${post.time}</span>
                         <p style="font-size: 1.1rem; margin-top: 10px;">${post.message}</p>
                         
                         <div class="post-actions" style="margin-top: 15px; display: flex; justify-content: space-around;">
                             <span class="action-item">
                                 <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${totalActualReplies}
-                            </span> 
+                            </span>
                             
-                            <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${postId}">
+                            <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${uniquePostKey}">
                                 <img src="${likeIconSrc}" class="action-icon action-icon-like" alt="Like"> 
                                 <span class="count">${displayLikes}</span>
-                            </span> 
+                            </span>
                             
                             <span class="action-item">
                                 <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views || 0}
                             </span>
                             
-                            <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${postId}">
+                            <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${uniquePostKey}">
                                 <img src="${saveIconSrc}" class="action-icon action-icon-save" alt="Bookmark">
                             </span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="create-post" style="border-bottom: 1px solid #eff3f4; padding: 15px; display: flex; gap: 10px;">
                     <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
                     <div style="width: 100%;">
@@ -196,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="replies-container">
                     ${repliesHTML}
                 </div>
@@ -204,17 +198,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             postDetailContainer.addEventListener('click', function(e) {
                 const actionBtn = e.target.closest('.action-btn');
-
                 if (actionBtn) {
                     const action = actionBtn.getAttribute('data-action');
-                    const id = parseInt(actionBtn.getAttribute('data-id'));
+                    const id = actionBtn.getAttribute('data-id');
                     const imgIcon = actionBtn.querySelector('img');
 
                     if (action === 'like') {
                         const index = postPrefs.liked.indexOf(id);
                         const countSpan = actionBtn.querySelector('.count');
                         let currentCount = parseInt(countSpan.textContent);
-
                         if (index === -1) {
                             postPrefs.liked.push(id);
                             actionBtn.classList.add('active');
@@ -229,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else if (action === 'save') {
                         const index = postPrefs.saved.indexOf(id);
                         let newSaveStatus;
-
                         if (index === -1) {
                             postPrefs.saved.push(id);
                             actionBtn.classList.add('active');
@@ -241,7 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             imgIcon.src = '../image/icons/bookmark.svg';
                             newSaveStatus = false;
                         }
-                        
                         setSaved(post, id, newSaveStatus);
                     }
                     savePostPrefs();
@@ -256,12 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const textarea = document.querySelector(".reply-input");
                 if (textarea) {
                     const replyText = textarea.value.trim();
-                    if (replyText !== "") {
-                        const currentPosts = getStoredPosts();
-                        const currentPost = currentPosts[postId];
-                        const uniqueKey = currentPost.id ? currentPost.id : `post_index_${postId}`;
-                        
-                        saveComment(uniqueKey, replyText, postId);
+                    if (replyText !== "" && uniquePostKey) {
+                        saveComment(uniquePostKey, replyText);
                         textarea.value = "";
                         location.reload();
                     }

@@ -4,18 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const feedContainer = document.getElementById("feed-container");
     const sidebarContainer = document.getElementById("sidebar");
     const tabButtons = document.querySelectorAll(".tab-btn");
-
     const BOOKMARK_KEY = "bookmarks";
-    const BOOKMARK_PREFIX = "post-";
     const STORE_POST_PREFS = "xclone.posts.prefs";
     const STORE_ALL_POSTS = "xclone.posts.list";
     const FOLLOWING_KEY = "xclone_following";
-
     let currentTab = "foryou";
 
     function getStoredPosts() {
         let posts = JSON.parse(localStorage.getItem(STORE_ALL_POSTS));
-        
         if (!posts || posts.length === 0) {
             if (typeof postData !== 'undefined' && postData.posts) {
                 posts = [...postData.posts];
@@ -29,12 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
     }
 
+    let postPrefs = JSON.parse(localStorage.getItem(STORE_POST_PREFS)) || { liked: [], saved: [] };
+    if (!Array.isArray(postPrefs.liked)) postPrefs.liked = [];
+    if (!Array.isArray(postPrefs.saved)) postPrefs.saved = [];
+
+    function savePostPrefs() {
+        localStorage.setItem(STORE_POST_PREFS, JSON.stringify(postPrefs));
+    }
+
     function renderFeed() {
         if (!feedContainer) return;
-        
+
         let posts = getStoredPosts();
         let postsToDisplay = [...posts];
-        
+
         if (currentTab === "following") {
             const followingList = JSON.parse(localStorage.getItem(FOLLOWING_KEY)) || [];
             postsToDisplay = posts.map((post, originalIndex) => {
@@ -52,39 +56,38 @@ document.addEventListener("DOMContentLoaded", () => {
         let feedHTML = "";
         postsToDisplay.forEach((post) => {
             const index = post.originalIndex;
-            const isLiked = postPrefs.liked.includes(index);
-            const bookmarkKey = BOOKMARK_PREFIX + index;
+            const postId = post.id || (`post_index_${index}`);
+            
+            const isLiked = postPrefs.liked.includes(postId);
             const savedList = getBookmarks();
-            const isSaved = savedList.some(b => b && b.id === bookmarkKey);
-
+            const isSaved = savedList.some(b => b && b.id === postId);
+            
             const allComments = JSON.parse(localStorage.getItem("xclone.posts.comments")) || {};
-            const customRepliesCount = (allComments[index] || []).length;
+            const customRepliesCount = (allComments[postId] || []).length;
             
             const totalReplies = (post.replies || 0) + customRepliesCount;
-
             const displayLikes = (post.likes || 0) + (isLiked ? 1 : 0);
             const likeIconSrc = isLiked ? '../image/icons/like-full.svg' : '../image/icons/like.svg';
             const saveIconSrc = isSaved ? '../image/icons/bookmark-full.svg' : '../image/icons/bookmark.svg';
 
             feedHTML += `
-            <div class="post-container" data-index="${index}">
+            <div class="post-container" data-post-id="${postId}">
                 <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
                 <div style="width: 100%;">
-                    <b>${post.name}</b> <span style="color: #536471;">${post.handle} · ${post.time}</span>
+                    <b>${post.name}</b> <span style="color: #536471;">${post.handle} • ${post.time}</span>
                     <p>${post.message}</p>
-
                     <div class="post-actions">
                         <span class="action-item">
                             <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${totalReplies}
                         </span>
-                        <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${index}">
+                        <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${postId}">
                             <img src="${likeIconSrc}" class="action-icon action-icon-like" alt="Like"> 
                             <span class="count">${displayLikes}</span>
                         </span>
                         <span class="action-item">
                             <img src="../image/icons/view.svg" class="action-icon" alt="View"> ${post.views || 0}
                         </span>
-                        <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${index}">
+                        <span class="action-item action-btn action-save ${isSaved ? 'active' : ''}" data-action="save" data-id="${postId}">
                             <img src="${saveIconSrc}" class="action-icon action-icon-save" alt="Bookmark">
                         </span>
                     </div>
@@ -99,9 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", (e) => {
             tabButtons.forEach(b => b.classList.remove("border-pink"));
             e.currentTarget.classList.add("border-pink");
-
             currentTab = e.currentTarget.getAttribute("data-tab");
-            renderFeed(); 
+            renderFeed();
         });
     });
 
@@ -120,21 +122,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function getBookmarks() {
         try { return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || []; } catch (e) { return []; }
     }
+
     function saveBookmarks(list) {
         try { localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list)); } catch (e) {}
     }
+
     function setSaved(post, postId, on) {
-        var key = BOOKMARK_PREFIX + postId;
-        var list = getBookmarks().filter(b => !b || b.id !== key);
+        var list = getBookmarks().filter(b => b && b.id !== postId);
         if (on) {
-            list.unshift({ id: key, name: post.name, handle: post.handle, time: post.time, text: post.message, community: "Post" });
+            list.unshift({ id: postId, name: post.name, handle: post.handle, time: post.time, text: post.message, community: "Post" });
         }
         saveBookmarks(list);
-    }
-
-    let postPrefs = JSON.parse(localStorage.getItem(STORE_POST_PREFS)) || { liked: [], saved: [] };
-    function savePostPrefs() {
-        localStorage.setItem(STORE_POST_PREFS, JSON.stringify(postPrefs));
     }
 
     renderFeed();
@@ -143,16 +141,18 @@ document.addEventListener("DOMContentLoaded", () => {
         feedContainer.addEventListener('click', function(e) {
             const actionBtn = e.target.closest('.action-btn');
             const postContainer = e.target.closest('.post-container');
+
             if (actionBtn) {
                 e.stopPropagation();
                 const action = actionBtn.getAttribute('data-action');
-                const postId = parseInt(actionBtn.getAttribute('data-id'));
+                const postId = actionBtn.getAttribute('data-id');
                 const imgIcon = actionBtn.querySelector('img');
 
                 if (action === 'like') {
                     const index = postPrefs.liked.indexOf(postId);
                     const countSpan = actionBtn.querySelector('.count');
                     let currentCount = parseInt(countSpan.textContent);
+
                     if (index === -1) {
                         postPrefs.liked.push(postId);
                         actionBtn.classList.add('active');
@@ -166,11 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 } else if (action === 'save') {
                     let currentPosts = getStoredPosts();
-                    const post = currentPosts[postId];
+                    const post = currentPosts.find(p => (p.id || (`post_index_${currentPosts.indexOf(p)}`)) === postId);
+                    
                     if (post) {
-                        const bookmarkKey = BOOKMARK_PREFIX + postId;
                         const savedList = getBookmarks();
-                        const isCurrentlySaved = savedList.some(b => b && b.id === bookmarkKey);
+                        const isCurrentlySaved = savedList.some(b => b && b.id === postId);
                         let newSaveStatus = !isCurrentlySaved;
 
                         if (newSaveStatus) {
@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             imgIcon.src = '../image/icons/bookmark.svg';
                         }
                         setSaved(post, postId, newSaveStatus);
+
                         if (newSaveStatus) {
                             if (!postPrefs.saved.includes(postId)) postPrefs.saved.push(postId);
                         } else {
@@ -190,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 savePostPrefs();
             } else if (postContainer) {
-                const postId = postContainer.getAttribute('data-index');
+                const postId = postContainer.getAttribute('data-post-id');
                 window.location.href = `../post/post.html?id=${postId}`;
             }
         });
@@ -217,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         };
                         currentPosts.unshift(newPost);
                         saveStoredPosts(currentPosts);
-
                         alert("Your tweet has been posted!");
                         ta.value = "";
                         renderFeed();
