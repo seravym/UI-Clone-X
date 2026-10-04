@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Thread</title>
     <link rel="stylesheet" href="thread-builder.css">
 </head>
@@ -10,12 +11,9 @@
 <body>
 
     <div class="builder-container">
+        <a href="threads.html" class="back-btn">← Cancel</a>
 
-        <div class="top-bar">
-            <a href="threads.html" class="back-link">← Cancel</a>
-            <h2>Create Thread</h2>
-            <div style="width: 50px;"></div> 
-        </div>
+        <h1 class="page-title">Create Thread</h1>
 
         <input type="text" id="thread-title" class="thread-title-input" placeholder="Judul Thread (Opsional)">
 
@@ -34,7 +32,6 @@
             <button class="btn draft-btn" id="save-draft-btn">Save Draft</button>
             <button class="btn publish-btn" id="publish-btn">Publish Thread</button>
         </div>
-
     </div>
 
     <div id="toast" class="toast">Pesan akan muncul di sini</div>
@@ -42,6 +39,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="thread-builder.js"></script>
 
-</body >
+</body>
 
-</html >
+</html>

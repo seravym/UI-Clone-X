@@ -57,23 +57,24 @@
                 <span class="sidebar-label">Lists</span>
             </a>
 
-            <a href="/home/following.html" class="sidebar-link">
+            <a href="/follow-request/follow.html" class="sidebar-link">
                 <img class="sidebar-icon" src="/image/icons/follow.svg" alt="">
-                <span class="sidebar-label">Follow requests</span>
+                <span class="sidebar-label">Follow Requests</span>
             </a>
 
         </nav>
 
         <button class="sidebar-post-btn">Post</button>
 
-        <a href="/profile/profile.html" class="sidebar-profile">
-            <img src="/image/Default_pfp.jpeg" alt="Profile">
+        <div class="sidebar-profile">
+            <img data-user-avatar src="/profile/default.jpg" alt="Profile">
             <div class="sidebar-profile-info">
-                <div class="sidebar-profile-name">user</div>
-                <div class="sidebar-profile-handle">@user</div>
+                <div class="sidebar-profile-name" data-user-name>user</div>
+                <div class="sidebar-profile-handle" data-user-handle>@username</div>
             </div>
-            <span class="sidebar-profile-more">⋯</span>
-        </a>
-
+            <a href="/settings/settings.html" class="sidebar-profile-setting" aria-label="Settings">
+                <img src="/image/icons/setting.svg" alt="">
+            </a>
+        </div>
     </div>
 </div>

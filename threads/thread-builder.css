@@ -4,69 +4,110 @@
   --text: #0f1419;
   --text-dim: #536471;
   --border: #eff3f4;
+
   --accent: #e91e8c;
   --accent-dark: #c4137a;
   --accent-soft: rgba(233, 30, 140, 0.1);
+
   --danger: #f4212e;
-  --success: #00ba7c;
   --on-accent: #ffffff;
 
   --radius-pill: 9999px;
   --radius-lg: 16px;
   --radius-md: 12px;
+
   --font: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
 }
 
 .builder-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px 50px 60px;
 }
 
 .top-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 15px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .back-link {
-  color: var(--accent);
+  color: var(--text);
   text-decoration: none;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
-h2 {
+.back-link:hover {
+  color: var(--accent);
+}
+
+.top-bar h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.thread-title-input {
+  width: 100%;
+  padding: 12px 0;
+  margin-bottom: 25px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  outline: none;
   color: var(--text);
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.thread-title-input::placeholder {
+  color: var(--text-dim);
+  font-weight: normal;
+}
+
+.thread-title-input:focus {
+  border-bottom-color: var(--accent);
 }
 
 .tweet-box {
   display: flex;
-  gap: 12px;
+  gap: 14px;
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 15px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 15px;
-  margin-bottom: 15px;
   position: relative;
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: var(--border);
   object-fit: cover;
@@ -74,18 +115,20 @@ h2 {
 
 .input-area {
   flex: 1;
+  min-width: 0;
 }
 
 .tweet-input {
   width: 100%;
+  min-height: 80px;
+  padding: 5px 0;
   background: transparent;
   border: none;
+  outline: none;
+  resize: vertical;
   color: var(--text);
   font-family: var(--font);
-  font-size: 16px;
-  resize: none;
-  outline: none;
-  min-height: 50px;
+  font-size: 18px;
 }
 
 .tweet-input::placeholder {
@@ -93,10 +136,10 @@ h2 {
 }
 
 .char-count {
-  font-size: 12px;
-  color: var(--text-dim);
-  text-align: right;
   margin-top: 5px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: right;
 }
 
 .char-count.warning {
@@ -106,37 +149,42 @@ h2 {
 
 .delete-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   background: transparent;
   border: none;
   color: var(--text-dim);
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  transition: 0.15s;
 }
 
 .delete-btn:hover {
   color: var(--danger);
+  background: var(--bg-hover);
 }
 
 .action-buttons {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 25px;
   flex-wrap: wrap;
 }
 
 .btn {
   padding: 12px 20px;
   border-radius: var(--radius-pill);
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
+  font-family: var(--font);
   font-size: 14px;
-  flex: 1;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
+/* add */
 .add-btn {
   background: transparent;
   color: var(--accent);
@@ -147,6 +195,7 @@ h2 {
   background: var(--accent-soft);
 }
 
+/* draft */
 .draft-btn {
   background: var(--bg-hover);
   color: var(--text);
@@ -157,60 +206,235 @@ h2 {
   background: var(--border);
 }
 
+/* publish */
 .publish-btn {
   background: var(--accent);
   color: var(--on-accent);
+  border: 1px solid var(--accent);
 }
 
 .publish-btn:hover {
   background: var(--accent-dark);
 }
 
-.thread-title-input {
-  width: 100%;
-  background: transparent;
-  border: none;
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 25px 0;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
   color: var(--text);
-  font-family: var(--font);
-  font-size: 22px;
-  font-weight: bold;
-  padding: 10px 0;
+}
+
+.back-btn {
+  display: inline-block;
   margin-bottom: 20px;
-  outline: none;
+  padding: 10px 20px;
+  background: var(--bg-hover);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: background 0.2s;
 }
 
-.thread-title-input::placeholder {
+.back-btn:hover {
+  background: var(--border);
+}
+
+.make-thread-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 30px;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 17px;
+  transition: background 0.2s;
+}
+
+.make-thread-btn:hover {
+  background: var(--accent-dark);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.section-title.spaced {
+  margin: 30px 0 15px 0;
+}
+
+#drafts-container,
+#published-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.draft-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
+
+.draft-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.draft-card p {
+  margin: 4px 0;
+  font-size: 15px;
   color: var(--text-dim);
-  font-weight: normal;
 }
 
-.thread-title-input:focus {
-  border-bottom: 1px solid var(--accent);
+.continue-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 9px 18px;
+  background: var(--bg-hover);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.continue-btn:hover {
+  background: var(--border);
+}
+
+.empty-state {
+  color: var(--text-dim);
+  font-size: 15px;
+  grid-column: 1 / -1;
 }
 
 .toast {
   visibility: hidden;
   min-width: 250px;
-  background-color: var(--accent);
-  color: var(--on-accent);
-  text-align: center;
-  border-radius: var(--radius-pill);
-  padding: 14px 24px;
   position: fixed;
-  z-index: 9999;
   left: 50%;
   bottom: 20px;
   transform: translateX(-50%);
+  padding: 14px 24px;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-align: center;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: bold;
   opacity: 0;
-  transition: opacity 0.4s, bottom 0.4s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  z-index: 9999;
 }
 
 .toast.show {
   visibility: visible;
   opacity: 1;
   bottom: 40px;
+}
+
+@media (max-width: 700px) {
+  .builder-container {
+    max-width: none;
+    padding: 25px;
+  }
+
+  .top-bar h2 {
+    font-size: 22px;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .thread-title-input {
+    font-size: 20px;
+  }
+
+  .tweet-box {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .tweet-input {
+    font-size: 17px;
+    min-height: 80px;
+  }
+
+  .btn {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .builder-container {
+    padding: 22px 18px 50px;
+  }
+
+  .top-bar h2 {
+    font-size: 20px;
+  }
+
+  .back-link {
+    font-size: 13px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 17px;
+  }
+
+  .thread-title-input {
+    font-size: 19px;
+  }
+
+  .tweet-box {
+    padding: 14px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .tweet-input {
+    font-size: 16px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .make-thread-btn {
+    font-size: 16px;
+    padding: 14px;
+  }
 }

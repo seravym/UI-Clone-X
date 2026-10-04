@@ -32,12 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const STORE_COMMENTS = "xclone.posts.comments";
 
-    function getComments(postId) {
+    function getComments(targetKey, post) {
         let allComments = JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {};
-        let customComments = allComments[postId] || [];
+        let customComments = allComments[targetKey] || [];
 
-        // Ambil data postingan asli, batasi maksimal 10 balasan pre-generated
-        const post = posts[postId];
         const baseRepliesCount = post && post.replies ? post.replies : 0;
         const maxSeedCount = Math.min(baseRepliesCount, 10);
 
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
             { name: "Bagus", handle: "@bagus_bola", message: "Mantap sekali pembahasannya." }
         ];
 
-        // Buat balasan dummy jika balasan kustom masih kurang dari maxSeedCount
         let neededSeed = Math.max(0, maxSeedCount - customComments.length);
         for (let i = 0; i < neededSeed; i++) {
             const dummy = dummyNames[i % dummyNames.length];
@@ -65,22 +62,28 @@ document.addEventListener("DOMContentLoaded", () => {
         return [...customComments, ...seedComments];
     }
 
-    function saveComment(postId, replyText) {
+    function saveComment(targetKey, replyText, numericPostId) {
         let allComments = JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {};
-        if (!allComments[postId]) {
-            allComments[postId] = [];
+        if (!allComments[targetKey]) {
+            allComments[targetKey] = [];
         }
-        
+                 
         const newReply = {
             name: "user",
             handle: "@user",
             time: "Now",
             message: replyText
         };
-
-        allComments[postId].unshift(newReply);
+        allComments[targetKey].unshift(newReply);
         localStorage.setItem(STORE_COMMENTS, JSON.stringify(allComments));
-        return allComments[postId];
+
+        let posts = getStoredPosts();
+        if (posts[numericPostId]) {
+            posts[numericPostId].replies = (posts[numericPostId].replies || 0) + 1;
+            localStorage.setItem(STORE_ALL_POSTS, JSON.stringify(posts));
+        }
+
+        return allComments[targetKey];
     }
 
     const BOOKMARK_KEY = "bookmarks";
@@ -125,9 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!isNaN(postId) && posts[postId]) {
         const post = posts[postId];
-        const replies = getComments(postId);
+        const uniquePostKey = post.id ? post.id : `post_index_${postId}`;
+        const replies = getComments(uniquePostKey, post);
         
-        const totalReplies = Math.min(Math.max(post.replies || 0, replies.length), 10);
+        const totalActualReplies = post.replies || 0;
+        
+        const customRepliesCount = (JSON.parse(localStorage.getItem(STORE_COMMENTS)) || {})[uniquePostKey]?.length || 0
         
         const isLiked = postPrefs.liked.includes(postId);
         const isSaved = postPrefs.saved.includes(postId);
@@ -138,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const postDetailContainer = document.getElementById('post-detail-container');
         if (postDetailContainer) {
-            const replies = getComments(postId);
             let repliesHTML = replies.map(r => `
                 <div class="post-container" style="border-top: 1px solid #eff3f4; padding-left: 30px;">
                     <img src="../image/Default_pfp.jpeg" alt="Pfp" class="pfp">
@@ -158,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         
                         <div class="post-actions" style="margin-top: 15px; display: flex; justify-content: space-around;">
                             <span class="action-item">
-                                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${(post.replies || 0) + replies.length}
+                                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> ${totalActualReplies}
                             </span> 
                             
                             <span class="action-item action-btn action-like ${isLiked ? 'active' : ''}" data-action="like" data-id="${postId}">
@@ -247,7 +252,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (textarea) {
                     const replyText = textarea.value.trim();
                     if (replyText !== "") {
-                        saveComment(postId, replyText);
+                        const currentPosts = getStoredPosts();
+                        const currentPost = currentPosts[postId];
+                        const uniqueKey = currentPost.id ? currentPost.id : `post_index_${postId}`;
+                        
+                        saveComment(uniqueKey, replyText, postId);
                         textarea.value = "";
                         location.reload();
                     }
