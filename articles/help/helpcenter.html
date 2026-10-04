@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center</title>
+    <link rel="stylesheet" href="help.css">
+</head>
+<body>
+
+<main class="help-page">
+    <button class="help-back" onclick="window.location.href='/home/home.html'" aria-label="Kembali">←</button>
+
+    <h1>Help Center</h1>
+    <p class="help-sub">Cari jawaban soal akun, profil, dan postingan.</p>
+
+    <input type="search" id="help-search" placeholder="Cari bantuan..." aria-label="Cari bantuan">
+
+    <div id="help-list">
+        <details>
+            <summary>Bagaimana cara mengubah foto profil?</summary>
+            <p>Buka Profile, klik <b>Edit Profile</b>, lalu klik foto profil. Pilih gambar dan klik <b>Save</b>.</p>
+        </details>
+
+        <details>
+            <summary>Bagaimana cara mengganti banner?</summary>
+            <p>Di Edit Profile, klik ikon kamera di banner lalu pilih gambar. Geser banner naik-turun untuk mengatur posisi, lalu klik <b>Save</b>. Klik ikon X di banner untuk menghapusnya.</p>
+        </details>
+
+        <details>
+            <summary>Bagaimana cara mengganti nama, ID akun, dan bio?</summary>
+            <p>Buka Edit Profile, ubah kolom yang kamu mau, lalu klik <b>Save</b>. Nama maksimal 10 karakter, ID akun minimal 3 karakter, dan bio maksimal 50 karakter.</p>
+        </details>
+
+        <details>
+            <summary>Bagaimana cara menyukai sebuah post?</summary>
+            <p>Klik ikon hati di bawah post. Post yang kamu sukai muncul di tab <b>Likes</b> pada profilmu.</p>
+        </details>
+
+        <details>
+            <summary>Kenapa data profilku hilang?</summary>
+            <p>Data disimpan di browser. Kalau data browser dibersihkan, atau kamu pindah browser atau perangkat, datanya ikut hilang.</p>
+        </details>
+
+        <details>
+            <summary>Banner gagal tersimpan, kenapa?</summary>
+            <p>Penyimpanan browser kemungkinan penuh. Pilih gambar dengan ukuran lebih kecil, lalu coba simpan lagi.</p>
+        </details>
+    </div>
+
+    <p id="help-empty" hidden>Tidak ada hasil. Coba kata kunci lain.</p>
+
+    <section class="help-contact">
+        <h2>Masih butuh bantuan?</h2>
+        <p>Hubungi kami di <b>support@contoh.com</b></p>
+    </section>
+</main>
+
+<script>
+    const input = document.getElementById("help-search");
+    const items = document.querySelectorAll("#help-list details");
+    const empty = document.getElementById("help-empty");
+
+    input.addEventListener("input", function () {
+        const q = input.value.toLowerCase().trim();
+        let shown = 0;
+        items.forEach(function (d) {
+            const match = d.textContent.toLowerCase().includes(q);
+            d.style.display = match ? "" : "none";
+            if (match) shown++;
+        });
+        empty.hidden = shown !== 0;
+    });
+</script>
+</body>
+</html>

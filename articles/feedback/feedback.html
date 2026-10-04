@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+
+<main class="fb-page">
+    <button class="fb-back" onclick="window.location.href='/home/home.html'" aria-label="Kembali">←</button>
+
+    <h1>Kritik dan saran</h1>
+    <p class="fb-sub">Ceritakan pengalamanmu supaya aplikasi ini bisa lebih baik.</p>
+
+    <div class="fb-form" id="fb-form">
+        <label for="fb-name">Nama</label>
+        <input type="text" id="fb-name" maxlength="20" placeholder="Nama kamu">
+        <small class="fb-error" id="err-name"></small>
+
+        <label for="fb-email">Email</label>
+        <input type="email" id="fb-email" placeholder="nama@email.com">
+        <small class="fb-error" id="err-email"></small>
+
+        <label>Penilaian</label>
+        <div class="fb-stars" id="fb-stars" role="radiogroup" aria-label="Penilaian">
+            <button type="button" data-v="1" aria-label="1 bintang">★</button>
+            <button type="button" data-v="2" aria-label="2 bintang">★</button>
+            <button type="button" data-v="3" aria-label="3 bintang">★</button>
+            <button type="button" data-v="4" aria-label="4 bintang">★</button>
+            <button type="button" data-v="5" aria-label="5 bintang">★</button>
+        </div>
+        <small class="fb-error" id="err-rating"></small>
+
+        <label for="fb-msg">Pesan</label>
+        <textarea id="fb-msg" rows="5" maxlength="200" placeholder="Tulis kritik atau saran..."></textarea>
+        <small id="fb-count">0/200</small>
+        <small class="fb-error" id="err-msg"></small>
+
+        <button type="button" class="fb-send" id="fb-send">Kirim</button>
+    </div>
+
+    <p class="fb-success" id="fb-success" hidden>Pesan terkirim. Terima kasih atas masukanmu.</p>
+
+    <section class="fb-history">
+        <h2>Pesan yang sudah kamu kirim</h2>
+        <div id="fb-list"></div>
+        <p id="fb-empty">Belum ada pesan.</p>
+        <button type="button" id="fb-clear" class="fb-clear" hidden>Hapus semua</button>
+    </section>
+</main>
+
+<script src="feedback.js"></script>
+</body>
+</html>

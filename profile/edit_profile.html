@@ -10,14 +10,31 @@
 
 <header class="container1">
     <h1 class="anime">HI LET'S<span> EDIT</span></h1>
-    <button class="ex" onclick="window.location.href='profile.html'">x</button>
-<div class="edit">
-    <label for="banner-upload">Banner</label>
-    <input type="file" id="banner-upload" accept="image/*">
-    <img id="banner-preview" style="display:none; width:100%; max-height:120px; object-fit:cover;">
+   <button class="ex" onclick="if (window.parent !== window) { window.parent.document.getElementById('edit-modal').hidden = true; } else { window.location.href = 'profile.html'; }">x</button>
+    <!-- BANNER -->
+    <div class="banner-edit">
+        <span class="banner-hint">↕ Geser untuk atur posisi</span>
+        <img id="banner-preview" src="banner.png" alt="Banner">
 
+        <div class="banner-actions">
+            <!-- ganti banner -->
+            <label for="banner-upload" class="banner-btn" title="Ganti banner">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 8h3l2-3h6l2 3h3v11H4z"/>
+                    <circle cx="12" cy="13" r="3.5"/>
+                </svg>
+            </label>
+            <!-- hapus banner -->
+            <button type="button" id="banner-remove" class="banner-btn" title="Hapus banner">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+        <input type="file" id="banner-upload" accept="image/*" hidden>
+    </div>
 
-</div>
+    <!-- FORM -->
     <div class="edit-content">
         <label for="profile-upload" class="upload-circle">
             <img id="profile-preview" class="profile" src="default.jpg" alt="Foto profil">
@@ -37,25 +54,14 @@
             <div class="edit">
                 <label for="bio">Bio</label>
                 <textarea id="bio" rows="4" class="text-input" maxlength="50" placeholder="Maksimal 50 huruf"></textarea>
+                <small id="bio-count">0/50</small>
             </div>
         </div>
     </div>
 
     <button class="save-btn" onclick="saveProfile()">Save</button>
-
-
-     <aside class="right-sidebar">
-            <input type="text" placeholder="Search..." class="search-bar">
-            <div class="trending-box">
-                <h4>Trending</h4>
-                <p class="text-pink">#randomtrend</p>
-            </div>
-        </aside>
 </header>
 
-
-    <script src="app.js">
-    </script>
-
+<script src="app.js"></script>
 </body>
 </html>
