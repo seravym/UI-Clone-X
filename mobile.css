@@ -255,7 +255,9 @@
     background: #13101966;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.25s, visibility 0s 0.25s;
+    transition:
+      opacity 0.25s,
+      visibility 0s 0.25s;
   }
   .mobile-drawer-overlay.open {
     opacity: 1;
@@ -282,7 +284,9 @@
     overflow-y: auto;
     transform: translateX(-100%);
     visibility: hidden;
-    transition: transform 0.25s ease, visibility 0s 0.25s;
+    transition:
+      transform 0.25s ease,
+      visibility 0s 0.25s;
   }
   .mobile-drawer.open {
     transform: translateX(0);
@@ -393,6 +397,11 @@
     display: block;
     border-radius: 50%;
   }
+
+  .mobile-menu-button:has(img) {
+    background: var(--bg-hover);
+    padding: 0;
+  }
   .chat-heading h1 {
     flex: 1;
     font-size: 22px;
@@ -423,34 +432,34 @@
   }
 
   .mobile-drawer-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 10;
-}
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+  }
 
-.mobile-drawer-content {
-  height: 100%;
-  overflow-y: auto;
-}
+  .mobile-drawer-content {
+    height: 100%;
+    overflow-y: auto;
+  }
 
-.mobile-drawer-content .sidebar-content,
-.mobile-drawer-content .sidebar-inner {
-  width: 100% !important;
-  max-width: none !important;
-  position: static !important;
-  height: auto !important;
-  border-right: 0 !important;
-  padding: 0 !important;
-}
+  .mobile-drawer-content .sidebar-content,
+  .mobile-drawer-content .sidebar-inner {
+    width: 100% !important;
+    max-width: none !important;
+    position: static !important;
+    height: auto !important;
+    border-right: 0 !important;
+    padding: 0 !important;
+  }
 
-.mobile-drawer-content .sidebar-link--primary {
-  display: none;
+  .mobile-drawer-content .sidebar-link--primary {
+    display: none;
 
-.mobile-drawer-content .sidebar-link--primary:last-of-type + .sidebar-link {
-  border-top: 1px solid var(--border);
-  margin-top: 8px;
-  padding-top: 18px;
-}}
-
+    .mobile-drawer-content .sidebar-link--primary:last-of-type + .sidebar-link {
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+      padding-top: 18px;
+    }
+  }
 }

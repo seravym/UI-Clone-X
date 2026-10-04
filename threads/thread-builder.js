@@ -1,18 +1,22 @@
 function showToast(message) {
   let toast = $("#toast");
-  toast.text(message); 
-  toast.addClass("show"); 
+  toast.text(message);
+  toast.addClass("show");
 
   setTimeout(function () {
     toast.removeClass("show");
   }, 3000);
 }
 
+function userAvatarHTML() {
+  return '<img data-user-avatar src="/profile/default.jpg" alt="Profile" class="avatar">';
+}
+
 $(document).ready(function () {
   $("#add-tweet-btn").click(function () {
     let newTweetBox = `
             <div class="tweet-box">
-                <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                ${userAvatarHTML()}
                 <div class="input-area">
                     <textarea class="tweet-input" placeholder="Add to thread..."></textarea>
                     <div class="char-count">0 / 280</div>
@@ -40,8 +44,8 @@ $(document).ready(function () {
   });
 
   $("#save-draft-btn").click(function () {
-    let titleText = $("#thread-title").val(); 
-    let draftArray = []; 
+    let titleText = $("#thread-title").val();
+    let draftArray = [];
 
     $(".tweet-input").each(function () {
       let text = $(this).val();
@@ -72,7 +76,7 @@ $(document).ready(function () {
 
       let draftBox = `
                 <div class="tweet-box">
-                    <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                    ${userAvatarHTML()}
                     <div class="input-area">
                         <textarea class="tweet-input" placeholder="Start your thread...">${text}</textarea>
                         <div class="char-count">${text.length} / 280</div>
