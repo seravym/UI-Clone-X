@@ -10,8 +10,7 @@
 
 <header class="container1">
     <h1 class="anime">HI LET'S<span> EDIT</span></h1>
-    <button class="ex" onclick="window.location.href='profile.html'">x</button>
-
+   <button class="ex" onclick="if (window.parent !== window) { window.parent.document.getElementById('edit-modal').hidden = true; } else { window.location.href = 'profile.html'; }">x</button>
     <!-- BANNER -->
     <div class="banner-edit">
         <span class="banner-hint">↕ Geser untuk atur posisi</span>
@@ -55,6 +54,7 @@
             <div class="edit">
                 <label for="bio">Bio</label>
                 <textarea id="bio" rows="4" class="text-input" maxlength="50" placeholder="Maksimal 50 huruf"></textarea>
+                <small id="bio-count">0/50</small>
             </div>
         </div>
     </div>

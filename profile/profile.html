@@ -28,7 +28,6 @@
         <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg></button>
 
-        <img id="profile-pic" class="profile" alt="Foto profil" style="display:none">
         <h3 id="profile-name">Nama Akun</h3>
         <p id="profile-username">@username</p>
         <p id="profileBio"></p>
@@ -48,10 +47,7 @@
         </div>
          <div class="profile-actions">
 
-        <button class = "button button1" 
-        onclick="window.location.href='edit_profile.html'">
-        Edit Profile
-        </button>
+        <button class="button button1" id="edit-btn" type="button">Edit Profile</button>
         <button class = "button button2" 
         onclick="window.location.href='share.html'">
         Share
@@ -66,7 +62,7 @@
     </div>
 
 
-    <div class="dummy-post" data-id="post1">
+    <div class="dummy-post" data-id="post1" data-time="2j">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -75,11 +71,11 @@
                 <span class="post-username">@username</span>
             </div>
         </div>
-        <p>
+        <p class="post-text">
             kenapa aku begadang terus??
         </p>
 
-            <div class="post-actions">
+            <div class="post-actions" >
     <span class="action-item">
         <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 8900
     </span>
@@ -90,14 +86,14 @@
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 120000
     </span>
-    <span class="action-item">
-        <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
-    </span>
+   <button class="action-item bookmark-btn" type="button" data-action="bookmark">
+    <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
+</button>
 </div>
 </div>
 
 
-  <div class="dummy-post" data-id="post2">
+  <div class="dummy-post" data-id="post2" data-time="2j">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -106,7 +102,7 @@
                 <span class="post-username">@username</span>
             </div>
         </div>
-        <p>
+        <p class="post-text">
             bismillah front end A
         </p>
 
@@ -121,14 +117,14 @@
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 1200000000
     </span>
-    <span class="action-item">
-        <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
-    </span>
+    <button class="action-item bookmark-btn" type="button" data-action="bookmark">
+    <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
+</button>
 </div>
 </div>
 
 
-    <div class="dummy-post" data-id="post3">
+    <div class="dummy-post" data-id="post3" data-time="2j">
         <div class="post-header">
             <img class="post-profile" src="default.jpg">
 
@@ -137,7 +133,7 @@
                 <span class="post-username">@username</span>
             </div>
         </div>
-        <p>
+        <p class="post-text">
           soal juara 2, w juara 1
         </p>
 
@@ -152,9 +148,9 @@
     <span class="action-item">
         <img src="../image/icons/view.svg" class="action-icon" alt="View"> 120
     </span>
-    <span class="action-item">
-        <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
-    </span>
+    <button class="action-item bookmark-btn" type="button" data-action="bookmark">
+    <img src="../image/icons/bookmark.svg" class="action-icon" alt="Bookmark">
+</button>
 </div>
     </div>            
            
@@ -168,6 +164,9 @@
             </div>
         </aside>
 
+<div id="edit-modal" class="edit-modal" hidden>
+    <iframe id="edit-frame" src="about:blank" title="Edit profile"></iframe>
+</div>
 
 <!-- 
  <button class = "tambah" 

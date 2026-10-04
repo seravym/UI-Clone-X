@@ -52,6 +52,14 @@ if (upload) {
     nameInput.value = localStorage.getItem("profileName") || "";
     usernameInput.value = localStorage.getItem("profileUsername") || "";
     bioInput.value = localStorage.getItem("profileBio") || "";
+    const bioCount = document.getElementById("bio-count");
+
+    function updateBioCount() {
+    bioCount.textContent = bioInput.value.length + "/50";
+}
+
+bioInput.addEventListener("input", updateBioCount);
+updateBioCount();
 
     usernameInput.addEventListener("input", function () {
         this.value = this.value.replace(/[^a-zA-Z0-9._]/g, "");
@@ -170,7 +178,8 @@ bannerBox.addEventListener("pointermove", function (e) {
             alert("Gagal menyimpan: " + err.message);
             return;
         }
-        window.location.href = "profile.html";
+       if (window.parent !== window) window.parent.location.reload();
+else window.location.href = "profile.html";
     };
 }
 
@@ -181,19 +190,18 @@ const likeButtons = document.querySelectorAll(".like-button");
 
 let likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
 posts.forEach(post => {
-
     const postId = post.dataset.id;
     const button = post.querySelector(".like-button");
-
     if (!button) return;
 
     const icon = button.querySelector("img");
+    const countEl = button.querySelector(".like-count");
 
     if (likedPosts.includes(postId)) {
-        icon.src = "../image/icons/like-filled.svg";
+        icon.src = "../image/icons/like-full.svg"; 
         button.classList.add("liked");
+        countEl.textContent = parseInt(countEl.textContent) + 1; 
     }
-
 });
 
 
@@ -297,4 +305,83 @@ tabs.forEach(tab => {
 
     });
 
+});
+
+// ===== EDIT PROFILE SEBAGAI POPUP =====
+const editBtn = document.getElementById("edit-btn");
+const editModal = document.getElementById("edit-modal");
+const editFrame = document.getElementById("edit-frame");
+
+if (editBtn && editModal && editFrame) {
+    editBtn.addEventListener("click", function () {
+        editFrame.src = "edit_profile.html";
+        editModal.hidden = false;
+    });
+
+    editModal.addEventListener("click", function (e) {
+        if (e.target === editModal) editModal.hidden = true;
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") editModal.hidden = true;
+    });
+}
+
+if (window.parent !== window) {
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+}
+
+const BOOKMARK_KEY = "bookmarks";
+
+function getBookmarks() {
+    try {
+        return JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveBookmarks(list) {
+    try {
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
+    } catch (e) {}
+}
+
+// klik tombol bookmark
+document.addEventListener("click", e => {
+    const btn = e.target.closest('[data-action="bookmark"]');
+    if (!btn) return;
+
+    const post = btn.closest("[data-id]");
+    const id = post.dataset.id;
+    let list = getBookmarks();
+
+    if (list.some(p => p.id === id)) {
+        list = list.filter(p => p.id !== id);
+        setIcon(btn, false);
+    } else {
+        list.push({
+            id: id,
+            name: post.querySelector(".post-name").textContent.trim(),
+            handle: post.querySelector(".post-username").textContent.trim(),
+            time: post.dataset.time || "",
+            community: "",
+            text: post.querySelector(".post-text").textContent.trim()
+        });
+        setIcon(btn, true);
+    }
+
+    saveBookmarks(list);
+});
+
+function setIcon(btn, active) {
+    btn.classList.toggle("active", active);
+    btn.querySelector("img").src =
+        "../image/icons/" + (active ? "bookmark-full.svg" : "bookmark.svg");
+}
+
+document.querySelectorAll('[data-action="bookmark"]').forEach(btn => {
+    const id = btn.closest("[data-id]").dataset.id;
+    setIcon(btn, getBookmarks().some(p => p.id === id));
 });
