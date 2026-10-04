@@ -290,6 +290,41 @@ function replyCount(id) {
     return (all[id] || []).length;
 }
 
+function saveCommunityComment(key, text) {
+    const all = readJSON(COMMENTS_KEY, {});
+
+    if (!all[key]) {
+        all[key] = [];
+    }
+
+    all[key].unshift({
+        name: "user",
+        handle: "@user",
+        time: "Now",
+        text: text
+    });
+
+    writeJSON(COMMENTS_KEY, all);
+
+    return all[key];
+}
+
+function renderCommunityComments(container, key) {
+    const comments = readJSON(COMMENTS_KEY, {})[key] || [];
+
+    container.innerHTML = comments.map(comment => `
+        <div style="padding:10px 0;border-top:1px solid #eff3f4;">
+            <strong>${escapeHtml(comment.name)}</strong>
+            <span style="color:#536471;">
+                ${escapeHtml(comment.handle)} · ${escapeHtml(comment.time)}
+            </span>
+            <p style="margin:5px 0 0;">
+                ${escapeHtml(comment.text)}
+            </p>
+        </div>
+    `).join("");
+}
+
 
 function loadJoined() {
     return new Set(readJSON(JOINED_KEY, []));
@@ -747,8 +782,89 @@ document.addEventListener("click", event => {
         const key =
             postKey(community, post);
         if (action === "reply") {
-            window.location.href =
-                "../post/post.html?id=" + key;
+            const existing = button.closest(".post").querySelector(".community-comment-box");
+
+            if (existing) {
+                existing.remove();
+                return;
+            }
+
+            const postElement = button.closest(".post");
+
+            const commentBox = document.createElement("div");
+            commentBox.className = "community-comment-box";
+            commentBox.style.cssText =
+                "margin-top:12px;padding-top:12px;border-top:1px solid #eff3f4;";
+
+            commentBox.innerHTML = `
+                <textarea
+                    class="community-comment-input"
+                    placeholder="Post your reply"
+                    style="width:100%;border:1px solid #cfd9de;border-radius:12px;padding:10px;resize:none;font-family:inherit;box-sizing:border-box;"
+                ></textarea>
+
+                <div style="text-align:right;margin-top:8px;">
+                    <button
+                        class="community-comment-submit"
+                        style="background:#f91880;color:white;border:none;border-radius:20px;padding:8px 16px;font-weight:bold;cursor:pointer;"
+                    >
+                        Reply
+                    </button>
+                </div>
+
+                <div class="community-comments" style="margin-top:12px;"></div>
+            `;
+
+            postElement.querySelector(".post-body").appendChild(commentBox);
+
+            const commentsContainer =
+                commentBox.querySelector(".community-comments");
+
+            renderCommunityComments(
+                commentsContainer,
+                key
+            );
+
+            const commentCount =
+                button.querySelector(".count");
+
+            const comments =
+                readJSON(COMMENTS_KEY, {})[key] || [];
+
+            commentCount.textContent =
+                comments.length;
+
+            commentBox
+                .querySelector(".community-comment-submit")
+                .addEventListener("click", () => {
+
+                    const input =
+                        commentBox.querySelector(
+                            ".community-comment-input"
+                        );
+
+                    const text =
+                        input.value.trim();
+
+                    if (!text) return;
+
+                    const savedComments =
+                        saveCommunityComment(
+                            key,
+                            text
+                        );
+
+                    input.value = "";
+
+                    renderCommunityComments(
+                        commentsContainer,
+                        key
+                    );
+
+                    commentCount.textContent =
+                        savedComments.length;
+                });
+
             return;
         }
 
