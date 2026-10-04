@@ -75,12 +75,22 @@ img.avatar,
   padding: 20px;
   border-right: 1px solid var(--border);
   background: var(--bg);
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .sidebar-inner {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 .sidebar-logo {
@@ -142,8 +152,15 @@ img.avatar,
 }
 
 #sidebar {
-  height: 100vh;
-  width: 290px;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  display: contents;
 }
 
 .sidebar-profile {

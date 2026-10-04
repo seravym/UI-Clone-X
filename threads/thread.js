@@ -10,7 +10,7 @@ $(document).ready(function () {
     container.empty();
 
     data.tweets.forEach(function (text, index) {
-      let isFirst = index === 0; 
+      let isFirst = index === 0;
 
       let indentStyle = isFirst
         ? ""
@@ -18,7 +18,7 @@ $(document).ready(function () {
 
       let tweetHTML = `
                 <div class="tweet-box" style="${indentStyle}">
-                    <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                    <img data-user-avatar src="/profile/default.jpg" alt="Profile" class="avatar">
                     <div class="input-area">
                         <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 5px;">
                             <strong style="color: var(--text);">You</strong> @you · Part ${index + 1}
