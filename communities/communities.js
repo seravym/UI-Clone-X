@@ -137,6 +137,11 @@ const ACTION_KEY = "postActions";
 const DEFAULT_AVATAR = "../image/Default_pfp.jpeg";
 const USER_POSTS_KEY = "communityUserPosts";
 
+// Key penyimpanan bersama (dipakai home.js, post.js, dan profile)
+const PREFS_KEY = "xclone.posts.prefs";
+const POSTS_KEY = "xclone.posts.list";
+const COMMENTS_KEY = "xclone.posts.comments";
+
 let currentView = "home";
 let currentCategory = categories[0];
 let joinedIds = loadJoined();
@@ -165,6 +170,44 @@ function writeJSON(key, value) {
     } catch (e) {}
 }
 
+function syncPref(type, id, on) {
+    const prefs = readJSON(PREFS_KEY, { liked: [], saved: [] });
+    if (!Array.isArray(prefs.liked)) prefs.liked = [];
+    if (!Array.isArray(prefs.saved)) prefs.saved = [];
+    const arr = prefs[type];
+    const i = arr.indexOf(id);
+    if (on && i === -1) arr.push(id);
+    if (!on && i !== -1) arr.splice(i, 1);
+    writeJSON(PREFS_KEY, prefs);
+}
+
+function registerPosts(items) {
+    const stored = readJSON(POSTS_KEY, []);
+    let changed = false;
+    items.forEach(it => {
+        if (!stored.some(p => p.id === it.id)) {
+            stored.push({
+                id: it.id,
+                name: it.name,
+                handle: it.handle,
+                time: it.time,
+                message: it.message,
+                replies: 0,
+                likes: 0,
+                views: "0",
+                source: "community"
+            });
+            changed = true;
+        }
+    });
+    if (changed) writeJSON(POSTS_KEY, stored);
+}
+
+function replyCount(id) {
+    const all = readJSON(COMMENTS_KEY, {});
+    return (all[id] || []).length;
+}
+
 function loadJoined() {
     return new Set(readJSON(JOINED_KEY, []));
 }
@@ -186,11 +229,19 @@ function postKey(community, post) {
 }
 
 function getActions(key) {
+    const prefs = readJSON(PREFS_KEY, { liked: [] });
     const all = readJSON(ACTION_KEY, {});
-    return all[key] || { liked: false, reposted: false };
+    return {
+        liked: (prefs.liked || []).includes(key),
+        reposted: (all[key] || {}).reposted || false
+    };
 }
 
 function toggleAction(key, type) {
+    if (type === "liked") {
+        syncPref("liked", key, !getActions(key).liked);
+        return;
+    }
     const all = readJSON(ACTION_KEY, {});
     const current = all[key] || { liked: false, reposted: false };
     current[type] = !current[type];
@@ -208,6 +259,7 @@ function toggleBookmark(community, post) {
 
     if (list.some(p => p.id === key)) {
         list = list.filter(p => p.id !== key);
+        syncPref("saved", key, false);
     } else {
         list.push({
             id: key,
@@ -217,6 +269,7 @@ function toggleBookmark(community, post) {
             time: post.time,
             text: post.text
         });
+        syncPref("saved", key, true);
     }
     writeJSON(BOOKMARK_KEY, list);
 }
@@ -326,6 +379,14 @@ function renderHome() {
         return;
     }
 
+    registerPosts(joined.flatMap(c => c.posts.map(p => ({
+        id: postKey(c, p),
+        name: p.author,
+        handle: p.handle,
+        time: p.time,
+        message: p.text
+    }))));
+
     homeEl.innerHTML = joined.flatMap(c => c.posts.map(p => {
         const key = postKey(c, p);
         const state = getActions(key);
@@ -346,9 +407,9 @@ function renderHome() {
 
                 <div class="post-actions">
 
-                    <button class="action-btn" aria-label="Reply">
+                    <button class="action-btn" data-action="reply" ${ref} aria-label="Reply">
                         <img src="../image/icons/chat.svg" class="action-icon" alt="Reply">
-                        <span class="count">0</span>
+                        <span class="count">${replyCount(key)}</span>
                     </button>
 
                     <button class="action-btn like-btn${state.liked ? " active" : ""}" data-action="like" ${ref} aria-label="Like">
@@ -448,6 +509,11 @@ document.addEventListener("click", event => {
         if (!post) return;
 
         const key = postKey(community, post);
+
+        if (action === "reply") {
+            window.location.href = "../post/post.html?id=" + key;
+            return;
+        }
 
         if (action === "like") toggleAction(key, "liked");
         if (action === "repost") toggleAction(key, "reposted");
