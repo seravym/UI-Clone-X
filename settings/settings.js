@@ -1,34 +1,8 @@
-/*
- * settings.js  (SHELL / kerangka)
- *
- * Tugasnya: daftar menu, perpindahan halaman, penyimpanan, dan sistem bahasa.
- * Isi tiap menu ada di file masing-masing di folder sections/.
- *
- * Cara membuat bagian baru (di file sections/xxx.js):
- *
- *   SettingsApp.register({
- *       id: "nama-unik",          // dipakai di URL: settings.html#nama-unik
- *       title: "Judul menu",      // cadangan jika terjemahan "nama-unik.title" tidak ada
- *       description: "Keterangan singkat",
- *       order: 5,                 // urutan di daftar
- *       icon: "<svg ...></svg>",  // opsional
- *       strings: {                // terjemahan milik bagian ini
- *           id: { "nama-unik.title": "...", "nama-unik.desc": "...", ... },
- *           en: { ... }, es: { ... }, ja: { ... }, ko: { ... }
- *       },
- *       render: function (el) { el.innerHTML = SettingsApp.t("nama-unik.title"); }
- *   });
- *
- * Menambah bahasa baru: tambahkan satu baris di LANGUAGES di bawah,
- * lalu tambahkan terjemahannya di "strings" tiap bagian.
- */
 (function () {
     var PREFIX = "settings.";
     var sections = [];
     var dict = {};
 
-    // Daftar bahasa yang tampil di menu Tampilan dan bahasa
-    // (nama ditulis dalam bahasanya sendiri)
     var LANGUAGES = [
         { code: "id", name: "Bahasa Indonesia" },
         { code: "en", name: "English" },
@@ -48,7 +22,6 @@
             .replace(/'/g, "&#39;");
     }
 
-    // Penyimpanan: semua key diawali "settings."
     var store = {
         get: function (key, fallback) {
             try {
@@ -68,7 +41,6 @@
         }
     };
 
-    /* ---------- Bahasa ---------- */
 
     function addStrings(code, strings) {
         dict[code] = Object.assign(dict[code] || {}, strings);
@@ -83,8 +55,6 @@
         return !!dict[code] && dict[code][key] !== undefined;
     }
 
-    // t("kunci", { nama: "nilai" }) -> teks sesuai bahasa aktif.
-    // Urutan cadangan: bahasa aktif -> Indonesia -> kunci itu sendiri.
     function t(key, vars) {
         var text = (dict[getLang()] || {})[key];
         if (text === undefined) text = (dict.id || {})[key];
@@ -97,7 +67,6 @@
         return text;
     }
 
-    // Terjemahan untuk kerangka halaman
     addStrings("id", {
         "settings.title": "Pengaturan",
         "shell.back": "Kembali",
@@ -139,8 +108,6 @@
         "common.saved": "저장됨"
     });
 
-    /* ---------- Toast ---------- */
-
     var toastTimer;
     function toast(message) {
         var el = document.getElementById("toast");
@@ -152,8 +119,6 @@
             el.classList.remove("is-show");
         }, 2000);
     }
-
-    /* ---------- Daftar bagian ---------- */
 
     function register(section) {
         if (!section || !section.id || typeof section.render !== "function") {
@@ -210,7 +175,6 @@
         return findSection(decodeURIComponent(location.hash.replace(/^#/, "")));
     }
 
-    // Memperbarui semua teks kerangka sesuai bahasa aktif
     function updateChrome() {
         if (!titleEl) return;
         var section = currentSection();
@@ -227,7 +191,6 @@
         panelEl.hidden = false;
         panelEl.innerHTML = "";
 
-        // Wadah baru tiap dibuka, dan error di satu bagian tidak merusak bagian lain
         var holder = document.createElement("div");
         holder.className = "s-panel";
         panelEl.appendChild(holder);
@@ -267,7 +230,6 @@
         });
 
         window.addEventListener("hashchange", route);
-        // Bahasa/tema berubah (dari menu Tampilan atau dari tab lain)
         window.addEventListener("displaychange", updateChrome);
         route();
 
