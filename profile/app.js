@@ -7,6 +7,7 @@ if (rightBar) {
         .catch(err => console.error("Error memuat sidebar kanan:", err));
 }
 
+
 // ===== DATA TERSIMPAN =====
 const profileName = localStorage.getItem("profileName") || "Nama Akun";
 const profileUsername = localStorage.getItem("profileUsername") || "username";
@@ -29,6 +30,12 @@ if (elName) {
 const bannerEl = document.getElementById("banner-pic");
 if (bannerEl && banner) bannerEl.src = banner;
 if (bannerEl) bannerEl.style.objectPosition = "center " + (localStorage.getItem("profileBannerPos") || 50) + "%";
+
+const lockEl = document.getElementById("profile-lock");
+if (lockEl) {
+    const isProtected = localStorage.getItem("profileProtected") === "true";
+    lockEl.style.display = isProtected ? "inline-block" : "none";
+}
 
 // ===== HALAMAN EDIT PROFILE =====
 const upload = document.getElementById("profile-upload");
