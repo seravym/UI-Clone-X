@@ -623,6 +623,13 @@ h2{
     padding: 0;
     box-shadow: none;
     font-size: 15px;
+    
+}
+
+.like-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .like-button.liked .action-icon-like {
@@ -692,7 +699,7 @@ filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101
         margin: 0;
         transform: none;
     }
-    
+
     #bio-count {
     display: block;
     text-align: right;
