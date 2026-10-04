@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../mobile.css">
     
 </head>
-<body data-bottom-nav>>
+
+<body>
     <div class="layout-container">
         
         <aside class="sidebar-left">
@@ -21,8 +22,8 @@
             <header class="feed-header">
                 <h1>Home</h1>
                 <div class="feed-tabs">
-                    <a href="home.html" class="border-pink"><br>For You</br></a>
-                    <a href="following.html"><br>Following</br></a>
+                    <a href="javascript:void(0);" class="tab-btn border-pink" data-tab="foryou"><br>For You</br></a>
+                    <a href="javascript:void(0);" class="tab-btn" data-tab="following"><br>Following</br></a>
                 </div>
             </header>
 
@@ -51,6 +52,6 @@
     <script src="home.js"></script>
     <script src="data.js"></script>
     <script src="../mobile-navigation.js"></script>
-    
+    <script src="/user-loader.js"></script>
 </body>
 </html>

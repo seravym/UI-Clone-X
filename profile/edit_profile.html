@@ -10,8 +10,31 @@
 
 <header class="container1">
     <h1 class="anime">HI LET'S<span> EDIT</span></h1>
-    <button class="ex" onclick="window.location.href='profile.html'">x</button>
+   <button class="ex" onclick="if (window.parent !== window) { window.parent.document.getElementById('edit-modal').hidden = true; } else { window.location.href = 'profile.html'; }">x</button>
+    <!-- BANNER -->
+    <div class="banner-edit">
+        <span class="banner-hint">↕ Geser untuk atur posisi</span>
+        <img id="banner-preview" src="banner.png" alt="Banner">
 
+        <div class="banner-actions">
+            <!-- ganti banner -->
+            <label for="banner-upload" class="banner-btn" title="Ganti banner">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 8h3l2-3h6l2 3h3v11H4z"/>
+                    <circle cx="12" cy="13" r="3.5"/>
+                </svg>
+            </label>
+            <!-- hapus banner -->
+            <button type="button" id="banner-remove" class="banner-btn" title="Hapus banner">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+        <input type="file" id="banner-upload" accept="image/*" hidden>
+    </div>
+
+    <!-- FORM -->
     <div class="edit-content">
         <label for="profile-upload" class="upload-circle">
             <img id="profile-preview" class="profile" src="default.jpg" alt="Foto profil">
@@ -31,6 +54,7 @@
             <div class="edit">
                 <label for="bio">Bio</label>
                 <textarea id="bio" rows="4" class="text-input" maxlength="50" placeholder="Maksimal 50 huruf"></textarea>
+                <small id="bio-count">0/50</small>
             </div>
         </div>
     </div>
@@ -38,82 +62,6 @@
     <button class="save-btn" onclick="saveProfile()">Save</button>
 </header>
 
-<script>
-    const upload = document.getElementById("profile-upload");
-    const preview = document.getElementById("profile-preview");
-    const nameInput = document.getElementById("akun");
-    const usernameInput = document.getElementById("acc");
-    const bioInput = document.getElementById("bio");
-
-    let newPic = null;
-
-    const saved = localStorage.getItem("profilePic");
-    if (saved) preview.src = saved;
-
-    nameInput.value = localStorage.getItem("profileName") || "";
-    usernameInput.value = localStorage.getItem("profileUsername") || "";
-    bioInput.value = localStorage.getItem("profileBio") || "";
-
-    usernameInput.addEventListener("input", function () {
-        this.value = this.value.replace(/[^a-zA-Z0-9._]/g, "");
-    });
-
-    upload.addEventListener("change", function () {
-        const file = this.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const img = new Image();
-            img.onload = function () {
-                const size = 300;
-                const canvas = document.createElement("canvas");
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext("2d");
-
-                const min = Math.min(img.width, img.height);
-                const sx = (img.width - min) / 2;
-                const sy = (img.height - min) / 2;
-                ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
-
-                newPic = canvas.toDataURL("image/jpeg", 0.85);
-                preview.src = newPic;
-            };
-            img.onerror = function () {
-                alert("Format foto tidak didukung, coba JPG atau PNG.");
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
-
-    function saveProfile() {
-        const name = nameInput.value.trim();
-        const username = usernameInput.value.trim().toLowerCase();
-        const bio = bioInput.value.trim();
-
-        if (name === "") {
-            alert("Nama tidak boleh kosong.");
-            return;
-        }
-        if (username.length < 3) {
-            alert("ID akun minimal 3 karakter.");
-            return;
-        }
-
-        try {
-            if (newPic) localStorage.setItem("profilePic", newPic);
-            localStorage.setItem("profileName", name);
-            localStorage.setItem("profileUsername", username);
-            localStorage.setItem("profileBio", bio);
-        } catch (err) {
-            alert("Gagal menyimpan: " + err.message);
-            return;
-        }
-        window.location.href = "profile.html";
-    }
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,28 +1,32 @@
 html, body {
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
 }
 
 .container{
     border-top: 2px solid #9b3160;
     border-bottom: 2px solid #9b3160;
-    height: 400px;
+    height: 500px;
     border-left: none;
     border-right: none;
-    background-color: #e797a0;
-
-   position: relative;
-
+    background-color: #e7a4ac;
+    position: relative;
+    margin: 0 auto;    
+    max-width: 100%;  
+    
 }
 
 
 .container1{
-    border-top: 2px solid #9b3160;
-    border-bottom: 2px solid #9b3160;
-    height: 400px;
-    border-left: none;
-    border-right: none;
+    border: 2px solid #9b3160;
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 580px;
+    width:1100px;
     background-color: #f4db9a;
+     margin-left: auto;
+    margin-right: auto;
 
    position: relative;
 
@@ -30,23 +34,108 @@ html, body {
 
 h1{
     color:#9b3160;
-    margin: 15px 10px;
-    text-align: center;
+    margin-top:0;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 20px;
+    background-color: white;
+    border-left: none;
+    border-right: none;
+    border: 2px solid#9b3160;
+    padding: 8px 8px;
     
 }
 
+.banner-edit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 2px;
+}
+
+.banner-edit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;  
+    background-size: 33.3333% 33.3333%;  
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+}
+
+.banner-edit:hover::after,
+.banner-edit:active::after {
+    opacity: 1;   /* grid makin jelas saat kursor di banner / lagi digeser */
+}
+
+.banner-actions {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+     z-index: 3;
+}
+
+.banner-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(60, 60, 60, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.banner-btn:hover {
+    background: rgba(60, 60, 60, 0.95);
+}
+
+.banner-btn svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.banner-edit {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 32%;
+    z-index: 0;
+    overflow: hidden;
+    
+}
+
+.container1 h1 { position: relative; z-index: 2; }
+.edit-content   { z-index: 2; }
+.save-btn       { z-index: 2; }
+
 .button {
-border: 2px solid#9b3160;
+    border: 2px solid#9b3160;
     border-radius: 25px;
-  padding: 10px 55px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 20px;
- display: inline-block;
-margin: 15px 10px;
-position: absolute;
-    bottom: 30px;
-  cursor: url("./str.png"), pointer;
+    padding: 10px 55px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-block;
+    margin: 15px 10px;
+    position: static;
+    cursor: url("./str.png"), pointer;
 
 }
 
@@ -74,10 +163,56 @@ position: absolute;
     color: #f4db9a;
 }
 
+.bookmark-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 15px;
+    color: #555;
+}
+
+.back-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #fff7fb;
+    color: #9b3160;
+    border: 2px solid #9b3160;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: url("./kenma.png") 48 48, pointer;
+    top: -160px;
+    left: 10px;
+}
+
+.profile-actions {
+     display: flex;
+      position: absolute;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    top: 35px;
+    left: 800px;
+    margin: 0;
+
+}
+
+.profile-actions .button {
+    margin: 0;
+    width: 220px;
+    box-sizing: border-box;
+}
+
 h2{
     color: #640d14;;
     font-family: 'Myfont';
-    font-size: 35px;
+    font-size: 25px;
     text-align: center;
    
 }
@@ -124,54 +259,112 @@ h2{
     object-fit: cover;
 }
 
-#profile-upload {
-    display: none;
+
+.profile-menu {
+    position: static;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff7fb;
+    border-top: 2px solid #9b3160;
+    border-bottom: 2px solid #9b3160;
+    cursor: url("./kenma.png") 48 48, pointer;
+}
+
+.profile-info {
+    position: relative;
+    height: auto;        
+    padding: 0 18px 20px;
+    margin-top: 0;
+}
+
+.profile-info.container {
+    position: relative;
+    height: auto;          
+    margin-top: 0;      
+    padding: 0 18px 20px;
+}
+
+
+.profile-menu div {
+
+    flex: 1;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.profile-menu .active {
+    font-weight: bold;
+    border-bottom: 4px solid #9b3160;
+}
+
+.profile-page {
+    position: relative;
+}
+
+.profile-page > .upload-circle {
+    grid-row: span 2;   
 }
 
 .upload-circle {
-    width: 150px;
-    height: 150px;
-    border: 4px solid #9b3160;
+    width: 150px !important;
+    height: 150px !important;
+    min-width: 150px !important;
+    min-height: 150px !important;
+    max-width: 150px !important;
+    max-height: 150px !important;
+    flex-shrink: 0;  
+    border: none; 
     border-radius: 50%;
     background-color: #fff7fb;
     display: block;
-    position: absolute;
-    bottom:55%;     
-   left: 32%;  
+    position: relative;
     cursor: url("./hirono.png") 16 16, pointer;
+    aspect-ratio: 1 / 1;  
+     margin-top: -50px; 
+    z-index: 2;
+}
+
+ .upload-circle img.profile {
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border: 4px solid #9b3160;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
 
 #profile-name {
     font-size: 50px;
-    position: absolute;
-    left: 45%;
-   bottom: 69%;
+    position: static;
+    margin:0;
 }
 
 #profile-username {
-    position: absolute;
+    position: static;
     font-size: 20px;
-    left:44%;
-    top: 13%;
-    margin-left: 18px;
     color: #555;
+    margin:0;
 }
 
 #profileBio{
-
-    position: absolute;
-    font-size: 23px;
-    left:45%;
-    top: 22%;
-    margin-left: 5px;
+    position:static;
+    font-size: 25px;
+    margin-bottom: 1px;
+    margin-top:6px;
 
 }
 
-#bio{
-    width: 100%;
-    height: 60%;
-    resize: both;
-    box-sizing: border-box;
+#join{
+    font-family: italic;
+    position:static;
+    font-size: 20px;
+    color: #555;
+  margin-top:7px;
+  margin-right:8px;
 }
 
 .edit:nth-child(3) {
@@ -180,12 +373,12 @@ h2{
 
 .follow-info {
     display: flex;
-    gap: 40px;
-    position: absolute;
-    margin-top: 20px;
-    right: 42%;
-    bottom: 50%;
-    gap: 72px;
+    position: absolute;     
+    gap: 90%;
+    top: 50px;
+    left: 240px;
+    margin: 0;
+    transform: none;
 }
 
 .follow-info div {
@@ -195,7 +388,7 @@ h2{
 }
 
 .follow-info strong {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .follow-info span {
@@ -213,7 +406,7 @@ h2{
 
 .edit-content {
     position: absolute;
-    top: 50px;
+    top: 230px;
     left: 50%;
     transform: translateX(-50%);   
     display: flex;
@@ -228,6 +421,49 @@ h2{
     left: auto;
     margin: 0;
     flex-shrink: 0;
+}
+
+.edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: modalFade 0.25s ease-out;
+}
+
+.edit-modal[hidden] {
+    display: none;
+}
+
+.edit-modal iframe {
+    width: min(1120px, 96vw);
+    height: min(600px, 94vh);
+    border: none;
+    border-radius: 15px;
+    background: transparent;
+    animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .form-box {
@@ -288,7 +524,7 @@ h2{
 
 .save-btn {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
 
@@ -308,16 +544,17 @@ h2{
 }
 
 .ex{
-    width: 35px;
+    width: 40px;
     height: 40px;
     position:absolute;
-    top: 20%;
-    right: 20%;
+    top: 5%;
+    right: 2%;
     border: 2px solid #640d14;
     background-color: #DD8C96;
     border-radius: 20px;
     font-size: 25px;
     color: #640d14;
+    z-index: 10;
     cursor: url("./hirono.png") 16 16, pointer;
 
 }
@@ -328,42 +565,18 @@ h2{
     
 }
 
-.profile-menu {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #fff7fb;
-    border-top: 2px solid #9b3160;
-    border-bottom: 2px solid #9b3160;
-    margin-top: 28%;
-}
-
-.profile-menu div {
-
-    flex: 1;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 20px;
-}
-
-.profile-menu .active {
-    font-weight: bold;
-    border-bottom: 4px solid #9b3160;
-}
 
 .dummy-posts {
       width: 100%;
-       position:absolute;
-    margin: 27% auto;
-    top: 25%;
+       position: static;
+     padding: 0;
+    box-sizing: border-box;
 }
+
 
 .dummy-post {
     background-color: #fff7fb;
-    border: 2px solid #9b3160;
-    border-radius: 5px;
+    border: 1px solid #9b3160;
     padding: 20px;
     margin-bottom: 15px;
     box-sizing: border-box;
@@ -404,10 +617,60 @@ h2{
     color: #555;
 }
 
+.like-button {
+    border: none;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    font-size: 15px;
+    
+}
+
+.like-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.like-button.liked .action-icon-like {
+animation: likePop 0.3s ease;
+color: #f91880;  
+filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101%) contrast(106%);
+}
+
+@keyframes likePop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
 .ktk {
-  width: 1200px;
-  height: 300px;
-  border-radius: 0px;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+}
+
+
+.layout-container {
+    display: flex;
+    width: 100%;
+}
+
+.feed {
+    flex: 1 !important;      
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.right-sidebar {
+    flex: 0 0 350px !important; 
+    width: 300px !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
 }
 
 /* ===== RESPONSIVE (tambahan) ===== */
@@ -425,8 +688,6 @@ h2{
         gap: 12px;
     }
 
-    h2 { font-size: 26px; }
-
     /* halaman profil */
     .profile-label,
     .upload-circle,
@@ -438,6 +699,13 @@ h2{
         margin: 0;
         transform: none;
     }
+
+    #bio-count {
+    display: block;
+    text-align: right;
+    color: #640d14;
+    margin: 4px 12px 0 0;
+}
 
     .profile-label,
     .container > .upload-circle {
@@ -467,12 +735,15 @@ h2{
 
     /* halaman edit */
     .edit-content {
-        position: static;
-        transform: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
+    position: absolute;
+    top: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    z-index: 2;;
     }
 
     .edit-content .upload-circle {

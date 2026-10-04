@@ -180,6 +180,25 @@ img.avatar,
   color: var(--muted);
 }
 
+.sidebar-profile-setting {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.sidebar-profile-setting:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+.sidebar-profile-setting img {
+  width: 20px;
+  height: 20px;
+}
+
 /* notif lagi */
 .notif-center {
   border-right: 1px solid var(--border);
@@ -211,6 +230,12 @@ img.avatar,
   background: none;
   border: none;
   color: var(--text);
+}
+
+.notif-icon-btn img {
+    width: 22px;
+    height: 22px;
+    display: block;
 }
 
 .notif-tab {

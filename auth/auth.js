@@ -73,12 +73,18 @@ document.getElementById('otp-form').addEventListener('submit', (e) => {
   }
 
   const usernameBaru = params.get('username');
-    if (usernameBaru) {
-        localStorage.setItem('profileUsername', usernameBaru.toLowerCase());
+  if (usernameBaru) {
+    const bersih = usernameBaru.toLowerCase();
+    if (localStorage.getItem('profileUsername') !== bersih) {
+      localStorage.setItem('profileUsername', bersih);
+      localStorage.setItem('profileName', bersih);
+      localStorage.removeItem('profileBio');
+      localStorage.removeItem('profilePic');
     }
+  }
 
-    sessionStorage.setItem('isLoggedIn', 'true');
-    window.location.href = '../home/home.html';
+  sessionStorage.setItem('isLoggedIn', 'true');
+  window.location.href = '../home/home.html';
 });
 
 function mulaiHitungMundur() {
@@ -108,7 +114,7 @@ resendLink.addEventListener('click', (e) => {
   autofill();
   mulaiHitungMundur();
 
-  resendInfo.textContent = 'Kode OTP telah dikirim!';
+  resendInfo.textContent = 'Kode OTP baru sudah dikirim!';
   resendInfo.hidden = false;
   clearTimeout(infoTimer);
   infoTimer = setTimeout(() => {
