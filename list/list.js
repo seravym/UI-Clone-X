@@ -1073,3 +1073,53 @@ function renderListTrending() {
 }
 
 renderListTrending();
+
+document.addEventListener("click", event => {
+    const post = event.target.closest(".post");
+
+    if (!post) return;
+
+    const buttons = post.querySelectorAll(".action-btn");
+
+    if (!buttons.length) return;
+
+    if (!buttons[0].contains(event.target)) return;
+
+    const postId = post.dataset.postId;
+    const list = getList(currentId);
+
+    if (!list || !postId) return;
+
+    const person = PEOPLE.find(p => p.id === postId);
+
+    if (!person) return;
+
+    const key = "list-" + list.id + "-p" + postId;
+
+    const posts = readJSON("xclone.posts.list", []);
+
+    if (!posts.some(p => p.id === key)) {
+        posts.push({
+            id: key,
+            name: person.name,
+            handle: person.handle,
+            time: person.time,
+            message: person.text,
+            replies: 0,
+            likes: 0,
+            views: "0",
+            source: "list"
+        });
+
+        writeJSON("xclone.posts.list", posts);
+    }
+
+    window.history.pushState(
+        { fromList: true },
+        "",
+        "../list/list.html"
+    );
+
+    window.location.href =
+        "../post/post.html?id=" + encodeURIComponent(key);
+});
