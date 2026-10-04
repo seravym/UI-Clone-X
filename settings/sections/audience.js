@@ -137,6 +137,7 @@
         var S = SettingsApp;
         var t = S.t;
         var data = Object.assign({}, DEFAULTS, S.store.get(KEY, {}));
+        localStorage.setItem("profileProtected", data.protect);
 
         var html = '<p class="s-intro">' + S.esc(t("audience.intro")) + "</p>";
 
@@ -172,9 +173,12 @@
 
         el.addEventListener("change", function (event) {
             var target = event.target;
-            if (target.dataset.switch) {
-                data[target.dataset.switch] = target.checked;
-            } else if (target.dataset.choice) {
+           if (target.dataset.switch) {
+             data[target.dataset.switch] = target.checked;
+                if (target.dataset.switch === "protect") {
+                    localStorage.setItem("profileProtected", target.checked);
+                 }
+                    } else if (target.dataset.choice) {
                 data[target.dataset.choice] = target.value;
             } else {
                 return;
@@ -194,3 +198,4 @@
         render: render
     });
 })();
+
