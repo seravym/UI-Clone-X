@@ -116,7 +116,6 @@
         var t = S.t;
         var data = Object.assign(defaults(), S.store.get(KEY, {}));
 
-        // Daftar pilihan; bahasa diambil dari SettingsApp.languages
         function groups() {
             return [
                 {
