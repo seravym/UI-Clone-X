@@ -1,0 +1,83 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+.sh-box {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #9b3160;
+    border-radius: 10px;
+    background-color: #f4db9a;
+    overflow: hidden;
+}
+
+.sh-header {
+    position: relative;
+    background: #fff;
+    border-bottom: 2px solid #9b3160;
+    padding: 8px 56px 8px 12px;
+}
+
+.sh-title {
+    margin: 0;
+    font-size: 20px;
+    color: #9b3160;
+    font-family: inherit;
+}
+
+.sh-title span {
+    color: #dd8c96;
+}
+
+.sh-x {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border: 2px solid #640d14;
+    border-radius: 50%;
+    background: #dd8c96;
+    color: #640d14;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.sh-x:hover {
+    background: #fff5fa;
+}
+
+.sh-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+}
+
+.sh-option {
+    width: 100%;
+    height: 56px;
+    border: 2px solid #9b3160;
+    border-radius: 999px;
+    background: #fff7fb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sh-option img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.sh-option:hover {
+    background: #fbe8f1;
+}

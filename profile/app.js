@@ -261,57 +261,37 @@ likeButtons.forEach(button => {
 
 });
 
-// TAB SYSTEM
+/// TAB SYSTEM
 const tabs = document.querySelectorAll(".tab-button");
-
+const repliesList = document.getElementById("replies-list");
 
 tabs.forEach(tab => {
-
     tab.addEventListener("click", function () {
-
         const selectedTab = tab.dataset.tab;
-        tabs.forEach(t => {
-            t.classList.remove("active");
-        });
 
+        tabs.forEach(t => t.classList.remove("active"));
         tab.classList.add("active");
 
         // POSTS
         if (selectedTab === "posts") {
-
-            posts.forEach(post => {
-                post.style.display = "block";
-            });
-
+            posts.forEach(post => { post.style.display = "block"; });
+            if (repliesList) repliesList.style.display = "none";
         }
 
         // LIKES
         else if (selectedTab === "likes") {
-
             posts.forEach(post => {
-
-                const postId = post.dataset.id;
-
-                if (likedPosts.includes(postId)) {
-                    post.style.display = "block";
-                } else {
-                    post.style.display = "none";
-                }
-
+                post.style.display = likedPosts.includes(post.dataset.id) ? "block" : "none";
             });
-
+            if (repliesList) repliesList.style.display = "none";
         }
+
         // REPLIES
         else if (selectedTab === "replies") {
-
-            posts.forEach(post => {
-                post.style.display = "none";
-            });
-
+            posts.forEach(post => { post.style.display = "none"; });
+            if (repliesList) repliesList.style.display = "block";
         }
-
     });
-
 });
 
 // ===== EDIT PROFILE SEBAGAI POPUP =====

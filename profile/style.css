@@ -582,6 +582,36 @@ h2{
     box-sizing: border-box;
 }
 
+.reply-item {
+    background-color: #fff7fb;
+    border: 1px solid #9b3160;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.reply-item p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 15px 0;
+}
+
+.reply-item .reply-to {
+    font-size: 14px;
+    color: #777;
+    margin: 12px 0 0;
+}
+
+.reply-item .reply-to span {
+    color: #b5296f;
+}
+
+.reply-item .action-icon-like {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
 .post-header {
     display: flex;
     align-items: center;
@@ -631,6 +661,7 @@ h2{
     height: 20px;
     object-fit: contain;
 }
+
 
 .like-button.liked .action-icon-like {
 animation: likePop 0.3s ease;
