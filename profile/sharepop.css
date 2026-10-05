@@ -16,3 +16,10 @@
     border-radius: 12px;
     background: transparent;
 }
+
+@media (max-width: 480px) {
+    .sp-frame {
+        width: 94vw;
+        height: min(440px, 90vh);
+    }
+}

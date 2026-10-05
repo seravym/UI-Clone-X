@@ -81,3 +81,25 @@ html, body {
 .sh-option:hover {
     background: #fbe8f1;
 }
+
+@media (max-width: 480px) {
+    .sh-title { font-size: 16px; }
+
+    .sh-x {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .sh-grid {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .sh-option { height: 48px; }
+
+    .sh-option img {
+        width: 24px;
+        height: 24px;
+    }
+}
