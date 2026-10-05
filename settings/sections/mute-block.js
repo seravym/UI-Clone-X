@@ -41,8 +41,6 @@
             "mute-block.toast.rm.words": "Kata dihapus",
             "mute-block.toast.rm.muted": "Mute dibuka",
             "mute-block.toast.rm.blocked": "Blokir dibuka",
-            "mute-block.seed": "Kembalikan data contoh",
-            "mute-block.toast.seed": "Data contoh dikembalikan"
         },
         en: {
             "mute-block.title": "Mute and block",
@@ -70,8 +68,6 @@
             "mute-block.toast.rm.words": "Word removed",
             "mute-block.toast.rm.muted": "Account unmuted",
             "mute-block.toast.rm.blocked": "Account unblocked",
-            "mute-block.seed": "Restore sample data",
-            "mute-block.toast.seed": "Sample data restored"
         },
         es: {
             "mute-block.title": "Silenciar y bloquear",
@@ -99,8 +95,6 @@
             "mute-block.toast.rm.words": "Palabra eliminada",
             "mute-block.toast.rm.muted": "Cuenta ya no silenciada",
             "mute-block.toast.rm.blocked": "Cuenta desbloqueada",
-            "mute-block.seed": "Restaurar datos de ejemplo",
-            "mute-block.toast.seed": "Datos de ejemplo restaurados"
         },
         ja: {
             "mute-block.title": "ミュートとブロック",
@@ -128,8 +122,7 @@
             "mute-block.toast.rm.words": "ワードを削除しました",
             "mute-block.toast.rm.muted": "ミュートを解除しました",
             "mute-block.toast.rm.blocked": "ブロックを解除しました",
-            "mute-block.seed": "サンプルデータに戻す",
-            "mute-block.toast.seed": "サンプルデータを復元しました"
+
         },
         ko: {
             "mute-block.title": "뮤트 및 차단",
@@ -157,8 +150,6 @@
             "mute-block.toast.rm.words": "단어를 삭제했습니다",
             "mute-block.toast.rm.muted": "뮤트를 해제했습니다",
             "mute-block.toast.rm.blocked": "차단을 해제했습니다",
-            "mute-block.seed": "샘플 데이터 복원",
-            "mute-block.toast.seed": "샘플 데이터를 복원했습니다"
         }
     };
 

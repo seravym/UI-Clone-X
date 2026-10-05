@@ -173,16 +173,16 @@
 
         el.addEventListener("change", function (event) {
             var target = event.target;
-           if (target.dataset.switch) {
-             data[target.dataset.switch] = target.checked;
-                if (target.dataset.switch === "protect") {
-                    localStorage.setItem("profileProtected", target.checked);
-                 }
-                    } else if (target.dataset.choice) {
-                data[target.dataset.choice] = target.value;
-            } else {
-                return;
-            }
+            if (target.dataset.switch) {
+                data[target.dataset.switch] = target.checked;
+                    if (target.dataset.switch === "protect") {
+                        localStorage.setItem("profileProtected", target.checked);
+                    }
+                        } else if (target.dataset.choice) {
+                    data[target.dataset.choice] = target.value;
+                } else {
+                    return;
+                }
             S.store.set(KEY, data);
             S.toast(t("common.saved"));
         });
