@@ -108,8 +108,6 @@ const posts = [
     { id: 6, category: "Entertainment", author: "Reza", handle: "@reza_mic", time: "3j", text: "Materi baru semalam di open mic, penonton ketawa di tempat yang nggak kuduga." }
 ];
 
-// Postingan milik akun di "Akun untuk diikuti".
-// Akun tokoh publik sengaja dikosongkan supaya tidak ada kutipan karangan.
 const accountPostTexts = {
     1: ["Pembaruan: situasi terkini terus kami pantau, simak laporan lengkapnya di situs kami.", "Cuaca ekstrem berpotensi terjadi di sejumlah wilayah, tetap waspada."],
     2: ["Senin lagi, semangat ya. Kopi dulu baru hidup.", "Meme hari ini sudah naik, tinggal kalian kirim ke grup keluarga."],
@@ -157,8 +155,8 @@ const FOLLOW_KEY = "followedAccounts";
 const POST_KEY = "explorePostActions";
 const HISTORY_KEY = "exploreSearchHistory";
 const MAX_HISTORY = 8;
-const BOOKMARK_KEY = "bookmarks"; // sama dengan halaman Bookmarks
-const BOOKMARK_PREFIX = "explore-"; // supaya id tidak bentrok dengan bookmark dari halaman lain
+const BOOKMARK_KEY = "bookmarks";
+const BOOKMARK_PREFIX = "explore-";
 
 let currentTab = tabs[0];
 let query = "";
@@ -175,9 +173,6 @@ const searchWrapEl = document.getElementById("search-wrap");
 const dropdownEl = document.getElementById("search-dropdown");
 const sideNewsEl = document.getElementById("side-news");
 const sideFollowEl = document.getElementById("side-follow");
-
-
-/* ---------- Helpers ---------- */
 
 function readJSON(key, fallback) {
     try {
@@ -356,7 +351,6 @@ function actionsHtml(p, state, extra) {
         </div>`;
 }
 
-// key = handle akun (mis. "@bagus_bola")
 function toggleFollow(key) {
     if (followed.has(key)) {
         followed.delete(key);
@@ -373,9 +367,6 @@ function followButton(handle) {
             ${isFollowing ? "Mengikuti" : "Ikuti"}
         </button>`;
 }
-
-
-/* ---------- Routing (hash) ---------- */
 
 function parseHash() {
     const parts = location.hash.slice(1).split("/");
@@ -412,9 +403,6 @@ window.addEventListener("hashchange", () => {
     renderResults();
     window.scrollTo({ top: 0 });
 });
-
-
-/* ---------- Reusable HTML blocks ---------- */
 
 function renderTabs() {
     tabsEl.hidden = !!view;
@@ -476,9 +464,6 @@ function postHtml(p) {
         </article>`;
 }
 
-
-/* ---------- List view ---------- */
-
 function renderNews() {
     if (currentTab === "Trending") return "";
 
@@ -536,9 +521,6 @@ function renderPosts() {
         <h2 class="section-title">Postingan populer</h2>
         ${list.map(postHtml).join("")}`;
 }
-
-
-/* ---------- Detail views ---------- */
 
 function detailBar(title, sub) {
     return `
@@ -709,9 +691,6 @@ function renderDetail() {
     }
 }
 
-
-/* ---------- Render ---------- */
-
 function renderResults() {
     renderTabs();
 
@@ -782,9 +761,6 @@ function render() {
     renderResults();
     renderSide();
 }
-
-
-/* ---------- Search ---------- */
 
 function saveHistory(term) {
     term = term.trim();
@@ -934,9 +910,6 @@ searchEl.addEventListener("input", () => {
     dropdownEl.hidden = false;
 });
 
-
-/* ---------- Click handling ---------- */
-
 tabsEl.addEventListener("click", event => {
     const button = event.target.closest("[data-tab]");
     if (!button) return;
@@ -955,7 +928,6 @@ function handleFollowClick(event) {
     return true;
 }
 
-// Menangani semua elemen yang bisa dibuka: data-go, data-back, data-cat, data-search
 function handleGo(event) {
     const back = event.target.closest("[data-back]");
     if (back) {
@@ -1013,7 +985,6 @@ resultsEl.addEventListener("click", event => {
 
 resultsEl.addEventListener("keydown", event => {
     if (event.key !== "Enter") return;
-    // Hanya jika elemen itu sendiri yang fokus (bukan tombol di dalamnya)
     const item = event.target.closest("[data-go]");
     if (item && event.target === item) item.click();
 });

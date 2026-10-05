@@ -521,7 +521,7 @@ function renderDetail() {
 
                                     <div class="post-actions">
 
-                                        <button class="action-btn"aria-label="Reply">
+                                        <button class="action-btn" data-post-action="comment" aria-label="Reply">
                                             <img src="../image/icons/chat.svg" class="action-icon" alt="Reply">
                                             <span class="count">
                                                 0
@@ -838,6 +838,88 @@ app.addEventListener("click", event => {
 
         const postId = post.dataset.postId;
         const action = postAction.dataset.postAction;
+
+        if (action === "comment") {
+            const existing = post.querySelector(".comment-box");
+
+            if (existing) {
+                existing.remove();
+                return;
+            }
+
+            const commentBox = document.createElement("div");
+            commentBox.className = "comment-box";
+            commentBox.style.cssText = "margin-top:12px;padding-top:12px;border-top:1px solid #eff3f4;";
+
+            commentBox.innerHTML = `
+                <textarea
+                    class="list-comment-input"
+                    placeholder="Post your reply"
+                    style="width:100%;border:1px solid #cfd9de;border-radius:12px;padding:10px;resize:none;font-family:inherit;box-sizing:border-box;"
+                ></textarea>
+
+                <div style="text-align:right;margin-top:8px;">
+                    <button
+                        class="list-comment-submit"
+                        style="background:#f91880;color:white;border:none;border-radius:20px;padding:8px 16px;font-weight:bold;cursor:pointer;"
+                    >
+                        Reply
+                    </button>
+                </div>
+
+                <div class="list-comments" style="margin-top:12px;"></div>
+            `;
+
+            post.querySelector(".post-body").appendChild(commentBox);
+
+            const commentsKey = "listComments_" + currentId + "_" + postId;
+            const comments = readJSON(commentsKey, []);
+            const commentsContainer = commentBox.querySelector(".list-comments");
+
+            commentsContainer.innerHTML = comments.map(comment => `
+                <div style="padding:10px 0;border-top:1px solid #eff3f4;">
+                    <strong>${esc(comment.name)}</strong>
+                    <span style="color:#536471;"> ${esc(comment.handle)} · ${esc(comment.time)}</span>
+                    <p style="margin:5px 0 0;">${esc(comment.text)}</p>
+                </div>
+            `).join("");
+
+            commentBox.querySelector(".list-comment-submit").addEventListener("click", () => {
+                const input = commentBox.querySelector(".list-comment-input");
+                const text = input.value.trim();
+
+                if (!text) return;
+
+                const currentComments = readJSON(commentsKey, []);
+
+                currentComments.unshift({
+                    name: "user",
+                    handle: "@user",
+                    time: "Now",
+                    text: text
+                });
+
+                writeJSON(commentsKey, currentComments);
+
+                input.value = "";
+
+                commentsContainer.innerHTML = currentComments.map(comment => `
+                    <div style="padding:10px 0;border-top:1px solid #eff3f4;">
+                        <strong>${esc(comment.name)}</strong>
+                        <span style="color:#536471;"> ${esc(comment.handle)} · ${esc(comment.time)}</span>
+                        <p style="margin:5px 0 0;">${esc(comment.text)}</p>
+                    </div>
+                `).join("");
+
+                const count = postAction.querySelector(".count");
+
+                if (count) {
+                    count.textContent = currentComments.length;
+                }
+            });
+
+            return;
+        }
 
         if (action === "like") {
             const likes = getLikes();
