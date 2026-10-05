@@ -1,6 +1,4 @@
 (function () {
-
-    // ===== BAGIAN 1: di profile.html (buka / tutup popup) =====
     var shareBtn = document.getElementById("share-btn");
     var modal = document.getElementById("share-modal");
     var frame = document.getElementById("share-frame");
@@ -21,13 +19,11 @@
             if (e.key === "Escape") tutup();
         });
 
-        // tombol X / pilihan di dalam share.html minta popup ditutup
         window.addEventListener("message", function (e) {
             if (e.data === "close-share") tutup();
         });
     }
 
-    // ===== BAGIAN 2: di share.html (isi popup) =====
     var closeBtn = document.getElementById("sh-close");
 
     if (closeBtn) {
