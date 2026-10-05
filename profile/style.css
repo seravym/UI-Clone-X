@@ -70,7 +70,7 @@ h1{
 
 .banner-edit:hover::after,
 .banner-edit:active::after {
-    opacity: 1;   /* grid makin jelas saat kursor di banner / lagi digeser */
+    opacity: 1;
 }
 
 .banner-actions {

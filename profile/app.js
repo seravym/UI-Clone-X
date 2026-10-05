@@ -1,4 +1,4 @@
-// ===== SIDEBAR (hanya kalau ada #right-bar) =====
+
 const rightBar = document.getElementById("right-bar");
 if (rightBar) {
     fetch("../right-sidebar.html")

@@ -10,15 +10,12 @@
     const clearBtn = document.getElementById("fb-clear");
     let rating = 0;
 
-    // ambil nama dari profil kalau ada
     nameEl.value = localStorage.getItem("profileName") || "";
 
-    // penghitung karakter
     msgEl.addEventListener("input", function () {
         countEl.textContent = msgEl.value.length + "/200";
     });
 
-    // bintang
     function paintStars(n) {
         stars.forEach(function (s) {
             s.classList.toggle("on", Number(s.dataset.v) <= n);
@@ -32,8 +29,6 @@
         s.addEventListener("mouseenter", function () { paintStars(Number(s.dataset.v)); });
         s.addEventListener("mouseleave", function () { paintStars(rating); });
     });
-
-    // validasi
     function setError(id, text) {
         document.getElementById(id).textContent = text;
         return text === "";
@@ -48,7 +43,6 @@
         return ok;
     }
 
-    // simpan dan tampilkan
     function getList() {
         try { return JSON.parse(localStorage.getItem(KEY)) || []; }
         catch (e) { return []; }
@@ -91,7 +85,6 @@
         });
         localStorage.setItem(KEY, JSON.stringify(data));
 
-        // reset form
         emailEl.value = "";
         msgEl.value = "";
         countEl.textContent = "0/200";
