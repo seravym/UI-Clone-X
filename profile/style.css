@@ -582,6 +582,36 @@ h2{
     box-sizing: border-box;
 }
 
+.reply-item {
+    background-color: #fff7fb;
+    border: 1px solid #9b3160;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.reply-item p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 15px 0;
+}
+
+.reply-item .reply-to {
+    font-size: 14px;
+    color: #777;
+    margin: 12px 0 0;
+}
+
+.reply-item .reply-to span {
+    color: #b5296f;
+}
+
+.reply-item .action-icon-like {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
 .post-header {
     display: flex;
     align-items: center;
@@ -632,6 +662,7 @@ h2{
     object-fit: contain;
 }
 
+
 .like-button.liked .action-icon-like {
 animation: likePop 0.3s ease;
 color: #f91880;  
@@ -673,86 +704,118 @@ filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101
     box-sizing: border-box;
 }
 
-/* ===== RESPONSIVE (tambahan) ===== */
+/* media query */
+@media (max-width: 1100px) {
+    .right-sidebar { display: none !important; }
 
-@media (max-width: 768px) {
-    .container,
-    .container1 {
-        height: auto;
-        min-height: 400px;
-        padding: 20px 15px 100px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;   /* bukan center, biar X bisa ke kanan */
-        gap: 12px;
-    }
-
-    /* halaman profil */
-    .profile-label,
-    .upload-circle,
-    #profile-name,
-    #profile-username,
-    #profileBio,
     .follow-info {
-        position: static;
-        margin: 0;
-        transform: none;
+        left: 200px;
+        gap: 60px;
     }
 
-    #bio-count {
-    display: block;
-    text-align: right;
-    color: #640d14;
-    margin: 4px 12px 0 0;
+    .profile-actions {
+        left: auto;
+        right: 18px;
+    }
+
+    .profile-actions .button {
+        width: 180px;
+        font-size: 18px;
+    }
+
+    /* popup edit profile */
+    .container1 { width: 100%; }
+    .edit-content { gap: 30px; }
 }
 
-    .profile-label,
-    .container > .upload-circle {
-        align-self: center;
+/* ---------- Tablet / HP besar ---------- */
+@media (max-width: 768px) {
+
+    /* --- halaman profil --- */
+    .ktk { height: 140px; }
+
+    .back-button { top: -120px; }
+
+    .profile-info.container {
+        padding: 0 14px 16px;
     }
 
-    #profile-name,
-    #profile-username,
-    #profileBio { text-align: center; }
+    .upload-circle {
+        width: 110px !important;
+        height: 110px !important;
+        min-width: 110px !important;
+        min-height: 110px !important;
+        max-width: 110px !important;
+        max-height: 110px !important;
+        margin-top: -40px;
+    }
 
-    #profile-name { font-size: 32px; }
+    .upload-circle img.profile {
+        width: 110px;
+        height: 110px;
+    }
+
+    #profile-name { font-size: 34px; }
+    #profile-username { font-size: 17px; }
+    #profileBio { font-size: 20px; }
+    #join { font-size: 16px; }
 
     .follow-info {
-        justify-content: center;
-        gap: 35px;
+        top: 20px;
+        left: 140px;
+        gap: 30px;
     }
 
-    /* tombol */
-    .button,
-    .save-btn {
+    .follow-info strong { font-size: 22px; }
+
+    .profile-actions {
+        position: static;
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .profile-actions .button {
+        flex: 1;
+        width: auto;
+        padding: 8px 10px;
+        font-size: 17px;
+    }
+
+    .profile-menu div {
+        padding: 14px 0;
+        font-size: 17px;
+    }
+
+    /* --- popup edit profile (isi edit_profile.html) --- */
+    .container1 {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+        padding-bottom: 90px;
+    }
+
+    .banner-edit { height: 130px; }
+    .banner-actions { top: 50px; gap: 20px; }
+
+    .banner-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .edit-content {
         position: static;
         transform: none;
-        padding: 10px 30px;
-        font-size: 18px;
-        margin: 8px auto;
-    }
-
-    /* halaman edit */
-    .edit-content {
-    position: absolute;
-    top: 230px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 50px;
-    z-index: 2;;
-    }
-
-    .edit-content .upload-circle {
-        align-self: center;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 150px;
+        padding: 0 16px;
     }
 
     .form-box {
         width: 100%;
-        max-width: 320px;
+        max-width: 360px;
     }
 
     .text-input {
@@ -760,13 +823,118 @@ filter: invert(27%) sepia(85%) saturate(7433%) hue-rotate(319deg) brightness(101
         box-sizing: border-box;
     }
 
-    .dummy-posts { margin: 20px auto; }
+    .save-btn {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 3px auto 0;
+        padding: 10px 40px;
+        font-size: 18px;
+    }
+
+    .ex {
+        top: 8px;
+        right: 8px;
+    }
+
+    #bio-count {
+        display: block;
+        text-align: right;
+        color: #640d14;
+        margin: 4px 12px 0 0;
+    }
 }
 
+/* ---------- HP kecil ---------- */
 @media (max-width: 480px) {
+
+    /* --- halaman profil --- */
+    .ktk { height: 110px; }
+
+    .back-button {
+        top: -92px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .upload-circle {
+        width: 90px !important;
+        height: 90px !important;
+        min-width: 90px !important;
+        min-height: 90px !important;
+        max-width: 90px !important;
+        max-height: 90px !important;
+        margin-top: -32px;
+    }
+
+    .upload-circle img.profile {
+        width: 90px;
+        height: 90px;
+        border-width: 3px;
+    }
+
+    #profile-name { font-size: 28px; }
+    #profile-username { font-size: 15px; }
+    #profileBio { font-size: 17px; }
+    #join { font-size: 14px; }
+
+    .follow-info {
+        left: 120px;
+        gap: 22px;
+    }
+
+    .follow-info strong { font-size: 19px; }
+    .follow-info span { font-size: 12px; }
+
+    .profile-actions .button {
+        font-size: 15px;
+        padding: 7px 8px;
+    }
+
+    .profile-menu div {
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+    /* --- postingan & replies --- */
+    .dummy-post,
+    .reply-item { padding: 14px; }
+
+    .post-profile {
+        width: 42px;
+        height: 42px;
+    }
+
+    .post-name { font-size: 16px; }
+
+    .dummy-post p,
+    .reply-item p {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .reply-item .reply-to { font-size: 13px; }
+
+    .post-actions { font-size: 13px; }
+
+    .like-button img,
+    .action-icon,
+    .action-icon-like,
+    .reply-item .action-icon-like {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* --- popup edit profile --- */
+    h1 { font-size: 16px; }
     h2 { font-size: 22px; }
-    #profile-name { font-size: 26px; }
-    .follow-info { gap: 25px; }
-    .button,
-    .save-btn { font-size: 16px; padding: 8px 25px; }
+
+    .banner-edit { height: 110px; }
+    .banner-actions { top: 40px; }
+    .edit-content { margin-top: 130px; }
+
+    .save-btn {
+        font-size: 16px;
+        padding: 8px 30px;
+    }
 }

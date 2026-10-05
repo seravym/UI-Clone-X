@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="sharepop.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../home/home.css">
 </head>
@@ -52,10 +53,12 @@
          <div class="profile-actions">
 
         <button class="button button1" id="edit-btn" type="button">Edit Profile</button>
-        <button class = "button button2" 
-        onclick="window.location.href='share.html'">
+       <button class="button button2" id="share-btn" type="button">
         Share
         </button>
+        <div id="share-modal" class="sp-overlay" hidden>
+    <iframe id="share-frame" class="sp-frame" src="about:blank" title="Bagikan"></iframe>
+</div>
         </div>
     </div>
 
@@ -157,7 +160,79 @@
 </button>
 </div>
     </div>            
-           
+          
+    <div id="replies-list" style="display:none;">
+
+    <div class="reply-item">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+        <p class="reply-to">Membalas <span>@alex_ander</span></p>
+        <p class="post-text">imyutt</p>
+        <div class="post-actions">
+            <span class="action-item">
+                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 2
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 14
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/view.svg" class="action-icon" alt="View"> 320
+            </span>
+        </div>
+    </div>
+
+    <div class="reply-item">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+        <p class="reply-to">Membalas <span>@trin_writes</span></p>
+        <p class="post-text">labyu</p>
+        <div class="post-actions">
+            <span class="action-item">
+                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 0
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 5
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/view.svg" class="action-icon" alt="View"> 90
+            </span>
+        </div>
+    </div>
+
+    <div class="reply-item">
+        <div class="post-header">
+            <img class="post-profile" src="default.jpg">
+            <div>
+                <strong class="post-name">Nama Akun</strong>
+                <span class="post-username">@username</span>
+            </div>
+        </div>
+        <p class="reply-to">Membalas <span>@garth_dev</span></p>
+        <p class="post-text">wkwkw yang bener</p>
+        <div class="post-actions">
+            <span class="action-item">
+                <img src="../image/icons/chat.svg" class="action-icon" alt="Reply"> 1
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/like.svg" class="action-icon-like" alt="Like"> 8
+            </span>
+            <span class="action-item">
+                <img src="../image/icons/view.svg" class="action-icon" alt="View"> 150
+            </span>
+        </div>
+    </div>
+
+</div>
 
 </main>
  <aside class="right-sidebar">
@@ -180,5 +255,6 @@
  -->
    
 <script src="app.js"></script>
+<script src="share.js"></script>
 </body>
     </html>

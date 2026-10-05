@@ -83,3 +83,84 @@ details p {
 }
 
 .help-contact p { margin: 0; }
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet / HP besar */
+@media (max-width: 768px) {
+    .help-page {
+        padding: 24px 16px 50px;
+    }
+
+    .help-page h1 {
+        font-size: 28px;
+    }
+}
+
+/* HP kecil */
+@media (max-width: 480px) {
+    .help-page {
+        padding: 18px 12px 40px;
+    }
+
+    .help-back {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .help-page h1 {
+        font-size: 24px;
+        margin-top: 16px;
+    }
+
+    .help-sub {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    /* 16px biar iPhone nggak auto-zoom saat kolom difokus */
+    #help-search {
+        padding: 10px 16px;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    details {
+        padding: 12px 14px;
+        margin-bottom: 10px;
+    }
+
+    summary {
+        font-size: 15px;
+    }
+
+    details p {
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .help-contact {
+        margin-top: 24px;
+        padding: 16px 12px;
+    }
+
+    .help-contact h2 {
+        font-size: 18px;
+    }
+
+    .help-contact p {
+        font-size: 14px;
+    }
+}
+
+/* HP sangat kecil */
+@media (max-width: 360px) {
+    .help-page h1 {
+        font-size: 22px;
+    }
+
+    summary {
+        font-size: 14px;
+    }
+}
