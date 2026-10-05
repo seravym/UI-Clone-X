@@ -9,7 +9,7 @@ function showToast(message) {
 }
 
 function userAvatarHTML() {
-  return '<img data-user-avatar src="/profile/default.jpg" alt="Profile" class="avatar">';
+  return '<img data-user-avatar src="../profile/default.jpg" alt="Profile" class="avatar">';
 }
 
 $(document).ready(function () {

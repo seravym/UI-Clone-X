@@ -15,16 +15,16 @@
   };
 
   var bottomLinks = [
-    { href: "/home/home.html", icon: "home", label: "Home" },
-    { href: "/explore/explore.html", icon: "search", label: "Explore" },
-    { href: "/profile/profile.html", icon: "profile", label: "Profile" },
+    { href: "home/home.html", icon: "home", label: "Home" },
+    { href: "explore/explore.html", icon: "search", label: "Explore" },
+    { href: "profile/profile.html", icon: "profile", label: "Profile" },
     {
-      href: "/notifications/notifications.html",
+      href: "notifications/notifications.html",
       icon: "bell",
       label: "Notifications",
       badge: true,
     },
-    { href: "/chat/chat.html", icon: "chat", label: "Messages" },
+    { href: "chat/chat.html", icon: "chat", label: "Messages" },
   ];
 
   var fallbackAvatar =
@@ -37,6 +37,16 @@
   function isCurrent(href) {
     return currentPath.endsWith("/" + href.split("/").pop());
   }
+
+  function rewriteUrl(value) {
+    if (!value) return value;
+    if (/^(https?:|data:|mailto:|tel:|#|\/\/)/i.test(value)) return value;
+    if (value.charAt(0) === "/") {
+      return root + value.slice(1);
+    }
+    return value;
+  }
+
   function linkHTML(link, cls) {
     return (
       '<a class="' +
@@ -82,6 +92,15 @@
     if (!html) return false;
 
     content.innerHTML = html;
+
+    content.querySelectorAll("[href]").forEach(function (el) {
+      var href = el.getAttribute("href");
+      if (href) el.setAttribute("href", rewriteUrl(href));
+    });
+    content.querySelectorAll("[src]").forEach(function (el) {
+      var src = el.getAttribute("src");
+      if (src) el.setAttribute("src", rewriteUrl(src));
+    });
 
     content.querySelectorAll("img").forEach(function (img) {
       img.onerror = function () {

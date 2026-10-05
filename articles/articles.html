@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +21,7 @@
         <main class="articles">
             <header class="articles-header">
                 <div class="articles-headrow">
-                    <button class="back-btn" id="backBtn" type="button"
-                        aria-label="Kembali ke daftar artikel" hidden>
+                    <button class="back-btn" id="backBtn" type="button" aria-label="Kembali ke daftar artikel" hidden>
                         &larr;
                     </button>
                     <h1 class="articles-title" id="pageTitle">
@@ -33,59 +33,32 @@
                 </div>
                 <div class="search-box" id="listSearch">
                     <span aria-hidden="true">&#128269;</span>
-                    <input
-                        type="search"
-                        id="articleSearch"
-                        placeholder="Cari artikel atau penulis"
-                        autocomplete="off"
-                        aria-label="Cari artikel atau penulis"
-                    >
+                    <input type="search" id="articleSearch" placeholder="Cari artikel atau penulis" autocomplete="off"
+                        aria-label="Cari artikel atau penulis">
                 </div>
             </header>
 
             <section id="listView">
-                <nav class="articles-nav" id="articleTabs"
-                    aria-label="Kategori artikel">
-                    <button class="articles-tab is-active"
-                        role="tab"
-                        aria-selected="true"
-                        data-cat="all">
+                <nav class="articles-nav" id="articleTabs" aria-label="Kategori artikel">
+                    <button class="articles-tab is-active" role="tab" aria-selected="true" data-cat="all">
                         For You
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="Teknologi">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="Teknologi">
                         Technology
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="Desain">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="Desain">
                         Design
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="Data">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="Data">
                         Data
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="Kuliner">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="Kuliner">
                         Food
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="Perjalanan">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="Perjalanan">
                         Travel
                     </button>
-                    <button class="articles-tab"
-                        role="tab"
-                        aria-selected="false"
-                        data-cat="saved">
+                    <button class="articles-tab" role="tab" aria-selected="false" data-cat="saved">
                         Saved
                     </button>
                 </nav>
@@ -100,13 +73,8 @@
                 <form class="write-form" id="writeForm" novalidate>
                     <div class="field">
                         <label for="wTitle">Title</label>
-                        <input
-                            type="text"
-                            id="wTitle"
-                            maxlength="120"
-                            placeholder="Judul artikel Anda"
-                            autocomplete="off"
-                        >
+                        <input type="text" id="wTitle" maxlength="120" placeholder="Judul artikel Anda"
+                            autocomplete="off">
                     </div>
 
                     <div class="field">
@@ -116,10 +84,8 @@
 
                     <div class="field">
                         <label for="wBody">Write here.</label>
-                        <textarea
-                            id="wBody"
-                            placeholder="Tulis artikel Anda di sini. Pisahkan paragraf dengan satu baris kosong."
-                        ></textarea>
+                        <textarea id="wBody"
+                            placeholder="Tulis artikel Anda di sini. Pisahkan paragraf dengan satu baris kosong."></textarea>
                         <div class="field__hint">
                             <span id="wCount"></span>
                         </div>
@@ -149,26 +115,28 @@
         </aside>
 
         <nav class="mobile-bottom-nav" aria-label="Navigasi bawah">
-        <a class="mobile-bottom-link" href="../home/home.html" aria-label="Home">
-            <img src="../image/icons/home.svg" alt="">
-        </a>
-        <a class="mobile-bottom-link" href="../explore/explore.html" aria-label="Search">
-            <img src="../image/icons/search.svg" alt="">
-        </a>
-        <a class="mobile-bottom-link active" href="notifications.html" aria-label="Notifications" aria-current="page">
-            <img src="../image/icons/notifications.svg" alt="">
-        </a>
-        <a class="mobile-bottom-link" href="../chat/chat.html" aria-label="Messages">
-            <img src="../image/icons/chat.svg" alt="">
-        </a>
-        <button class="mobile-bottom-link mobile-bottom-menu" aria-label="Open sidebar">
-            <img src="../image/icons/profile.svg" alt="">
-        </button>
-    </nav>
+            <a class="mobile-bottom-link" href="../home/home.html" aria-label="Home">
+                <img src="../image/icons/home.svg" alt="">
+            </a>
+            <a class="mobile-bottom-link" href="../explore/explore.html" aria-label="Search">
+                <img src="../image/icons/search.svg" alt="">
+            </a>
+            <a class="mobile-bottom-link active" href="notifications.html" aria-label="Notifications"
+                aria-current="page">
+                <img src="../image/icons/notifications.svg" alt="">
+            </a>
+            <a class="mobile-bottom-link" href="../chat/chat.html" aria-label="Messages">
+                <img src="../image/icons/chat.svg" alt="">
+            </a>
+            <button class="mobile-bottom-link mobile-bottom-menu" aria-label="Open sidebar">
+                <img src="../image/icons/profile.svg" alt="">
+            </button>
+        </nav>
     </div>
     <div class="toast" id="toast"></div>
     <script src="js/articles.js"></script>
     <script src="../mobile-navigation.js"></script>
-    <script src="/user-loader.js"></script>
+    <script src="../user-loader.js"></script>
 </body>
+
 </html>
